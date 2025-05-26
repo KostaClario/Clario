@@ -6,9 +6,9 @@ spring:
     name: Clario
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/mydb?characterEncoding=UTF-8
-    username: mydbid
-    password: mydbpw
+    url: jdbc:mariadb://34.64.69.172:3306/clario?characterEncoding=UTF-8
+    username: cla
+    password: clapw
 
   jpa:
     open-in-view: false

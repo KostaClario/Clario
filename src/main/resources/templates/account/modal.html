@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>인증 모달</title>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 공통 CSS -->
+    <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
+    <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+
+</head>
+<body>
+
+<!-- 트리거 버튼 예시 -->
+<button onclick="openPwInputModal()">비밀번호 입력 모달 열기</button>
+<button onclick="openEmailModal()">이메일 인증 모달 열기</button>
+<button onclick="openResetModal()">비밀번호재설정모달</button>
+
+<!-- 1) 비밀번호 입력 모달 -->
+<div id="pwInputModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('pwInputModal')">&times;</span>
+        <h2 style="text-align:center;">비밀번호</h2>
+
+        <div class="form-field" style="justify-content:center;">
+            <input type="password" id="currentPassword" placeholder="******" />
+        </div>
+        <div id="pwInputError" class="error-msg" style="display:none;">
+            비밀번호가 올바르지 않습니다.
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-cancel" onclick="closeModal('pwInputModal')">취소</button>
+            <button class="btn" onclick="validatePassword()">확인</button>
+        </div>
+        <div style="text-align:center; margin-top:8px;">
+            <button class="btn-cancel" style="background:none; color:#ccc; border:none;"
+                    onclick="openResetModal(); closeModal('pwInputModal')">
+                비밀번호 재설정
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 2) 이메일 인증 모달 -->
+<div id="emailModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('emailModal')">&times;</span>
+        <h2 style="text-align:center;">이메일 인증</h2>
+
+        <!-- 이메일 입력 -->
+        <div class="form-field">
+            <input type="text" id="emailLocal" placeholder="이메일 앞부분" />
+            <span>@</span>
+            <select id="emailDomain">
+                <option value="gmail.com">gmail.com</option>
+                <option value="naver.com">naver.com</option>
+                <option value="daum.net">daum.net</option>
+            </select>
+        </div>
+        <div class="btn-group">
+            <button class="btn" onclick="sendVerificationEmail()">인증</button>
+        </div>
+
+        <!-- 코드 입력 -->
+        <div class="form-field" style="margin-top:16px;">
+            <input type="text" id="emailCode" placeholder="인증 코드 입력" />
+        </div>
+        <div id="emailError" class="error-msg" style="display:none;">
+            인증에 실패했습니다.
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-cancel" onclick="closeModal('emailModal')">취소</button>
+            <button class="btn" onclick="verifyEmailCode()">확인</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3) 비밀번호 재설정 모달 -->
+<div id="resetModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('resetModal')">&times;</span>
+        <h2 style="text-align:center;">비밀번호 재설정</h2>
+
+        <div class="form-field">
+            <label>새 비밀번호</label>
+            <input type="password" id="newPassword" placeholder="******" />
+        </div>
+        <div class="form-field">
+            <label>비밀번호 확인</label>
+            <input type="password" id="confirmNewPassword" placeholder="******" />
+        </div>
+        <div id="resetError" class="error-msg" style="display:none;">
+            비밀번호가 일치하지 않습니다.
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-cancel" onclick="closeModal('resetModal')">취소</button>
+            <button class="btn" onclick="changePassword()">변경</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 공통 열기/닫기
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    function openPwInputModal()    { openModal('pwInputModal'); }
+    function openEmailModal()      { openModal('emailModal'); }
+    function openResetModal()      { openModal('resetModal'); }
+
+    // 1) 현재 비밀번호 검증
+    function validatePassword() {
+        const pwd = document.getElementById('currentPassword').value;
+        axios.post('/api/validate-password', { password: pwd })
+            .then(res => {
+                if (res.data.valid) {
+                    closeModal('pwInputModal');
+                    // 이후 원하는 동작(예: 프로필 수정 창 열기)
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch(_ => {
+                document.getElementById('pwInputError').style.display = 'block';
+            });
+    }
+
+    // 2) 이메일 코드 발송
+    function sendVerificationEmail() {
+        const local  = document.getElementById('emailLocal').value;
+        const domain = document.getElementById('emailDomain').value;
+        axios.post('/api/send-code', { email: `${local}@${domain}` })
+            .then(_ => {
+                alert('인증 코드가 발송되었습니다.');
+            })
+            .catch(_ => {
+                alert('이메일 발송 실패');
+            });
+    }
+    // 코드 확인
+    function verifyEmailCode() {
+        const code = document.getElementById('emailCode').value;
+        axios.post('/api/verify-code', { code })
+            .then(res => {
+                if (res.data.verified) {
+                    closeModal('emailModal');
+                    // 다음 단계(비밀번호 입력 모달 등) 열기
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch(_ => {
+                document.getElementById('emailError').style.display = 'block';
+            });
+    }
+
+    // 3) 비밀번호 변경
+    function changePassword() {
+        const np = document.getElementById('newPassword').value;
+        const cp = document.getElementById('confirmNewPassword').value;
+        if (np !== cp) {
+            return document.getElementById('resetError').style.display = 'block';
+        }
+        axios.post('/api/reset-password', { newPassword: np })
+            .then(_ => {
+                alert('비밀번호가 변경되었습니다.');
+                closeModal('resetModal');
+            })
+            .catch(_ => {
+                document.getElementById('resetError').textContent = '변경 중 오류가 발생했습니다.';
+                document.getElementById('resetError').style.display = 'block';
+            });
+    }
+</script>
+</body>
+</html>

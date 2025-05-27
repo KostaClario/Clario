@@ -20,3 +20,13 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    check-template-location: true
+
+
+mybatis:
+  mapper-locations: classpath:/mappers/*.xml

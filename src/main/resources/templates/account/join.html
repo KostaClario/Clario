@@ -23,28 +23,34 @@
     <div class="right">
         <section class="content">
             <h2 style="text-align:center; margin-bottom:24px;">개인정보 입력</h2>
-            <form class="form-edit">
+            <form class="form-edit" th:action="@{/join}" method="post">
+                <div th:if="${errorMessage}" style="color:red;">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+
                 <!-- 이름 -->
                 <div class="form-field">
-                    <input type="text" name="name" placeholder="이름" required/>
+                    <input type="text" name="name" placeholder="이름"
+                           th:value="${name}" required />
                 </div>
 
                 <!-- 전화번호 -->
                 <div class="form-field">
-                    <input type="text" name="phone" placeholder="전화번호" required/>
+                    <input type="text" name="phonenum" placeholder="전화번호"
+                           th:value="${phonenum}" required />
                 </div>
 
                 <!-- 비밀번호 -->
                 <div class="form-field" style="margin-bottom:4px;">
                     <input type="password" name="password"
                            placeholder="비밀번호 (영문자, 숫자, 특수문자 8~16자)"
-                           minlength="8" maxlength="16" required/>
+                           minlength="8" maxlength="16" required />
                 </div>
 
                 <!-- 비밀번호 확인 -->
                 <div class="form-field" style="margin:12px 0 4px;">
                     <input type="password" name="confirmPassword"
-                           placeholder="비밀번호 확인" required/>
+                           placeholder="비밀번호 확인" required />
                 </div>
 
                 <div th:if="${error}" th:text="${error}" style="color: red"></div>

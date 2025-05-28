@@ -1,5 +1,5 @@
 server:
-  port: 8882
+  port: 8881
 
 spring:
   application:
@@ -9,15 +9,12 @@ spring:
       client:
         registration:
           google:
-            client-id:
-            client-secret: 
+            client-id: 340me3k2h9tctbquqg7j4qsjp7ljeoge.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - email
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+              - profile
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://34.64.69.172:3306/clario?characterEncoding=UTF-8

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLARIO - 투명한 자산관리</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+
+    <style>
+
+    </style>
 </head>
 <body>
 <div class="landing">
@@ -13,10 +17,10 @@
     </div>
     <h1>투명한 자산관리,<br>클라리오와 시작하세요.</h1>
     <p>보이지 않던 지출까지<br>한눈에 정리해드립니다.</p>
-    <button class="btn-google">
-        <img src="img/googlelogo.svg" alt="Google Icon">
-        Google 계정으로 시작하기
-    </button>
+    <a th:href="@{/oauth2/authorization/google}" class="google-login-btn">
+        <img src="img/googlelogo.svg" alt="Google Icon" />
+        <span>Google 계정으로 시작하기</span>
+    </a>
 </div>
 </body>
 </html>

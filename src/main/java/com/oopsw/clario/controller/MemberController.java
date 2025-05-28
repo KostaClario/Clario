@@ -1,5 +1,6 @@
 package com.oopsw.clario.controller;
 
+import com.oopsw.clario.exception.EmailAlreadyExistsException;
 import com.oopsw.clario.service.MemberService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -19,44 +20,46 @@ public class MemberController {
     }
 
 
-
+    @GetMapping("/loginView")
+    public String loginView() {
+        return "account/login";
+    }
 
     @GetMapping("/privacy")
-    public String privacy(@AuthenticationPrincipal OAuth2User user, Model model) {
-        if (user == null){
-            return "redirect:/login";
-        }
-
-        model.addAttribute("email", user.getAttribute("email"));
+    public String privacy(@AuthenticationPrincipal OAuth2User user) {
+        if (user == null) return "redirect:/loginView";
         return "account/privacy";
     }
 
     @GetMapping("/agree")
-    public String agree(@AuthenticationPrincipal OAuth2User user, Model model) {
-        model.addAttribute("email", user.getAttribute("email"));
+    public String agree() {
         return "account/join";
     }
 
     @PostMapping("/join")
-    public String join(@RequestParam String name,
+    public String join(@AuthenticationPrincipal OAuth2User user,
+                       @RequestParam String name,
                        @RequestParam String phonenum,
                        @RequestParam String password,
                        @RequestParam String confirmPassword,
-                       @AuthenticationPrincipal OAuth2User user,
                        Model model) {
-        String email = user.getAttribute("email");
+        try{
+            String email = user.getAttribute("email");
 
-        if(!password.equals(confirmPassword)){
-            model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
-            model.addAttribute("email", user.getAttribute("email"));
+            if(!password.equals(confirmPassword)){
+                model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
+                model.addAttribute("email", user.getAttribute("email"));
+                return "account/join";
+            }
+
+            if(!memberService.existsByEmail(email)){
+                memberService.saveMember(name, phonenum, password, email);
+            }
+
+            return "redirect:/account/modal";
+        }catch (EmailAlreadyExistsException e){
+            model.addAttribute("errorMessage", e.getMessage());
             return "account/join";
         }
-
-        if(!memberService.existsByEmail(email)){
-            memberService.saveGoogleMember(name, phonenum, password, email);
-        }
-
-        return "redirect:/account/modal";
     }
-
 }

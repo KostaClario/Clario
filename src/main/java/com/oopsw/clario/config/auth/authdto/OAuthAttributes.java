@@ -1,0 +1,77 @@
+package com.oopsw.clario.config.auth.authdto;
+
+import com.oopsw.clario.domain.member.Member;
+import com.oopsw.clario.domain.member.Role;
+import lombok.Builder;
+import lombok.Getter;
+
+import java.util.Map;
+
+@Getter
+public class OAuthAttributes {
+
+    private final Map<String, Object> attributes;
+    private final String nameAttributeKey;
+
+    private final String name;
+    private final String email;
+    private final String oauth;
+
+    // 회원가입 시 추가로 입력받을 항목 (이 값들은 로그인 시점엔 null일 수 있음)
+    private final String phonenum;
+    private final String password;
+
+    @Builder
+    public OAuthAttributes(Map<String, Object> attributes,
+                           String nameAttributeKey,
+                           String name,
+                           String email,
+                           String oauth,
+                           String phonenum,
+                           String password) {
+        this.attributes = attributes;
+        this.nameAttributeKey = nameAttributeKey;
+        this.name = name;
+        this.email = email;
+        this.oauth = oauth;
+        this.phonenum = phonenum;
+        this.password = password;
+    }
+
+    // 최초 사용자 생성 시 사용
+    public Member toEntity() {
+        return Member.builder()
+                .name(name)
+                .email(email)
+                .oauth(oauth)
+                .phonenum(phonenum != null ? phonenum : "") // null 방지
+                .password(password != null ? password : "") // null 방지
+                .totalAssets(0L)
+                .targetAssets(0L)
+                .activation(false) // 회원가입 폼에서 최종 등록 시 true
+                .lastSyncedAt(null)
+                .role(Role.GUEST)
+                .build();
+    }
+
+    public static OAuthAttributes of(String registrationId,
+                                     String userNameAttributeName,
+                                     Map<String, Object> attributes) {
+        if ("google".equals(registrationId)) {
+            return ofGoogle(userNameAttributeName, attributes);
+        }
+        throw new IllegalArgumentException("지원하지 않는 소셜 로그인입니다: " + registrationId);
+    }
+
+    private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
+        return OAuthAttributes.builder()
+                .name((String) attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .oauth("google")
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .phonenum(null)   // 나중에 회원가입 폼에서 입력받음
+                .password(null)   // 나중에 회원가입 폼에서 입력받음
+                .build();
+    }
+}

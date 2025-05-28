@@ -1,0 +1,23 @@
+package com.oopsw.clario.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class cardDetailDto {
+    private String cardName;
+    private String cardType;
+    private String cardNum;
+    private String cardDay;
+    private String cancelDay;
+    private int cardMoney;
+    private String cardStoreName;
+    private String categoryName;
+    private String businessNum;
+
+}

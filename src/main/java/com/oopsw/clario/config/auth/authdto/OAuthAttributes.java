@@ -41,6 +41,8 @@ public class OAuthAttributes {
     }
 
     // 최초 사용자 생성 시 사용
+    // 하지만 추가정보를 받기때문에 우리 프로젝트에선 사용하지않음.
+    // 나중 공부를 위해 남겨놓겠슴.
     public Member toEntity() {
         return Member.builder()
                 .name(name)

@@ -55,7 +55,7 @@
                             <td th:text="${bank.bankAccountName}">계좌명</td>
                             <td th:text="${bank.bankName}">은행</td>
                             <td th:text="${bank.bankAccountNum}">계좌번호</td>
-                            <td th:text="${#numbers.formatInteger(bank.balance, 0)}">금액</td>
+                            <td th:text="${T(java.lang.String).format('%,d', bank.balance.longValue())}">금액</td>
                         </tr>
                         <tr th:if="${banks.empty}">
                             <td colspan="4">등록된 은행 계좌가 없습니다.</td>

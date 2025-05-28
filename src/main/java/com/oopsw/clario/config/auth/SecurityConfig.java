@@ -32,12 +32,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(
                         (auth) -> auth
-                                .requestMatchers("/", "/css/**","/account-css/**", "/images/**", "/js/**","/loginView").permitAll()
-
-                                .requestMatchers("/account/modal").authenticated()
-                                .requestMatchers("/privacy").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/join").authenticated()
-                                .requestMatchers(HttpMethod.POST, "/join").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/loginView").permitAll()
+                                .requestMatchers("/","/loginSuccess", "/css/**","/account-css/**", "/img/**", "/js/**").permitAll()
+                                .requestMatchers("/account/modal","/privacy","/agree","/join").authenticated()
+                                .requestMatchers("/template-test").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .logout(
                         (logoutConfig) -> logoutConfig.logoutSuccessUrl("/")
@@ -49,7 +48,7 @@ public class SecurityConfig {
                                         (userInfo) -> userInfo
                                                 .userService(customOAuth2UserService)
                                 )
-                                .defaultSuccessUrl("/privacy", true)
+                                .defaultSuccessUrl("/loginSuccess", true) // "/"에서 리다이렉트 처리
                 );
         return http.build();
     }

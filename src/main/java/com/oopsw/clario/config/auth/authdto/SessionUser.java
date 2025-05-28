@@ -2,7 +2,6 @@ package com.oopsw.clario.config.auth.authdto;
 
 
 import com.oopsw.clario.domain.member.Member;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;

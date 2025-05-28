@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 계좌 및 카드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="mybankandcardlist.css">
+</head>
+<body>
+<div class="wrapper">
+    <aside class="sidebar">
+        <div class="logo">CLARIO</div>
+        <ul class="menu">
+            <li>
+                <button class="menu-btn" onclick="goTo('home')"><i class="bi bi-house-door"></i></button>
+            </li>
+            <li>
+                <button class="menu-btn" onclick="goTo('stats')"><i class="bi bi-graph-up"></i></button>
+            </li>
+            <li>
+                <button class="menu-btn" onclick="goTo('tasks')"><i class="bi bi-list-task"></i></button>
+            </li>
+            <li>
+                <button class="menu-btn" onclick="goTo('cards')"><i class="bi bi-credit-card"></i></button>
+            </li>
+        </ul>
+    </aside>
+    <div class="main">
+        <header class="topbar">
+            <div class="topbar-center" id="today-date">날짜 로딩 중...</div>
+            <div class="topbar-right">
+                <span th:text="${username} + '님'">사용자님</span>
+                <button class="logout-btn" onclick="logout()">로그아웃</button>
+                <button class="profile-btn" onclick="openProfile()">
+                    <i class="bi bi-person"></i>
+                </button>
+            </div>
+        </header>
+        <main class="content">
+            <section class="section">
+                <div class="section-inner">
+                    <h3>내 계좌</h3>
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>계좌명</th>
+                            <th>은행</th>
+                            <th>계좌번호</th>
+                            <th>금액</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>KBstar*t 통장</td>
+                            <td>국민은행</td>
+                            <td>527864-26-316955</td>
+                            <td>3,100</td>
+                        </tr>
+                        <tr>
+                            <td>우리 SUPER 주거래 통장</td>
+                            <td>우리은행</td>
+                            <td>795698-454-15415</td>
+                            <td>2,615,360</td>
+                        </tr>
+                        <tr>
+                            <td>달달하나통장</td>
+                            <td>하나은행</td>
+                            <td>240-5164-9764-22</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>청년 주택드림 청약통장</td>
+                            <td>하나은행</td>
+                            <td>624567-85-644215</td>
+                            <td>39,229,600</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-inner">
+                <h3>내 카드</h3>
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>카드이름</th>
+                        <th>카드사</th>
+                        <th>납부계좌</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>노리 체크</td>
+                        <td>국민카드</td>
+                        <td>국민 527864-26-316955</td>
+                    </tr>
+                    <tr>
+                        <td>Young Hana+ 체크카드</td>
+                        <td>하나카드</td>
+                        <td>하나 240-5164-9764-22</td>
+                    </tr>
+                    <tr>
+                        <td>taptap O</td>
+                        <td>삼성카드</td>
+                        <td>하나 240-5164-9764-22</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+<!-- 날짜 및 사용자 JS -->
+<script>
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
+    document.getElementById("today-date").textContent = formatted;
+</script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 계좌 및 카드</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="mybankandcardlist.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" th:href="@{/css/myBankAndCardList.css}" />
 </head>
 <body>
 <div class="wrapper">
@@ -30,7 +30,7 @@
         <header class="topbar">
             <div class="topbar-center" id="today-date">날짜 로딩 중...</div>
             <div class="topbar-right">
-                <span th:text="${username} + '님'">사용자님</span>
+                <span th:text="${name} + '님'">사용자님</span>
                 <button class="logout-btn" onclick="logout()">로그아웃</button>
                 <button class="profile-btn" onclick="openProfile()">
                     <i class="bi bi-person"></i>
@@ -51,72 +51,49 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>KBstar*t 통장</td>
-                            <td>국민은행</td>
-                            <td>527864-26-316955</td>
-                            <td>3,100</td>
+                        <tr th:each="bank : ${banks}">
+                            <td th:text="${bank.bankAccountName}">계좌명</td>
+                            <td th:text="${bank.bankName}">은행</td>
+                            <td th:text="${bank.bankAccountNum}">계좌번호</td>
+                            <td th:text="${#numbers.formatInteger(bank.balance, 0)}">금액</td>
                         </tr>
-                        <tr>
-                            <td>우리 SUPER 주거래 통장</td>
-                            <td>우리은행</td>
-                            <td>795698-454-15415</td>
-                            <td>2,615,360</td>
-                        </tr>
-                        <tr>
-                            <td>달달하나통장</td>
-                            <td>하나은행</td>
-                            <td>240-5164-9764-22</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>청년 주택드림 청약통장</td>
-                            <td>하나은행</td>
-                            <td>624567-85-644215</td>
-                            <td>39,229,600</td>
+                        <tr th:if="${banks.empty}">
+                            <td colspan="4">등록된 은행 계좌가 없습니다.</td>
                         </tr>
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
+                        <!-- 페이지 네비게이션: 필요시 서버에서 pageNumbers 모델로 전달 -->
+                        <a th:each="pageNum : ${pageNumbers}" th:href="@{/myDataConnection/{memberId}(memberId=${memberId}) + '?page=' + ${pageNum}}" th:text="${pageNum}" th:classappend="${pageNum == currentPage} ? 'active' : ''">1</a>
                     </div>
                 </div>
             </section>
 
             <section class="section">
                 <div class="section-inner">
-                <h3>내 카드</h3>
-                <table class="data-table">
-                    <thead>
-                    <tr>
-                        <th>카드이름</th>
-                        <th>카드사</th>
-                        <th>납부계좌</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>노리 체크</td>
-                        <td>국민카드</td>
-                        <td>국민 527864-26-316955</td>
-                    </tr>
-                    <tr>
-                        <td>Young Hana+ 체크카드</td>
-                        <td>하나카드</td>
-                        <td>하나 240-5164-9764-22</td>
-                    </tr>
-                    <tr>
-                        <td>taptap O</td>
-                        <td>삼성카드</td>
-                        <td>하나 240-5164-9764-22</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="pagination">
-                    <a href="#" class="active">1</a>
-                </div>
+                    <h3>내 카드</h3>
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>카드이름</th>
+                            <th>카드사</th>
+                            <th>납부계좌</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="card : ${cards}">
+                            <td th:text="${card.cardName}">카드이름</td>
+                            <td th:text="${card.cardCompany}">카드사</td>
+                            <td th:text="${card.cardBankAccount}">납부계좌</td>
+                        </tr>
+                        <tr th:if="${cards.empty}">
+                            <td colspan="3">등록된 카드 정보가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <a th:each="pageNum : ${cardPageNumbers}" th:href="@{/myDataConnection/{memberId}(memberId=${memberId}) + '?cardPage=' + ${pageNum}}" th:text="${pageNum}" th:classappend="${pageNum == currentCardPage} ? 'active' : ''">1</a>
+                    </div>
                 </div>
             </section>
         </main>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopsw.clario.repository.card.CardRepository">
+    <select id="getAllCards"
+            parameterType="Long"
+            resultType="com.oopsw.clario.dto.card.AllCardsDTO">
+        SELECT card_recommendation_id AS cardRecommendationId, card_company AS cardCompany,
+               card_name AS cardName, benefit_summary AS benefitSummary,
+               card_url AS cardUrl, card_image AS cardImage, benefit_category AS benefitCategory
+        FROM CardRecommendation
+    </select>
+
+    <select id="getCardsByCategoryNames" parameterType="list" resultType="com.oopsw.clario.dto.card.AllCardsDTO">
+        SELECT
+        card_recommendation_id AS cardRecommendationId,
+        card_company AS cardCompany,
+        card_name AS cardName,
+        benefit_summary AS benefitSummary,
+        card_url AS cardUrl,
+        card_image AS cardImage,
+        benefit_category AS benefitCategory
+        FROM
+        CardRecommendation
+        WHERE
+        benefit_category IN
+        <foreach item="category" collection="list" open="(" separator="," close=")">
+            #{category}
+        </foreach>
+    </select>
+
+
+</mapper>

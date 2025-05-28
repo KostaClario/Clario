@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopsw.clario.repository.statistics.StatisticsRepository">
+    <select id="getMonthlyExpenseTotal"
+            parameterType="Long"
+            resultType="com.oopsw.clario.dto.statistics.MonthlyExpenseTotalDTO">
+        SELECT
+            m.member_id AS memberId,
+            m.name AS name,
+            DATE_FORMAT(ct.card_trade_day, '%Y-%m') AS tradeMonth,
+            c.category_id AS categoryId,
+            c.category_name AS categoryName,
+            SUM(ct.card_trade_money) AS totalSpending
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+                 JOIN member m ON mc.member_id = m.member_id
+                 JOIN Category c ON ct.category_id = c.category_id
+        WHERE ct.card_trade_day BETWEEN '2024-01-01' AND '2024-06-30'
+          AND m.member_id = #{memberId}
+        GROUP BY m.member_id, m.name, tradeMonth, c.category_id, c.category_name
+        ORDER BY tradeMonth, totalSpending DESC
+    </select>
+
+    <select id="getTop3Categories"
+            parameterType="Long"
+            resultType="com.oopsw.clario.dto.statistics.Top3CategoriesDTO">
+        SELECT
+            ct.category_id AS categoryId,
+            c.category_name AS categoryName,
+            COUNT(*) AS usageCount
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+                 JOIN member m ON mc.member_id = m.member_id
+                 JOIN Category c ON ct.category_id = c.category_id
+        WHERE m.member_id = #{memberId}
+        GROUP BY ct.category_id, c.category_name
+        ORDER BY usageCount DESC
+            LIMIT 3
+    </select>
+
+    <select id="getMonthlyCardTradeTotal"
+            parameterType="Long"
+            resultType="com.oopsw.clario.dto.statistics.MonthlyCardTradeTotalDTO">
+        SELECT
+            DATE_FORMAT(ct.card_trade_day, '%Y-%m') AS tradeMonth,
+            SUM(ct.card_trade_money) AS monthlyExpense
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+                 JOIN member m ON mc.member_id = m.member_id
+        WHERE ct.card_trade_day BETWEEN '2024-01-01' AND '2024-06-30'
+          AND m.member_id = #{memberId}
+        GROUP BY tradeMonth
+        ORDER BY tradeMonth
+    </select>
+
+
+
+
+</mapper>

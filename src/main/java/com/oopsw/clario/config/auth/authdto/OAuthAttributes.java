@@ -4,10 +4,12 @@ import com.oopsw.clario.domain.member.Member;
 import com.oopsw.clario.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
 @Getter
+@Slf4j
 public class OAuthAttributes {
 
     private final Map<String, Object> attributes;
@@ -50,7 +52,7 @@ public class OAuthAttributes {
                 .targetAssets(0L)
                 .activation(false) // 회원가입 폼에서 최종 등록 시 true
                 .lastSyncedAt(null)
-                .role(Role.GUEST)
+                .role(Role.USER)
                 .build();
     }
 
@@ -64,6 +66,7 @@ public class OAuthAttributes {
     }
 
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
+        log.info("email: " + attributes.get("email"));
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))

@@ -23,7 +23,7 @@
                 <p>등록된 은행 계좌가 없습니다.</p>
             </div>
         </div>
-        <!-- 카드 정보 반복 -->
+
         <div class="data-group">
             <h3>카드 목록</h3>
             <div th:each="card : ${cards}">
@@ -37,7 +37,9 @@
             </div>
         </div>
     </div>
-    <button type="button" th:onclick="|window.location.href='@{/myDataConnection/'} + ${memberId}|">모두 불러오기</button>
+    <button type="button"
+            th:onclick="|window.location.href='@{/dashboard/{memberId}(memberId=${memberId})}'|">
+        모두 불러오기</button>
 </div>
 </body>
 </html>

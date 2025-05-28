@@ -52,7 +52,7 @@ public class Member {
     @Column(name = "activation", nullable = false)
     private Boolean activation;
 
-    @Column(name = "last_synced_at", nullable = false)
+    @Column(name = "last_synced_at", nullable = true)
     private LocalDateTime lastSyncedAt;
 
     @Enumerated(EnumType.STRING)

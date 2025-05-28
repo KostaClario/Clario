@@ -27,8 +27,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        // 기본 OAuth2 사용자 서비스로부터 사용자 정보 로드
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate  = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
+
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration()
@@ -36,12 +38,23 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .getUserInfoEndpoint()
                 .getUserNameAttributeName();
 
+        // 구글 응답을 추출 name email
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         // 회원가입된 사용자인 경우만 업데이트
         Member member = memberRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getEmail()))
-                .orElse(null); // 아직 가입 안 된 사용자
+                .orElse(null);
+
+        // 세션 저장
+        if (member != null) {
+            httpSession.setAttribute("user", new SessionUser(member));
+            httpSession.setAttribute("redirectAfterLogin", "/account/modal");
+        }else{
+            // DB저장 하지 말고 session에만 저장
+            httpSession.setAttribute("oauthAttributes", attributes);
+            httpSession.setAttribute("redirectAfterLogin", "/privacy");
+        }
 
         httpSession.setAttribute("user", new SessionUser(attributes.getName(), attributes.getEmail()));
 

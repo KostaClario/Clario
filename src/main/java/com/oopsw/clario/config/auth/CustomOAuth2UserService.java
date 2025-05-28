@@ -56,7 +56,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             httpSession.setAttribute("redirectAfterLogin", "/privacy");
         }
 
-        httpSession.setAttribute("user", new SessionUser(attributes.getName(), attributes.getEmail()));
+        // 세션을 통해 구글 이름과 이메일을 받아오는 거지만 우리 프로젝트와 관련없고
+        // 모든 컨트롤러에서 email을 어노테이션으로 받아오기에 일단 학습용으로 남김
+//        httpSession.setAttribute("user", new SessionUser(attributes.getName(), attributes.getEmail()));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/myData")
 public class MyDataController {
 
     @Autowired
@@ -28,12 +30,12 @@ public class MyDataController {
         return "myData/myDataConnection";
     }
 
-    @GetMapping("/mybankandcardlist/{memberid}")
-    public String myBankAndCardList(@PathVariable String memberid, Model model) {
-        List<MyBankDTO> banks = myDataService.getMyBankList(memberid);
-        List<MyCardDTO> cards = myDataService.getMyCardList(memberid);
+    @GetMapping("/mybankandcardlist/{memberId}")
+    public String myBankAndCardList(@PathVariable String memberId, Model model) {
+        List<MyBankDTO> banks = myDataService.getMyBankList(memberId);
+        List<MyCardDTO> cards = myDataService.getMyCardList(memberId);
         model.addAttribute("banks", banks);
         model.addAttribute("cards", cards);
-        return "myData/myBankAndCardList";
+        return "myData/mybankandcardlist";
     }
 }

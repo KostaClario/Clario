@@ -1,6 +1,7 @@
 package com.oopsw.clario.repository.card;
 
 import com.oopsw.clario.dto.card.AllCardsDTO;
+import com.oopsw.clario.dto.card.CardFilterRequestDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,12 +25,26 @@ public class CardRepositoryTests {
             System.out.println("카드 정보 없음!");
         }
     }
+//
+//    @Test
+//    public void testGetCardsByCategoryNames() {
+//        List<String> subCategories = Arrays.asList("카페", "쇼핑", "편의점");
+//
+//        List<AllCardsDTO> result = cardRepository.getCardsByCategoryNames(subCategories);
+//
+//        if (result.isEmpty()) {
+//            System.out.println("추천 결과 없음");
+//        } else {
+//            result.forEach(System.out::println);
+//        }
+//    }
 
     @Test
-    public void testGetCardsByCategoryNames() {
-        List<String> subCategories = Arrays.asList("카페", "쇼핑", "편의점");
+    public void testGetCardsByCategoryNamesAndType() {
+        List<String> subCategories = Arrays.asList("카페", "소핑", "편의점");
+        String cardType = "신용";
 
-        List<AllCardsDTO> result = cardRepository.getCardsByCategoryNames(subCategories);
+        List<AllCardsDTO> result = cardRepository.getCardsByCategoryNamesAndType(subCategories, cardType);
 
         if (result.isEmpty()) {
             System.out.println("추천 결과 없음");
@@ -37,4 +52,7 @@ public class CardRepositoryTests {
             result.forEach(System.out::println);
         }
     }
-}
+
+        }
+
+

@@ -19,8 +19,24 @@ public class CardService {
         return result;
     }
 
-    public List<AllCardsDTO> getCardsByParentCategories(List<String> parentCategories) {
-        List<String> subCategories = CategoryMapper.getChildCategories(parentCategories);
-        return cardRepository.getCardsByCategoryNames(subCategories);
+//    public List<AllCardsDTO> getCardsByParentCategories(List<String> parentCategories) {
+//        List<String> subCategories = CategoryMapper.getChildCategories(parentCategories);
+//        return cardRepository.getCardsByCategoryNames(subCategories);
+//    }
+
+    public List<AllCardsDTO> getCardsByParentCategoriesAndType(List<String> parentCategories, String cardType) {
+        List<String> subCategories = new ArrayList<>();
+        if (parentCategories != null && !parentCategories.isEmpty()) {
+            subCategories = CategoryMapper.getChildCategories(parentCategories);
+        }
+        return cardRepository.getCardsByCategoryNamesAndType(subCategories, cardType);
     }
+
+
+
+
+
+
+
+
 }

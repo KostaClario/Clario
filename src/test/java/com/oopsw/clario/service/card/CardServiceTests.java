@@ -19,11 +19,20 @@ public class CardServiceTests {
         System.out.println(result);
     }
 
+//    @Test
+//    public void testGetCardsByParentCategories() {
+//        //List<String> parentCategories = Arrays.asList("식비", "교통비");
+//        List<String> parentCategories = Arrays.asList("식비");
+//        List<AllCardsDTO> result = cardService.getCardsByParentCategories(parentCategories);
+//        System.out.println(result);
+//    }
+
     @Test
-    public void testGetCardsByParentCategories() {
-        //List<String> parentCategories = Arrays.asList("식비", "교통비");
-        List<String> parentCategories = Arrays.asList("식비");
-        List<AllCardsDTO> result = cardService.getCardsByParentCategories(parentCategories);
+    public void getCardsByParentCategoriesAndType() {
+        List<String> parentCategories = Arrays.asList("식비", "교통비");
+        String cardType = "신용";
+        List<AllCardsDTO> result = cardService.getCardsByParentCategoriesAndType(parentCategories, cardType);
         System.out.println(result);
     }
+
 }

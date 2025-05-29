@@ -1,6 +1,7 @@
 package com.oopsw.clario.controller.card;
 
 import com.oopsw.clario.dto.card.AllCardsDTO;
+import com.oopsw.clario.dto.card.CardFilterRequestDTO;
 import com.oopsw.clario.service.card.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,18 @@ public class CardRestController {
         return ResponseEntity.ok(cardService.getAllCards());
     }
 
-    @PostMapping("/filter") //상위 카테고리 리스트 받아서 필터링된 카드 반환
-    public ResponseEntity<List<AllCardsDTO>> getCardsByFilter(
-            @RequestBody List<String> parentNames) {
-        return ResponseEntity.ok(cardService.getCardsByParentCategories(parentNames));
+//    @PostMapping("/filter") //상위 카테고리 리스트 받아서 필터링된 카드 반환
+//    public ResponseEntity<List<AllCardsDTO>> getCardsByFilter(
+//            @RequestBody List<String> parentNames) {
+//        return ResponseEntity.ok(cardService.getCardsByParentCategories(parentNames));
+//    }
+    @PostMapping("/filter")
+    public ResponseEntity<List<AllCardsDTO>> getCardsByFilter(@RequestBody CardFilterRequestDTO filter) {
+    List<AllCardsDTO> cards = cardService.getCardsByParentCategoriesAndType(
+            filter.getParentCategories(),
+            filter.getCardType()
+    );
+    return ResponseEntity.ok(cards);
     }
+
 }

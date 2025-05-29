@@ -5,9 +5,9 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyBankDto {
+public class MyBankDTO {
     private String bankAccountNum;
-    private int balance;
+    private Long balance;
     private String bankAccountName;
     private String bankName;
 }

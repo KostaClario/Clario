@@ -1,7 +1,7 @@
 package com.oopsw.clario.controller;
 
-import com.oopsw.clario.dto.MyBankDto;
-import com.oopsw.clario.dto.MyCardDto;
+import com.oopsw.clario.dto.MyBankDTO;
+import com.oopsw.clario.dto.MyCardDTO;
 import com.oopsw.clario.service.MyDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +19,8 @@ public class MyDataController {
 
     @GetMapping("/mydataconnection/{memberid}")
     public String myDataConnection(@PathVariable String memberid, Model model) {
-        List<MyBankDto> banks = myDataService.getMyBankList(memberid);
-        List<MyCardDto> cards = myDataService.getMyCardList(memberid);
+        List<MyBankDTO> banks = myDataService.getMyBankConnection(memberid);
+        List<MyCardDTO> cards = myDataService.getMyCardConnection(memberid);
 
         model.addAttribute("banks", banks);
         model.addAttribute("cards", cards);
@@ -30,8 +30,8 @@ public class MyDataController {
 
     @GetMapping("/mybankandcardlist/{memberid}")
     public String myBankAndCardList(@PathVariable String memberid, Model model) {
-        List<MyBankDto> banks = myDataService.getMyBankList(memberid);
-        List<MyCardDto> cards = myDataService.getMyCardList(memberid);
+        List<MyBankDTO> banks = myDataService.getMyBankList(memberid);
+        List<MyCardDTO> cards = myDataService.getMyCardList(memberid);
         model.addAttribute("banks", banks);
         model.addAttribute("cards", cards);
         return "myData/myBankAndCardList";

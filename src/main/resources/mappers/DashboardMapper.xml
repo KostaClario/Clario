@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oopsw.clario.repository.DashboardRepository">
-    <select id="getMonthlyIncome" parameterType="com.oopsw.clario.dto.dashboard.MemberDateDTO" resultType="String">
+    <select id="getMonthlyIncome" parameterType="com.oopsw.clario.dto.dashboard.MemberDateDTO" resultType="Long">
         SELECT COALESCE(SUM(account_trade_money), 0) as montylyIncome
         FROM AccountTrade WHERE bank_account_num IN(SELECT bank_account_num FROM member m JOIN MyBank b ON m.member_id = b.member_id WHERE m.member_id = #{memberId})
             AND account_trade_type = '입금' AND YEAR(account_trade_day) = #{yearDate}
                             AND MONTH(account_trade_day) = #{monthDate}
     </select>
 
-    <select id="getMonthlyExpense" parameterType="com.oopsw.clario.dto.dashboard.MemberDateDTO" resultType="String">
+    <select id="getMonthlyExpense" parameterType="com.oopsw.clario.dto.dashboard.MemberDateDTO" resultType="Long">
         SELECT COALESCE(SUM(card_trade_money), 0) as montylyExpense
         FROM CardTrade WHERE card_num IN(SELECT card_num FROM member m JOIN MyCard c ON m.member_id = c.member_id WHERE m.member_id = #{memberId})
             AND card_trade_type IN ('결제', '승인')  AND YEAR(card_trade_day) = #{yearDate}
                          AND MONTH(card_trade_day) = #{monthDate}
     </select>
 
-    <select id="getTargetAssets" parameterType="int" resultType="int">
+    <select id="getTargetAssets" parameterType="int" resultType="Long">
         SELECT target_assets FROM member WHERE member_id=#{memberId}
     </select>
 
-    <select id="getTotalAssets" parameterType="int" resultType="int">
+    <select id="getTotalAssets" parameterType="int" resultType="Long">
         SELECT total_assets FROM member WHERE member_id=#{memberId}
     </select>
 

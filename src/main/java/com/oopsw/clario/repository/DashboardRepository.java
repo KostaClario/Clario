@@ -10,11 +10,11 @@ import java.util.List;
 
 @Mapper
 public interface DashboardRepository {
-    public String getMonthlyIncome(MemberDateDTO memberDateDTO);
-    public String getMonthlyExpense(MemberDateDTO memberDateDTO);
-    public int getTargetAssets(int memberId);
-    public int getTotalAssets(int memberId);
-    public boolean addTargetAssets(HashMap<String, Integer> targetAssets);
+    public Long getMonthlyIncome(MemberDateDTO memberDateDTO);
+    public Long getMonthlyExpense(MemberDateDTO memberDateDTO);
+    public Long getTargetAssets(int memberId);
+    public Long getTotalAssets(int memberId);
+    public boolean addTargetAssets(HashMap<String, Object> targetAssets);
     public List<TradeDTO> getTodayExpense(MemberDateDTO memberDateDTO);
     public List<TradeDTO> getTodayIncome(MemberDateDTO memberDateDTO);
     public List<Top3CategoryDTO> getTop3Category(MemberDateDTO memberDateDTO);

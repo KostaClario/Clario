@@ -10,5 +10,5 @@ import lombok.*;
 public class Top3CategoryDTO {
     private int memberId;
     private String categoryName;
-    private int categoryMoney;
+    private Long categoryMoney;
 }

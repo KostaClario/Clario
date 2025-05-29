@@ -14,12 +14,6 @@
 </head>
 <body>
 
-<header th:replace="~{headerside :: header}"></header>
-
-<div class="layout">
-
-    <aside th:replace="~{headerside :: sidebar}"></aside>
-
 
     <main class="container">
         <h1>회원 탈퇴</h1>
@@ -36,20 +30,42 @@
             </ol>
         </section>
 
-        <form th:action="@{/member/withdraw}" method="post" class="form-group">
-            <label for="pwd" class="sr-only">비밀번호</label>
+        <form th:action="@{/account/remove}" method="post" class="form-group">
+            <label for="password" class="sr-only">비밀번호</label>
             <input type="password"
-                   id="pwd"
+                   autocomplete="off"
+                   id="password"
                    name="password"
                    placeholder="비밀번호"
                    required />
+            <div th:if="${error}" th:text="${error}" style="color: red"></div>
+
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <p>정말로 탈퇴하시겠습니까?<br>이 작업은 되돌릴 수 없습니다.</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-cancel" onclick="closeConfirmModal()">취소</button>
+                        <button type="submit" class="btn btn-quit">확인</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="btn-group">
-                <button type="submit" class="btn btn-quit">회원 탈퇴</button>
-                <a th:href="@{/member/profile}" class="btn btn-cancel">취소</a>
+                <button type="button" class="btn btn-quit" onclick="openConfirmModal()">회원 탈퇴</button>
+                <a th:href="@{/modal}" class="btn btn-cancel">취소</a>
             </div>
         </form>
     </main>
 </div>
+
+    <script>
+        function openConfirmModal() {
+            document.getElementById("confirmModal").style.display = "block";
+        }
+
+        function closeConfirmModal() {
+            document.getElementById("confirmModal").style.display = "none";
+        }
+    </script>
 </body>
 </html>

@@ -59,6 +59,14 @@ public class Member {
     @NotNull
     private Role role;
 
+    public Member updateMember(String email, String name, String phonenum, String password) {
+        this.email = email;
+        this.name = name;
+        this.phonenum = phonenum;
+        this.password = password;
+        return this;
+    }
+
     public Member update(String name, String email) {
         this.name = name;
         this.email = email;
@@ -70,4 +78,7 @@ public class Member {
         return this.role.getKey();
     }
 
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }

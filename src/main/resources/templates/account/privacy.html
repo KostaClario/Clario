@@ -20,7 +20,7 @@
     <main class="consent-container">
         <!-- 왼쪽 브랜드 영역 -->
         <div class="left">
-            <img src="/images/clarioLogo.png" alt="CLARIO Logo"/>
+            <img th:src="@{/img/ClarioPig.png}" alt="CLARIO Logo">
         </div>
 
         <!-- 오른쪽 동의문 -->
@@ -72,20 +72,12 @@
             <!-- 버튼 그룹 -->
             <div class="buttons">
                 <button class="btn btn-cancel"
-                        th:onclick="|location.href='@{/next}'|">다음에</button>
+                        th:onclick="|location.href='@{/loginView}'|">다음에</button>
                 <button class="btn btn-quit"
                         th:onclick="|location.href='@{/agree}'|">동의하기</button>
             </div>
         </div>
     </main>
 </div>
-
-<!-- 날짜 스크립트 -->
-<script>
-    const today = new Date();
-    const days = ['일','월','화','수','목','금','토'];
-    document.getElementById("today-date").textContent =
-        `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}/${days[today.getDay()]}`;
-</script>
 </body>
 </html>

@@ -33,13 +33,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (auth) -> auth
                                 .requestMatchers(HttpMethod.GET, "/loginView").permitAll()
-                                .requestMatchers("/","/loginSuccess", "/css/**","/account-css/**", "/img/**", "/js/**").permitAll()
-                                .requestMatchers("/account/modal","/privacy","/agree","/join").authenticated()
-                                .requestMatchers("/template-test").permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/account/").permitAll()
+
+                                .requestMatchers("/","/loginSuccess", "/css/**",
+                                        "/account-css/**", "/img/**", "/js/**").permitAll()
+
+                                .requestMatchers("/modal","/privacy","/agree","/join","/account/edit","/account/remove"
+                                        ,"/account/reset-password","/account/verify-password").authenticated()
+
                                 .anyRequest().authenticated()
                 )
                 .logout(
-                        (logoutConfig) -> logoutConfig.logoutSuccessUrl("/")
+                        (logoutConfig) -> logoutConfig
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/")
                 )
                 .oauth2Login(
                         (oauth2) -> oauth2

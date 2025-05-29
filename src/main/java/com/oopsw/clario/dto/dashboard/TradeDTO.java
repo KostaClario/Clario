@@ -10,9 +10,9 @@ import lombok.*;
 public class TradeDTO {
     private int memberId;
     private String cardStoreName;
-    private int cardTradeMoney;
+    private Long cardTradeMoney;
     private String accountSource;
-    private int accountTradeMoney;
+    private Long accountTradeMoney;
     private String cardTradeMonth;
     private String accountTradeMonth;
 }

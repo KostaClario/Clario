@@ -1,5 +1,6 @@
 package com.oopsw.clario.controller;
 
+import com.oopsw.clario.config.auth.CustomOAuth2User;
 import com.oopsw.clario.config.auth.authdto.OAuthAttributes;
 import com.oopsw.clario.config.auth.authdto.SessionUser;
 import com.oopsw.clario.domain.member.Member;
@@ -9,6 +10,7 @@ import com.oopsw.clario.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,9 +21,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -30,11 +34,25 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/loginView";
+    }
+
     // 모달 테스트용(추후 메인페이지)
     @GetMapping("/modal")
     public String modal() {
         return "account/modal";
     }
+
+    @GetMapping("/api/user/email")
+    public ResponseEntity<Map<String, String>> getUserEmail(@AuthenticationPrincipal CustomOAuth2User user) {
+        String email = user.getEmail();
+        Map<String, String> result = new HashMap<>();
+        result.put("email", email);
+        return ResponseEntity.ok(result);
+    }
+
 
     @PostMapping("/account/reset-password")
     @ResponseBody
@@ -107,6 +125,7 @@ public class MemberController {
         Member member = memberService.getMemberByEmail(email);
 
         MemberUpdateDTO dto = new MemberUpdateDTO();
+        dto.setEmail(email);
         dto.setName(member.getName());
         dto.setPhonenum(member.getPhonenum());
 
@@ -120,7 +139,8 @@ public class MemberController {
                              @AuthenticationPrincipal OAuth2User user,
                              Model model) {
         String email = user.getAttribute("email");
-        if(!dto.getPassword().equals(dto.getConfirmPassword())) {
+
+        if(dto.getNewPassword() != null && !dto.getNewPassword().equals(dto.getConfirmPassword())) {
             model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
             return "account/user-info-edit";
         }
@@ -131,12 +151,11 @@ public class MemberController {
 
     @GetMapping("/loginSuccess")
     public String loginSuccess(HttpSession session) {
-        String redirectAfterLogin = (String) session.getAttribute("redirectAfterLogin");
-        if (redirectAfterLogin != null) {
-            session.removeAttribute("redirectAfterLogin");
-            return "redirect:" + redirectAfterLogin;
-        }
-        return "redirect:/loginView";
+        log.info("세션 ID (loginSuccess): " + session.getId());
+        String redirect = (String) session.getAttribute("redirectUrl");
+        System.out.println("리다이렉트 주소= {}" + redirect);
+        log.info("redirectAfterLogin: " + redirect);
+        return "redirect:" + (redirect != null ? redirect : "/");
     }
 
     @GetMapping("/loginView")
@@ -145,13 +164,10 @@ public class MemberController {
     }
 
     @GetMapping("/privacy")
-    public String privacy(@AuthenticationPrincipal OAuth2User user, HttpSession session) {
-        if (user == null) return "redirect:/loginView";
-
-        SessionUser sessionUser = (SessionUser) session.getAttribute("user");
-
-        if(memberService.existsByEmail(sessionUser.getEmail())) {
-            return "redirect:/account/modal";
+    public String privacy(HttpSession session) {
+        OAuthAttributes attributes = (OAuthAttributes) session.getAttribute("oauthAttributes");
+        if (attributes == null || memberService.existsByEmail(attributes.getEmail())) {
+            return "redirect:/modal";
         }
         return "account/privacy";
     }

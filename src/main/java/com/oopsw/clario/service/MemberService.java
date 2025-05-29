@@ -53,21 +53,24 @@ public class MemberService {
     public void resetMemberInfo(String email, MemberUpdateDTO dto){
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 이메일"));
-        if (dto.getName() != null && !dto.getName().equals(member.getName())) {
+
+        if (dto.getName() != null && !dto.getName().isBlank()) {
             member.setName(dto.getName());
         }
 
-        if (dto.getPhonenum() != null && !dto.getPhonenum().equals(member.getPhonenum())) {
+        if (dto.getPhonenum() != null && !dto.getPhonenum().isBlank()) {
             member.setPhonenum(dto.getPhonenum());
         }
 
-        if (dto.getPassword() != null && !dto.getPassword().isBlank()){
-            if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+        if (dto.getNewPassword() != null && !dto.getNewPassword().isBlank()){
+            if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
                 throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
             }
-            String encodedPassword = passwordEncoder.encode(dto.getPassword());
+            String encodedPassword = passwordEncoder.encode(dto.getNewPassword());
             member.setPassword(encodedPassword);
         }
+
+        memberRepository.save(member);
     }
 
     public void resetPassword(String email, String password) {

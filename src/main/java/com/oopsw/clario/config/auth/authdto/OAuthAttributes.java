@@ -6,11 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
 import java.util.Map;
 
 @Getter
 @Slf4j
-public class OAuthAttributes {
+public class OAuthAttributes implements Serializable {
 
     private final Map<String, Object> attributes;
     private final String nameAttributeKey;
@@ -68,10 +69,13 @@ public class OAuthAttributes {
     }
 
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
+
+        String email = (String) attributes.get("email");
+
         log.info("email: " + attributes.get("email"));
         return OAuthAttributes.builder()
-                .name((String) attributes.get("name"))
-                .email((String) attributes.get("email"))
+                .name(email)
+                .email(email)
                 .oauth("google")
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)

@@ -32,15 +32,20 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(
                         (auth) -> auth
-                                .requestMatchers(HttpMethod.GET, "/loginView").permitAll()
+                                .requestMatchers("/", "/css/**", "/js/**", "/img/**", "/account-css/**").permitAll()
 
-                                .requestMatchers(HttpMethod.GET, "/account/").permitAll()
+                                // 로그인 및 회원가입 관련
+                                .requestMatchers("/loginView", "/loginSuccess").permitAll()
+                                .requestMatchers("/privacy", "/agree", "/join").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/join").permitAll()
 
-                                .requestMatchers("/","/loginSuccess", "/css/**",
-                                        "/account-css/**", "/img/**", "/js/**").permitAll()
+                                // OAuth2 관련
 
-                                .requestMatchers("/modal","/privacy","/agree","/join","/account/edit","/account/remove"
-                                        ,"/account/reset-password","/account/verify-password").authenticated()
+                                .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+
+                                // 인증 필요한 기능
+                                .requestMatchers("/modal", "/account/edit", "/account/remove",
+                                        "/account/reset-password", "/account/verify-password").authenticated()
 
                                 .anyRequest().authenticated()
                 )

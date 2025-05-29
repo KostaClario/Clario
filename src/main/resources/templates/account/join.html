@@ -36,7 +36,7 @@
 
                 <!-- 전화번호 -->
                 <div class="form-field">
-                    <input type="text" name="phonenum" placeholder="전화번호"
+                    <input type="text" name="phonenum" placeholder="휴대폰번호"
                            th:value="${phonenum}" required />
                 </div>
 
@@ -64,5 +64,24 @@
         </section>
     </div>
 </main>
+<script>
+    const phoneInput = document.querySelector('input[name="phonenum"]');
+
+    phoneInput.addEventListener('input', function (e) {
+        let numbers = e.target.value.replace(/\D/g, ''); // 숫자만 남김
+        let formatted = '';
+
+        if (numbers.length < 4) {
+            formatted = numbers;
+        } else if (numbers.length < 8) {
+            formatted = numbers.slice(0, 3) + '-' + numbers.slice(3);
+        } else {
+            formatted = numbers.slice(0, 3) + '-' + numbers.slice(3, 7) + '-' + numbers.slice(7, 11);
+        }
+
+        e.target.value = formatted;
+    });
+</script>
+
 </body>
 </html>

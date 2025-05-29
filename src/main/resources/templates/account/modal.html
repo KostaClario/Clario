@@ -27,7 +27,7 @@
         <h2 style="text-align:center;">비밀번호</h2>
 
         <div class="form-field" style="justify-content:center;">
-            <input type="password" id="currentPassword" placeholder="PassWord" />
+            <input type="password" id="currentPassword" placeholder="Password" />
         </div>
         <div id="pwInputError" class="error-msg" style="display:none;">
             비밀번호가 올바르지 않습니다.
@@ -54,17 +54,12 @@
 
         <!-- 이메일 입력 -->
         <div class="form-field">
-            <input type="text" id="emailLocal" name="emailLocal" placeholder="이메일 앞부분" autocomplete="off" />
-            <span>@</span>
-            <select id="emailDomain" name="emailDomain">
-                <option value="gmail.com">gmail.com</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-            </select>
+            <input type="text" id="email" name="email" readonly />
         </div>
 
         <div class="btn-group">
-            <button class="btn" onclick="sendVerificationEmail()">인증</button>
+            <button id="sendCodeBtn" class="btn" onclick="sendVerificationEmail()">인증</button>
+            <div id="timer" style="margin-top: 10px; font-weight: bold;"></div>
         </div>
 
         <!-- 코드 입력 -->
@@ -77,7 +72,7 @@
 
         <div class="btn-group">
             <button class="btn btn-cancel" onclick="closeModal('emailModal')">취소</button>
-            <button class="btn" onclick="verifyEmailCode()">확인</button>
+            <button id="verifyBtn" class="btn" onclick="verifyEmailCode()">확인</button>
         </div>
     </div>
 </div>
@@ -91,11 +86,11 @@
 
         <div class="form-field">
             <label>새 비밀번호</label>
-            <input type="password" id="newPassword" placeholder="******" />
+            <input type="password" id="newPassword" placeholder="New Password" />
         </div>
         <div class="form-field">
             <label>비밀번호 확인</label>
-            <input type="password" id="confirmNewPassword" placeholder="******" />
+            <input type="password" id="confirmNewPassword" placeholder="Confirm Password" />
         </div>
         <div id="resetError" class="error-msg" style="display:none;">
             비밀번호가 일치하지 않습니다.
@@ -111,7 +106,34 @@
 <script>
     // 공통 열기/닫기
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        modal.style.display = 'none';
+
+        // 입력 필드 초기화
+        const inputs = modal.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.type !== 'hidden' && !input.readOnly) {
+                input.value = '';
+            }
+        });
+
+        // 에러 메시지 숨기기
+        const errors = modal.querySelectorAll('.error-msg');
+        errors.forEach(error => error.style.display = 'none');
+
+        // 타이머 초기화
+        const timer = modal.querySelector('#timer');
+        if (timer) {
+            timer.textContent = '';
+        }
+
+        // 인증 버튼 다시 활성화
+        const verifyBtn = modal.querySelector('#verifyBtn');
+        if (verifyBtn) {
+            verifyBtn.disabled = false;
+        }
+    }
 
     function openEmailModalFromPwInput(){
         closeModal('pwInputModal');
@@ -147,14 +169,13 @@
 
     // 이메일 발송
     function sendVerificationEmail() {
-        const local = document.getElementById('emailLocal').value.trim();
-        const domain = document.getElementById('emailDomain').value;
-        const email = `${local}@${domain}`;
+        const email = document.getElementById('email').value.trim();
 
-        if (!local) {
-            alert("이메일 앞부분을 입력해주세요.");
+        if (!email) {
+            alert("이메일을 불러오지 못했습니다.");
             return;
         }
+
 
         axios.post('/api/send-code', { email })
             .then(() => {
@@ -197,6 +218,18 @@
             });
     }
 
+    // 이메일 페이지가 로드되었을 때 실행
+    window.addEventListener('DOMContentLoaded', function () {
+        axios.get('/api/user/email')  // ← 이메일을 반환하는 API 엔드포인트
+            .then(response => {
+                const email = response.data.email;
+                document.getElementById('email').value = email;
+            })
+            .catch(error => {
+                console.error('이메일 불러오기 실패:', error);
+            });
+    });
+
 
     // 3) 비밀번호 변경
     function changePassword() {
@@ -227,6 +260,38 @@
                 errorDiv.style.display = 'block';
             });
     }
+
+
+    let countdownInterval;
+    window.onload = function () {
+        document.getElementById('sendCodeBtn').addEventListener('click', function () {
+            // 5분(300초) 설정
+            let timeLeft = 10;
+
+            // 버튼 누르면 타이머 리셋
+            clearInterval(countdownInterval);
+
+            const verifyBtn = document.getElementById('verifyBtn');
+            verifyBtn.disabled = false; // 시작할 때는 활성화
+
+            countdownInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+
+                document.getElementById('timer').textContent =
+                    `남은 시간: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                timeLeft--;
+
+                // 시간이 다 되면
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('timer').textContent = '인증 시간이 만료되었습니다.';
+                    verifyBtn.disabled = true;
+                }
+            }, 1000);
+        });
+    };
 </script>
 </body>
 </html>

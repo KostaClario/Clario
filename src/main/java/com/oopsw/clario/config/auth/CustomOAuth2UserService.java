@@ -7,6 +7,7 @@ import com.oopsw.clario.domain.member.MemberRepository;
 import com.oopsw.clario.domain.member.Role;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -20,6 +21,7 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final MemberRepository memberRepository;
@@ -30,6 +32,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         // 기본 OAuth2 사용자 서비스로부터 사용자 정보 로드
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate  = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
+
+
 
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
@@ -46,24 +50,33 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .map(entity -> entity.update(attributes.getName(), attributes.getEmail()))
                 .orElse(null);
 
-        // 세션 저장
-        if (member != null) {
-            httpSession.setAttribute("user", new SessionUser(member));
-            httpSession.setAttribute("redirectAfterLogin", "/modal");
-        }else{
-            // DB저장 하지 말고 session에만 저장
+        // 회원이면 메인으로 아니면 privacy로
+        String redirectUrl;
+        if (member == null) {
+            log.info("세션 ID (OAuth2UserService): " + httpSession.getId());
             httpSession.setAttribute("oauthAttributes", attributes);
-            httpSession.setAttribute("redirectAfterLogin", "/privacy");
+            redirectUrl = "/privacy";
+        }else{
+            log.info("회원이므로 modal로 리디렉트");
+            redirectUrl = "/modal";
         }
 
-        // 세션을 통해 구글 이름과 이메일을 받아오는 거지만 우리 프로젝트와 관련없고
-        // 모든 컨트롤러에서 email을 어노테이션으로 받아오기에 일단 학습용으로 남김
-        httpSession.setAttribute("user", new SessionUser(attributes.getName(), attributes.getEmail()));
+        log.info("CustomOAuth2UserService 실행됨");
+        log.info("이메일: " + attributes.getEmail());
+        log.info("멤버 여부: " + (member != null));
+        log.info("세션 ID: " + httpSession.getId());
 
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(
-                        member != null ? member.getRoleKey() : Role.USER.getKey())),
+        httpSession.setAttribute("redirectUrl", redirectUrl);
+
+        // 사용자 권한
+        String role = (member != null) ? member.getRoleKey() : Role.USER.getKey();
+
+        // CustomOAuth2User 리턴
+        return new CustomOAuth2User(
+                attributes.getEmail(),
+                attributes.getEmail(),
                 attributes.getAttributes(),
-                attributes.getNameAttributeKey());
+                Collections.singleton(new SimpleGrantedAuthority(role))
+        );
     }
 }

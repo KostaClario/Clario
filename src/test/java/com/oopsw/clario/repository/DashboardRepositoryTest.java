@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
 import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class DashboardRepositoryTest {
@@ -23,9 +23,9 @@ public class DashboardRepositoryTest {
     }
 
 
-    //    @Test - 예외처리 상황 애매함.
+    //@Test
     public void getMonthlyIncome_False() {
-        MemberDateDTO memberDateDTO = MemberDateDTO.builder().memberId(1).yearDate("2024").build();
+        MemberDateDTO memberDateDTO = MemberDateDTO.builder().memberId(1).build();
         System.out.println(dashboardRepository.getMonthlyIncome(memberDateDTO));
     }
 
@@ -39,20 +39,28 @@ public class DashboardRepositoryTest {
 
     @Test
     public void getTargetAssets_True() {
-        System.out.println(dashboardRepository.getTargetAssets(1)); //50000000
+        System.out.println(dashboardRepository.getTargetAssets(1));
     }
 
 
     @Test
     public void getTotalAssets_True() {
-        System.out.println(dashboardRepository.getTotalAssets(1)); //50000000
+        System.out.println(dashboardRepository.getTotalAssets(1));
     }
 
     @Test
     public void addTargetAssets_True() {
-        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("memberId", 1);
         map.put("targetAssets", 30000000);
+        System.out.println(dashboardRepository.addTargetAssets(map));
+    }
+
+    @Test
+    public void addTargetAssets_False() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("memberId", -1);
+        map.put("targetAssets", "90000000");
         System.out.println(dashboardRepository.addTargetAssets(map));
     }
 
@@ -64,7 +72,6 @@ public class DashboardRepositoryTest {
             TradeDTO day = TradeDTO.builder().memberId(1).cardStoreName(todayTradeDTO.getCardStoreName()).cardTradeMoney(todayTradeDTO.getCardTradeMoney()).build();
             System.out.println(day);
         }
-
     }
 
     @Test
@@ -73,6 +80,7 @@ public class DashboardRepositoryTest {
         for(TradeDTO todayTradeDTO : today){
             TradeDTO day = TradeDTO.builder().memberId(1).accountSource(todayTradeDTO.getAccountSource()).accountTradeMoney(todayTradeDTO.getAccountTradeMoney()).build();
             System.out.println(day);
+
         }
 
     }

@@ -84,7 +84,7 @@
                         <tr th:each="card : ${cards}">
                             <td th:text="${card.cardName}">카드이름</td>
                             <td th:text="${card.cardCompany}">카드사</td>
-                            <td th:text="${card.cardBankAccount}">납부계좌</td>
+                            <td th:text="${#strings.concat(card.cardBank, ' ', card.cardBankAccount)}">은행 계좌번호</td>
                         </tr>
                         <tr th:if="${cards.empty}">
                             <td colspan="3">등록된 카드 정보가 없습니다.</td>

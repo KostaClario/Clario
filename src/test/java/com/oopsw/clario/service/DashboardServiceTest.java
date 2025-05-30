@@ -1,6 +1,7 @@
 package com.oopsw.clario.service;
 
 import com.oopsw.clario.dto.dashboard.MemberDateDTO;
+import com.oopsw.clario.dto.dashboard.MonthlyDTO;
 import com.oopsw.clario.dto.dashboard.Top3CategoryDTO;
 import com.oopsw.clario.dto.dashboard.TradeDTO;
 import org.junit.jupiter.api.Test;
@@ -40,10 +41,18 @@ public class DashboardServiceTest {
     }
 
     @Test
+    public void getIncomeSpending_True(){
+        MemberDateDTO memberDateDTO = MemberDateDTO.builder().memberId(1).yearDate("2024").monthDate("04").build();
+        MonthlyDTO incomeSpending = dashboardService.getIncomeSpending(memberDateDTO);
+        System.out.println(incomeSpending);
+    }
+
+    @Test
     public void getTargetAssets_True(){
         Long result = dashboardService.getTargetAssets(1);
         assertEquals(30000000,result);
     }
+
 
     @Test
     public void getTotalAssets_True(){

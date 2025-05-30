@@ -12,14 +12,14 @@ spring:
       client:
         registration:
           google:
-            client-id: 1010737984244-340me3k2h9tctbquqg7j4qsjp7ljeoge.apps.googleusercontent.com
-            client-secret: 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
+            client-id:
+            client-secret:
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - email
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://34.64.69.172:3306/clario?characterEncoding=UTF-8
+    url: 
     username: cla
     password: clapw
 
@@ -43,8 +43,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: xoqls5824@gmail.com
-    password: aihefganhwjgdfab
+    username:
+    password:
     properties:
       mail:
         smtp:

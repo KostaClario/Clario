@@ -14,6 +14,13 @@
 </head>
 <body>
 
+<!-- 사이드바 삽입 -->
+<aside th:replace="headerside :: sidebar"></aside>
+
+<!-- 상단바 삽입 (파라미터 넘기기) -->
+<header th:replace="headerside :: header(${memberId}, ${name})"></header>
+
+
 
     <main class="container">
         <h1>회원 탈퇴</h1>

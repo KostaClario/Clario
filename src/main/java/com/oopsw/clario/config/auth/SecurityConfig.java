@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
 
                                 // 계좌 카드 연동
-                                .requestMatchers("/mydataconnection", "/mybankandcardlist").authenticated()
+                                .requestMatchers("/myData/**").authenticated()
 
                                 // 통계
                                 .requestMatchers("/view/statistics", "/api/**").authenticated()

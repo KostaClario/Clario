@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @Builder
 public class MemberDateDTO {
-    private int memberId;
+    private Integer memberId;
     private String yearDate;
     private String monthDate;
     private String todayDate;

@@ -103,8 +103,15 @@ html, body, .wrapper {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: var(--purple3);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .profile-btn:hover {

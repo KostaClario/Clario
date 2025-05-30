@@ -52,6 +52,11 @@ public class MyDataController {
         List<MyCardDTO> cards = myDataService.getMyCardList(memberId);
         model.addAttribute("banks", banks);
         model.addAttribute("cards", cards);
+        model.addAttribute("pageTitle", "자산 조회");
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("name", member.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("contentFragment", "mydata/mybankandcardlist :: content");
 
         return "mydata/mybankandcardlist";
     }

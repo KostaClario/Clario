@@ -1,6 +1,7 @@
 package com.oopsw.clario.controller;
 
 import com.oopsw.clario.dto.dashboard.MemberDateDTO;
+import com.oopsw.clario.dto.dashboard.MonthlyDTO;
 import com.oopsw.clario.dto.dashboard.Top3CategoryDTO;
 import com.oopsw.clario.dto.dashboard.TradeDTO;
 import com.oopsw.clario.service.DashboardService;
@@ -14,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/dashboard")
-public class DashboardController {
+public class DashboardRestController {
 
     @Autowired
     private DashboardService dashboardService;
@@ -32,13 +33,18 @@ public class DashboardController {
         return dashboardService.getMonthlyExpense(memberDateDTO);
     }
 
+    @PostMapping("/monthly-ratio")
+    public MonthlyDTO getMonthlyRatio(@RequestBody MemberDateDTO memberDateDTO) {
+        return dashboardService.getIncomeSpending(memberDateDTO);
+    }
+
     @GetMapping("/target-assets/{memberId}")
-    public Long getTargetAssets(@PathVariable int memberId) {
+    public Long getTargetAssets(@PathVariable Integer memberId) {
         return dashboardService.getTargetAssets(memberId);
     }
 
     @GetMapping("/total-assets/{memberId}")
-    public Long getTotalAssets(@PathVariable int memberId) {
+    public Long getTotalAssets(@PathVariable Integer memberId) {
         return dashboardService.getTotalAssets(memberId);
     }
 

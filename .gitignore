@@ -1,14 +1,11 @@
 HELP.md
-target/
+#target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 #yml
-#!**/src/main/resources/application.yml
-# .gitignore
 */src/main/resources/application.yml
-
 ### STS ###
 .apt_generated
 .classpath

@@ -14,11 +14,12 @@
 </head>
 <body>
 
-<header th:replace="~{headerside :: header}"></header>
+<!-- 사이드바 삽입 -->
+<aside th:replace="headerside :: sidebar"></aside>
 
-<div class="layout">
+<!-- 상단바 삽입 (파라미터 넘기기) -->
+<header th:replace="headerside :: header(${memberId}, ${name})"></header>
 
-    <aside th:replace="~{headerside :: sidebar}"></aside>
 
 
     <main class="container">
@@ -36,20 +37,42 @@
             </ol>
         </section>
 
-        <form th:action="@{/member/withdraw}" method="post" class="form-group">
-            <label for="pwd" class="sr-only">비밀번호</label>
+        <form th:action="@{/account/remove}" method="post" class="form-group">
+            <label for="password" class="sr-only">비밀번호</label>
             <input type="password"
-                   id="pwd"
+                   autocomplete="off"
+                   id="password"
                    name="password"
                    placeholder="비밀번호"
                    required />
+            <div th:if="${error}" th:text="${error}" style="color: red"></div>
+
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <p>정말로 탈퇴하시겠습니까?<br>이 작업은 되돌릴 수 없습니다.</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-cancel" onclick="closeConfirmModal()">취소</button>
+                        <button type="submit" class="btn btn-quit">확인</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="btn-group">
-                <button type="submit" class="btn btn-quit">회원 탈퇴</button>
-                <a th:href="@{/member/profile}" class="btn btn-cancel">취소</a>
+                <button type="button" class="btn btn-quit" onclick="openConfirmModal()">회원 탈퇴</button>
+                <a th:href="@{/account/edit}" class="btn btn-cancel">취소</a>
             </div>
         </form>
     </main>
 </div>
+
+    <script>
+        function openConfirmModal() {
+            document.getElementById("confirmModal").style.display = "block";
+        }
+
+        function closeConfirmModal() {
+            document.getElementById("confirmModal").style.display = "none";
+        }
+    </script>
 </body>
 </html>

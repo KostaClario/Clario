@@ -6,20 +6,18 @@
     <title>개인정보 수정</title>
 
     <!-- 아이콘 폰트 & 구글 폰트 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-          rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-          rel="stylesheet"/>
-
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/account-css/style.css}" />
 </head>
 <body>
-<header th:replace="~{headerside :: header}"></header>
 
-<div class="layout">
+<!-- 사이드바 삽입 -->
+<aside th:replace="headerside :: sidebar"></aside>
 
-    <aside th:replace="~{headerside :: sidebar}"></aside>
+<!-- 상단바 삽입 (파라미터 넘기기) -->
+<header th:replace="headerside :: header(${memberId}, ${name}, ${user})"></header>
+
 
 <main class="container">
     <section class="content">
@@ -27,36 +25,85 @@
             <i class="bi bi-person-circle" style="font-size:4rem; color:#6750A4;"></i>
         </div>
 
-        <!-- 표준 HTML form -->
-        <form action="#" method="post" class="form-edit">
+        <!-- 타임리프 form -->
+        <form th:action="@{/account/edit}" th:object="${updateForm}" method="post" class="form-edit">
+
+            <!-- 이메일 (읽기 전용) -->
             <div class="form-field" style="margin-bottom:16px; text-align:center;">
-                <input type="text" name="name" placeholder="이름" disabled/>
-            </div>
-            <div class="form-field" style="margin-bottom:16px; text-align:center;">
-                <input type="text" name="phone" placeholder="010-0000-0000" disabled/>
-            </div>
-            <div class="form-field" style="margin-bottom:16px; text-align:center;">
-                <input type="email" name="email" placeholder="user@example.com" disabled/>
-            </div>
-            <div class="form-field" style="margin:12px 0 4px; text-align:center;">
-                <input type="password" name="newPassword"
-                       placeholder="새 비밀번호 (영문·숫자·특수문자 8~16자)"
-                       minlength="8" maxlength="16"/>
-            </div>
-            <div class="form-field" style="margin:12px 0 4px; text-align:center;">
-                <input type="password" name="confirmPassword" placeholder="새 비밀번호 확인"/>
+                <input type="email" th:field="*{email}" readonly />
             </div>
 
+            <!-- 이름 (수정 가능) -->
+            <div class="form-field" style="margin-bottom:16px; text-align:center;">
+                <input type="text" th:field="*{name}" placeholder="이름" required />
+            </div>
+
+            <!-- 휴대폰 번호 (수정 가능, 숫자만) -->
+            <div class="form-field" style="margin-bottom:16px; text-align:center;">
+                <input type="text" th:field="*{phonenum}" placeholder="휴대폰 번호"
+                       class="phonenum-input" maxlength="13" required />
+            </div>
+
+            <!-- 새 비밀번호 -->
+            <div class="form-field" style="margin:12px 0 4px; text-align:center;">
+                <input type="password" th:field="*{newPassword}"
+                       placeholder="새 비밀번호 (영문·숫자·특수문자 8~16자)"
+                       minlength="8" maxlength="16" />
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="form-field" style="margin:12px 0 4px; text-align:center;">
+                <input type="password" th:field="*{confirmPassword}" placeholder="새 비밀번호 확인" />
+                <div th:if="${error}" th:text="${error}" style="color:red;"></div>
+            </div>
+
+            <a th:href="@{/account/remove}" class="btn" style="color: #ccc">회원탈퇴</a>
+
+
+
+
+            <!-- 버튼 -->
             <div class="btn-group" style="margin-top:32px; text-align:center;">
-                <button type="button" class="btn btn-cancel">취소</button>
+                <button type="button" class="btn btn-cancel" th:onclick="|window.location.href='@{/modal}'|">취소</button>
                 <button type="submit" class="btn btn-quit">수정 완료</button>
             </div>
+        </form>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">로그아웃</button>
         </form>
     </section>
 </main>
 
+<!-- 클라이언트 측 비밀번호 일치 확인 -->
 <script>
-    // 날짜 스크립트 등…
+    const form = document.querySelector('.form-edit');
+    form.addEventListener('submit', function (e) {
+        const pw = form.querySelector('[name="newPassword"]').value;
+        const confirm = form.querySelector('[name="confirmPassword"]').value;
+
+        if (pw && pw !== confirm) {
+            e.preventDefault();
+            alert("비밀번호가 일치하지 않습니다.");
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const phoneInput = document.querySelector('.phonenum-input');
+
+        phoneInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // 숫자만 남김
+
+            if (value.length < 4) {
+                e.target.value = value;
+            } else if (value.length < 8) {
+                e.target.value = value.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+            } else {
+                e.target.value = value.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
+            }
+        });
+    });
 </script>
+
 </body>
 </html>

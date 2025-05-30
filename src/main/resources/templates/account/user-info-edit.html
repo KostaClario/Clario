@@ -50,9 +50,11 @@
                 <div th:if="${error}" th:text="${error}" style="color:red;"></div>
             </div>
 
+            <a th:href="@{/account/remove}" class="btn" style="color: #ccc">회원탈퇴</a>
+
             <!-- 버튼 -->
             <div class="btn-group" style="margin-top:32px; text-align:center;">
-                <button type="button" class="btn btn-cancel" th:onclick="|window.location.href='@{/mypage}'|">취소</button>
+                <button type="button" class="btn btn-cancel" th:onclick="|window.location.href='@{/modal}'|">취소</button>
                 <button type="submit" class="btn btn-quit">수정 완료</button>
             </div>
         </form>

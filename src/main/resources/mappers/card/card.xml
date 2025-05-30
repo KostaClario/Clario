@@ -53,6 +53,25 @@
         </if>
     </select>
 
+    <select id="getTopCategoriesByAmount"
+            parameterType="map"
+            resultType="com.oopsw.clario.dto.statistics.Top3CategoriesDTO">
+        SELECT
+            ct.category_id AS categoryId,
+            c.category_name AS categoryName,
+            SUM(ct.card_trade_money) AS usageAmount
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+                 JOIN member m ON mc.member_id = m.member_id
+                 JOIN Category c ON ct.category_id = c.category_id
+        WHERE m.member_id = #{memberId}
+            AND YEAR(ct.card_trade_day) = #{year}
+          AND MONTH(ct.card_trade_day) = #{month}
+        GROUP BY ct.category_id, c.category_name
+        ORDER BY usageAmount DESC
+    </select>
+
+
 
 
 

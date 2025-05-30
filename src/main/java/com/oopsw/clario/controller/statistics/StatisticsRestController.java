@@ -1,6 +1,7 @@
 package com.oopsw.clario.controller.statistics;
 
 import com.oopsw.clario.dto.statistics.*;
+import com.oopsw.clario.dto.statistics.MonthlyExpenseComparisonDTO;
 import com.oopsw.clario.service.statistics.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -67,5 +68,30 @@ public class StatisticsRestController {
     public List<MonthlyExpenseAverageDTO> getMonthlyExpenseAverage(@RequestParam Long memberId) {
         return statisticsService.getMonthlyExpenseAverage(memberId);
     }
+
+    @GetMapping("/top-category-stats")
+    public ResponseEntity<CategoryStatisticsDTO> getTopCategoryStats(
+            @RequestParam Long memberId,
+            @RequestParam Long year,
+            @RequestParam Long month) {
+        return ResponseEntity.ok(statisticsService.getCategoryStatistics(memberId, year, month));
+    }
+
+    @GetMapping("/expense/growth")
+    public ResponseEntity<MonthlyExpenseComparisonDTO> getMonthlyExpenseGrowth(
+            @RequestParam Long memberId,
+            @RequestParam Long year,
+            @RequestParam Long month) {
+        return ResponseEntity.ok(statisticsService.getMonthlyExpenseComparison(memberId, year, month));
+    }
+
+    @GetMapping("/income-vs-expense")
+    public ResponseEntity<IncomeVsExpenseDTO> getIncomeVsExpense(
+            @RequestParam Long memberId,
+            @RequestParam Long year,
+            @RequestParam Long month) {
+        return ResponseEntity.ok(statisticsService.getIncomeVsExpense(memberId, year, month));
+    }
+
 }
 

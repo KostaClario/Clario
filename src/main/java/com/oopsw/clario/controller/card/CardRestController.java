@@ -2,6 +2,9 @@ package com.oopsw.clario.controller.card;
 
 import com.oopsw.clario.dto.card.AllCardsDTO;
 import com.oopsw.clario.dto.card.CardFilterRequestDTO;
+import com.oopsw.clario.dto.statistics.CategoryStatisticsDTO;
+import com.oopsw.clario.dto.statistics.MonthlyExpenseComparisonDTO;
+import com.oopsw.clario.dto.statistics.Top3CategoriesDTO;
 import com.oopsw.clario.service.card.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,29 @@ public class CardRestController {
             filter.getCardType()
     );
     return ResponseEntity.ok(cards);
+    }
+
+    @GetMapping("/top-category-stats")
+    public ResponseEntity<CategoryStatisticsDTO> getCategoryStatistics(@RequestParam Long memberId,
+                                                                       @RequestParam Long year,
+                                                                       @RequestParam Long month) {
+        return ResponseEntity.ok(cardService.getCategoryStatistics(memberId, year, month));
+    }
+
+    @GetMapping("/monthly-expense")
+    public ResponseEntity<Long> getMonthlyExpenseSum(@RequestParam Long memberId,
+                                                     @RequestParam Long year,
+                                                     @RequestParam Long month) {
+        Long totalExpense = cardService.getMonthlyExpenseSum(memberId, year, month);
+        return ResponseEntity.ok(totalExpense);
+    }
+
+    @GetMapping("/expense/growth")
+    public ResponseEntity<MonthlyExpenseComparisonDTO> getMonthlyExpenseGrowth(
+            @RequestParam Long memberId,
+            @RequestParam Long year,
+            @RequestParam Long month) {
+        return ResponseEntity.ok(cardService.getMonthlyExpenseComparison(memberId, year, month));
     }
 
 }

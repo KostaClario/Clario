@@ -24,14 +24,37 @@ public interface StatisticsRepository {
 
     // ✅ 현재 구조 유지 - 연간 데이터
     List<YearlyExpenseDTO> getYearlyTotalExpense(@Param("memberId") Long memberId);
+
     List<YearlyIncomeDTO> getYearlyIncomeFromCard(@Param("memberId") Long memberId);
+
     List<YearlyIncomeDTO> getYearlyIncomeFromAccount(@Param("memberId") Long memberId);
 
     // ✅ 현재 구조 유지 - 평균 데이터
     List<MonthlyIncomeAverageDTO> getMonthlyAverageIncome(@Param("memberId") Long memberId);
+
     List<MonthlyExpenseAverageDTO> getMonthlyExpenseAverage(@Param("memberId") Long memberId);
 
     MonthlyIncomeDTO getMonthlyIncome(@Param("memberId") Long memberId,
                                       @Param("year") Long year,
                                       @Param("month") Long month);
+
+    List<TopCategoryByCountDTO> getTopCategoriesByCount(@Param("memberId") Long memberId,
+                                                        @Param("year") Long year,
+                                                        @Param("month") Long month);
+
+    List<TopCategoryByAmountDTO> getTopCategoriesByAmount(@Param("memberId") Long memberId,
+                                                          @Param("year") Long year,
+                                                          @Param("month") Long month);
+
+    Long getMonthlyExpenseSum(@Param("memberId") Long memberId,
+                              @Param("year") Long year,
+                              @Param("month") Long month);
+
+
+    Long getMonthlyIncomeSum(@Param("memberId") Long memberId,
+                             @Param("year") Long year,
+                             @Param("month") Long month);
+
 }
+
+

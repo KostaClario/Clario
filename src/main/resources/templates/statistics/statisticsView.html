@@ -147,6 +147,8 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .section-title {
@@ -158,15 +160,17 @@
         .controls {
             display: flex;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .select {
-            padding: 6px 12px;
+            padding: 8px 16px;
             border: 1px solid #d1d5db;
             border-radius: 6px;
             background: white;
             font-size: 14px;
             cursor: pointer;
+            min-width: 80px;
         }
 
         .chart-container {
@@ -213,43 +217,9 @@
         }
 
         .line-chart-container {
-            height: 200px;
+            height: 320px;
             margin-bottom: 20px;
-        }
-
-        .progress-chart-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .progress-container {
-            text-align: center;
-        }
-
-        .progress-circle {
             position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 16px;
-        }
-
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: #6366f1;
-            pointer-events: none;
-        }
-
-        .progress-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 4px;
         }
 
         .stats-grid {
@@ -257,6 +227,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .stats-grid-trend {
@@ -290,6 +261,204 @@
             font-size: 16px;
             font-weight: 600;
             color: #333;
+        }
+
+        /* 분석 섹션 스타일 */
+        .analysis-section {
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .analysis-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .analysis-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .analysis-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .expense-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .expense-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .expense-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .metric-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .metric-description {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* 개선된 증감률 스타일 */
+        .growth-rate.positive {
+            color: #dc3545;
+        }
+
+        .growth-rate.negative {
+            color: #0d6efd;
+        }
+
+        .growth-rate.neutral {
+            color: #6c757d;
+        }
+
+        .metric-container.positive {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        }
+
+        .metric-container.negative {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .metric-container.neutral {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+
+        /* 수입대비 소비 비율 스타일 */
+        .ratio-value.low {
+            color: #10b981;
+        }
+
+        .ratio-value.medium {
+            color: #f59e0b;
+        }
+
+        .ratio-value.high {
+            color: #dc3545;
+        }
+
+        .metric-container.low {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+
+        .metric-container.medium {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .metric-container.high {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        }
+
+        /* 프로그레스 바 */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+
+        .progress-fill.low {
+            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+        }
+
+        .progress-fill.medium {
+            background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .progress-fill.high {
+            background: linear-gradient(90deg, #dc3545 0%, #ef4444 100%);
+        }
+
+        /* 차액 차트 스타일 */
+        .balance-chart-container {
+            height: 120px;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .balance-chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        /* 토글 버튼 */
+        .chart-toggle {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 16px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #6366f1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .bottom-section {
@@ -335,12 +504,17 @@
             font-size: 14px;
         }
 
+        /* 반응형 개선 */
         @media (max-width: 1200px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
             .stats-grid-bottom {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            .analysis-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
         }
 
@@ -363,6 +537,21 @@
             .stats-grid, .stats-grid-trend, .stats-grid-bottom {
                 grid-template-columns: 1fr;
             }
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .select {
+                flex: 1;
+                min-width: 0;
+            }
         }
 
         @media (max-width: 480px) {
@@ -375,6 +564,14 @@
             }
             .controls {
                 flex-direction: column;
+                gap: 8px;
+            }
+            .select {
+                width: 100%;
+            }
+            .chart-legend {
+                flex-direction: column;
+                gap: 12px;
             }
         }
     </style>
@@ -442,6 +639,60 @@
                         <div class="stat-value" id="topCategories">로딩중...</div>
                     </div>
                 </div>
+
+                <!-- 분석 섹션 -->
+                <div class="analysis-section">
+                    <div class="analysis-grid">
+                        <!-- 전월대비 증감률 -->
+                        <div class="analysis-item">
+                            <div class="analysis-title">
+                                📊 전월대비 지출 분석
+                            </div>
+                            <div class="analysis-content">
+                                <div class="expense-row">
+                                    <span class="expense-label">이번 달</span>
+                                    <span class="expense-value" id="currentExpense">로딩중...</span>
+                                </div>
+                                <div class="expense-row">
+                                    <span class="expense-label">지난 달</span>
+                                    <span class="expense-value" id="previousExpense">로딩중...</span>
+                                </div>
+                                <div class="metric-container" id="growthRateContainer">
+                                    <div class="metric-value growth-rate" id="growthRate">
+                                        <span>계산중...</span>
+                                    </div>
+                                    <div class="metric-description">지난달 대비</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 수입대비 소비 비율 -->
+                        <div class="analysis-item">
+                            <div class="analysis-title">
+                                💰 수입대비 소비 비율
+                            </div>
+                            <div class="analysis-content">
+                                <div class="expense-row">
+                                    <span class="expense-label">당월 수입</span>
+                                    <span class="expense-value" id="currentIncome">로딩중...</span>
+                                </div>
+                                <div class="expense-row">
+                                    <span class="expense-label">당월 소비</span>
+                                    <span class="expense-value" id="currentExpenseRatio">로딩중...</span>
+                                </div>
+                                <div class="metric-container" id="ratioContainer">
+                                    <div class="metric-value ratio-value" id="ratioValue">
+                                        <span>계산중...</span>
+                                    </div>
+                                    <div class="metric-description">수입 대비 소비율</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <section class="section">
@@ -472,16 +723,6 @@
                         <div class="stat-value" id="minExpenseMonth">로딩중...</div>
                     </div>
                 </div>
-
-                <div class="progress-chart-container">
-                    <div class="progress-container">
-                        <div class="progress-circle">
-                            <canvas id="progressChart"></canvas>
-                            <div class="progress-text">0%</div>
-                        </div>
-                        <div class="progress-label">수입 대비 소비</div>
-                    </div>
-                </div>
             </section>
         </div>
 
@@ -497,8 +738,20 @@
                 </div>
             </div>
 
+            <!-- 차트 토글 -->
+            <div class="chart-toggle">
+                <button class="toggle-btn active" id="monthlyToggle">월별 추이</button>
+                <button class="toggle-btn" id="cumulativeToggle">누적 추이</button>
+            </div>
+
             <div class="area-chart-container">
                 <canvas id="monthlyChart"></canvas>
+            </div>
+
+            <!-- 수입/소비 차액 차트 -->
+            <div class="balance-chart-container">
+                <div class="balance-chart-title">월별 수입-소비 차액</div>
+                <canvas id="balanceChart"></canvas>
             </div>
 
             <div class="chart-legend">
@@ -509,6 +762,14 @@
                 <div class="chart-legend-item">
                     <div class="chart-legend-color" style="background: #ff6b6b;"></div>
                     <span>💸 소비</span>
+                </div>
+                <div class="chart-legend-item">
+                    <div class="chart-legend-color" style="background: #10b981;"></div>
+                    <span>💵 흑자</span>
+                </div>
+                <div class="chart-legend-item">
+                    <div class="chart-legend-color" style="background: #ef4444;"></div>
+                    <span>💸 적자</span>
                 </div>
             </div>
 
@@ -542,8 +803,8 @@
     const charts = {
         category: null,
         trend: null,
-        progress: null,
-        monthly: null
+        monthly: null,
+        balance: null
     };
 
     const config = {
@@ -557,6 +818,8 @@
         },
         colors: ['#4285f4', '#ff6b6b', '#ffa726', '#66bb6a', '#ab47bc', '#ff7043', '#26c6da', '#ffee58']
     };
+
+    let currentChartMode = 'monthly'; // 'monthly' or 'cumulative'
 
     // 유틸리티 함수
     const utils = {
@@ -596,6 +859,139 @@
                 promises.push(Promise.all([expensePromise, incomePromise]));
             }
             return await Promise.all(promises);
+        },
+
+        calculateChangeRate: (current, previous) => {
+            if (previous === 0) return 0;
+            return Math.round(((current - previous) / previous) * 100);
+        }
+    };
+
+    // 전월대비 증감률 로드
+    const loadExpenseGrowthRate = async (year, month) => {
+        try {
+            const response = await axios.get('/api/statistics/expense/growth', {
+                params: {
+                    memberId: config.memberId,
+                    year: year,
+                    month: month
+                },
+                timeout: config.timeout
+            });
+
+            const data = response.data;
+
+            document.getElementById('currentExpense').innerText = data.currentExpense.toLocaleString() + "원";
+            document.getElementById('previousExpense').innerText = data.previousExpense.toLocaleString() + "원";
+
+            const growthRate = data.growthRate;
+            const growthRateElement = document.getElementById('growthRate');
+            const growthRateContainer = document.getElementById('growthRateContainer');
+
+            // 개선된 아이콘 사용
+            let icon;
+            if (growthRate > 0) {
+                icon = '🔺';
+            } else if (growthRate < 0) {
+                icon = '🔻';
+            } else {
+                icon = '➖';
+            }
+
+            const growthText = (growthRate > 0 ? '+' : '') + growthRate + '%';
+            growthRateElement.innerHTML = `<span>${icon}</span><span>${growthText}</span>`;
+
+            growthRateElement.className = 'metric-value growth-rate';
+            growthRateContainer.className = 'metric-container';
+
+            if (growthRate > 0) {
+                growthRateElement.classList.add('positive');
+                growthRateContainer.classList.add('positive');
+            } else if (growthRate < 0) {
+                growthRateElement.classList.add('negative');
+                growthRateContainer.classList.add('negative');
+            } else {
+                growthRateElement.classList.add('neutral');
+                growthRateContainer.classList.add('neutral');
+            }
+
+        } catch (error) {
+            console.error('증감률 정보 불러오기 실패:', error.message);
+
+            // 에러 메시지 표시
+            document.getElementById('currentExpense').textContent = '데이터 없음';
+            document.getElementById('previousExpense').textContent = '데이터 없음';
+
+            const growthRateElement = document.getElementById('growthRate');
+            const growthRateContainer = document.getElementById('growthRateContainer');
+
+            growthRateElement.innerHTML = '<span>데이터 없음</span>';
+            growthRateElement.className = 'metric-value growth-rate neutral';
+            growthRateContainer.className = 'metric-container neutral';
+        }
+    };
+
+    // 수입대비 소비 비율 로드
+    const loadIncomeVsExpense = async (year, month) => {
+        try {
+            const response = await axios.get('/api/statistics/income-vs-expense', {
+                params: {
+                    memberId: config.memberId,
+                    year: year,
+                    month: month
+                },
+                timeout: config.timeout
+            });
+
+            const data = response.data;
+
+            document.getElementById('currentIncome').innerText = data.income.toLocaleString() + "원";
+            document.getElementById('currentExpenseRatio').innerText = data.expense.toLocaleString() + "원";
+
+            const ratio = data.rate;
+            const ratioElement = document.getElementById('ratioValue');
+            const ratioContainer = document.getElementById('ratioContainer');
+
+            let icon, ratioClass;
+            if (ratio <= 70) {
+                icon = '😊';
+                ratioClass = 'low';
+            } else if (ratio <= 90) {
+                icon = '😐';
+                ratioClass = 'medium';
+            } else {
+                icon = '😰';
+                ratioClass = 'high';
+            }
+
+            ratioElement.innerHTML = `<span>${icon}</span><span>${ratio}%</span>`;
+
+            ratioElement.className = `metric-value ratio-value ${ratioClass}`;
+            ratioContainer.className = `metric-container ${ratioClass}`;
+
+            const progressFill = document.getElementById('progressFill');
+            progressFill.className = `progress-fill ${ratioClass}`;
+            setTimeout(() => {
+                progressFill.style.width = `${Math.min(ratio, 100)}%`;
+            }, 500);
+
+        } catch (error) {
+            console.error('수입대비 소비 비율 불러오기 실패:', error.message);
+
+            // 에러 메시지 표시
+            document.getElementById('currentIncome').textContent = '데이터 없음';
+            document.getElementById('currentExpenseRatio').textContent = '데이터 없음';
+
+            const ratioElement = document.getElementById('ratioValue');
+            const ratioContainer = document.getElementById('ratioContainer');
+            const progressFill = document.getElementById('progressFill');
+
+            ratioElement.innerHTML = '<span>데이터 없음</span>';
+            ratioElement.className = 'metric-value ratio-value neutral';
+            ratioContainer.className = 'metric-container neutral';
+
+            progressFill.className = 'progress-fill neutral';
+            progressFill.style.width = '0%';
         }
     };
 
@@ -648,7 +1044,6 @@
                 }
             });
 
-            // 범례 및 통계 업데이트
             const legendContainer = document.getElementById('categoryLegend');
             legendContainer.innerHTML = '';
             labels.forEach((label, index) => {
@@ -667,6 +1062,11 @@
 
             document.getElementById('totalExpense').textContent = total.toLocaleString() + '원';
             document.getElementById('topCategories').textContent = top3Categories || '데이터 없음';
+
+            await Promise.all([
+                loadExpenseGrowthRate(year, month),
+                loadIncomeVsExpense(year, month)
+            ]);
         },
 
         trend: async () => {
@@ -686,6 +1086,25 @@
             if (charts.trend) charts.trend.destroy();
 
             const ctx = document.getElementById('trendChart').getContext('2d');
+
+            // 최고점과 최저점 찾기
+            const maxValue = Math.max(...values);
+            const minValue = Math.min(...values);
+            const maxIndex = values.indexOf(maxValue);
+            const minIndex = values.indexOf(minValue);
+
+            // 포인트 색상 설정 (최고점은 빨강, 최저점은 파랑, 나머지는 기본)
+            const pointColors = values.map((value, index) => {
+                if (index === maxIndex) return '#dc3545';
+                if (index === minIndex) return '#0d6efd';
+                return '#4285f4';
+            });
+
+            const pointRadius = values.map((value, index) => {
+                if (index === maxIndex || index === minIndex) return 10;
+                return 6;
+            });
+
             charts.trend = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -698,10 +1117,13 @@
                         borderWidth: 3,
                         fill: true,
                         tension: 0,
-                        pointBackgroundColor: '#4285f4',
-                        pointBorderColor: '#4285f4',
-                        pointRadius: 6,
-                        pointHoverRadius: 8
+                        pointBackgroundColor: pointColors,
+                        pointBorderColor: pointColors,
+                        pointRadius: pointRadius,
+                        pointHoverRadius: values.map((value, index) => {
+                            if (index === maxIndex || index === minIndex) return 14;
+                            return 8;
+                        })
                     }]
                 },
                 options: {
@@ -718,71 +1140,18 @@
                         ...config.chartOptions.plugins,
                         tooltip: {
                             callbacks: {
-                                label: (context) => `소비: ${context.parsed.y.toLocaleString()}원`
-                            }
-                        }
-                    }
-                }
-            });
-
-            // 통계 업데이트
-            const total = values.reduce((sum, value) => sum + value, 0);
-            const average = Math.round(total / (values.length || 1));
-            const maxValue = Math.max(...values);
-            const minValue = Math.min(...values);
-            const maxIndex = values.indexOf(maxValue);
-            const minIndex = values.indexOf(minValue);
-            const maxMonth = data[maxIndex]?.tradeMonth.split('-')[1] + '월';
-            const minMonth = data[minIndex]?.tradeMonth.split('-')[1] + '월';
-
-            document.getElementById('avgExpense').textContent = average.toLocaleString() + '원';
-            document.getElementById('maxExpenseMonth').textContent = `${maxMonth} (${maxValue.toLocaleString()}원)`;
-            document.getElementById('minExpenseMonth').textContent = `${minMonth} (${minValue.toLocaleString()}원)`;
-
-            await chartCreators.progress(year);
-        },
-
-        progress: async (year) => {
-            const monthlyResults = await utils.getMonthlyData(year);
-
-            let totalYearlyIncome = 0;
-            let totalYearlyExpense = 0;
-
-            monthlyResults.forEach(([expenseData, incomeData]) => {
-                const monthlyIncome = incomeData?.totalIncome || 0;
-                totalYearlyIncome += monthlyIncome;
-
-                const monthlyExpenseTotal = expenseData?.reduce((sum, item) => {
-                    return sum + (parseInt(item.totalSpending) || 0);
-                }, 0) || 0;
-                totalYearlyExpense += monthlyExpenseTotal;
-            });
-
-            const ratio = totalYearlyIncome > 0 ? Math.round((totalYearlyExpense / totalYearlyIncome) * 100) : 0;
-
-            if (charts.progress) charts.progress.destroy();
-
-            const ctx = document.getElementById('progressChart').getContext('2d');
-            charts.progress = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [ratio, 100 - ratio],
-                        backgroundColor: ['#6366f1', '#e5e7eb'],
-                        borderWidth: 0,
-                        cutout: '80%'
-                    }]
-                },
-                options: {
-                    ...config.chartOptions,
-                    rotation: -90,
-                    circumference: 360,
-                    plugins: {
-                        ...config.chartOptions.plugins,
-                        tooltip: {
-                            callbacks: {
                                 label: (context) => {
-                                    return context.dataIndex === 0 ? `소비 비율: ${ratio}%` : `여유 비율: ${100 - ratio}%`;
+                                    const currentValue = context.parsed.y;
+                                    const previousValue = context.dataIndex > 0 ? values[context.dataIndex - 1] : 0;
+                                    const changeRate = utils.calculateChangeRate(currentValue, previousValue);
+
+                                    let changeText = '';
+                                    if (context.dataIndex > 0) {
+                                        const changeIcon = changeRate > 0 ? '🔺' : changeRate < 0 ? '🔻' : '➖';
+                                        changeText = `\n전월대비: ${changeIcon} ${changeRate > 0 ? '+' : ''}${changeRate}%`;
+                                    }
+
+                                    return `소비: ${currentValue.toLocaleString()}원${changeText}`;
                                 }
                             }
                         }
@@ -790,7 +1159,14 @@
                 }
             });
 
-            document.querySelector('.progress-text').textContent = ratio + '%';
+            const total = values.reduce((sum, value) => sum + value, 0);
+            const average = Math.round(total / (values.length || 1));
+            const maxMonth = data[maxIndex]?.tradeMonth.split('-')[1] + '월';
+            const minMonth = data[minIndex]?.tradeMonth.split('-')[1] + '월';
+
+            document.getElementById('avgExpense').textContent = average.toLocaleString() + '원';
+            document.getElementById('maxExpenseMonth').textContent = `${maxMonth} (${maxValue.toLocaleString()}원)`;
+            document.getElementById('minExpenseMonth').textContent = `${minMonth} (${minValue.toLocaleString()}원)`;
         },
 
         monthly: async () => {
@@ -812,17 +1188,39 @@
                 expenseData.push(monthlyExpenseTotal);
             });
 
+            // 차액 데이터 계산
+            const balanceData = incomeData.map((income, index) => income - expenseData[index]);
+
             if (charts.monthly) charts.monthly.destroy();
+            if (charts.balance) charts.balance.destroy();
 
             const ctx = document.getElementById('monthlyChart').getContext('2d');
+            const balanceCtx = document.getElementById('balanceChart').getContext('2d');
+
+            // 누적 데이터 계산
+            const cumulativeIncome = [];
+            const cumulativeExpense = [];
+            let incomeSum = 0;
+            let expenseSum = 0;
+
+            incomeData.forEach((income, index) => {
+                incomeSum += income;
+                expenseSum += expenseData[index];
+                cumulativeIncome.push(incomeSum);
+                cumulativeExpense.push(expenseSum);
+            });
+
+            const displayIncomeData = currentChartMode === 'monthly' ? incomeData : cumulativeIncome;
+            const displayExpenseData = currentChartMode === 'monthly' ? expenseData : cumulativeExpense;
+
             charts.monthly = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: months,
                     datasets: [
                         {
-                            label: '수입',
-                            data: incomeData,
+                            label: currentChartMode === 'monthly' ? '수입' : '누적 수입',
+                            data: displayIncomeData,
                             backgroundColor: 'rgba(66, 133, 244, 0.3)',
                             borderColor: '#4285f4',
                             borderWidth: 3,
@@ -835,8 +1233,8 @@
                             pointHoverRadius: 8
                         },
                         {
-                            label: '소비',
-                            data: expenseData,
+                            label: currentChartMode === 'monthly' ? '소비' : '누적 소비',
+                            data: displayExpenseData,
                             backgroundColor: 'rgba(255, 107, 107, 0.3)',
                             borderColor: '#ff6b6b',
                             borderWidth: 3,
@@ -891,6 +1289,55 @@
                 }
             });
 
+            // 차액 차트 생성
+            charts.balance = new Chart(balanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: '차액',
+                        data: balanceData,
+                        backgroundColor: balanceData.map(value =>
+                            value >= 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)'
+                        ),
+                        borderColor: balanceData.map(value =>
+                            value >= 0 ? '#10b981' : '#ef4444'
+                        ),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.parsed.y;
+                                    const status = value >= 0 ? '흑자' : '적자';
+                                    return `${status}: ${Math.abs(value).toLocaleString()}원`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            ticks: {
+                                callback: (value) => (value / 1000000) + 'M',
+                                color: '#666666',
+                                font: { size: 10 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#666666', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+
             // 통계 업데이트
             const totalIncome = incomeData.reduce((sum, val) => sum + val, 0);
             const totalExpense = expenseData.reduce((sum, val) => sum + val, 0);
@@ -914,6 +1361,21 @@
         chartCreators.category();
         chartCreators.trend();
         chartCreators.monthly();
+
+        // 토글 버튼 이벤트
+        document.getElementById('monthlyToggle').addEventListener('click', () => {
+            currentChartMode = 'monthly';
+            document.getElementById('monthlyToggle').classList.add('active');
+            document.getElementById('cumulativeToggle').classList.remove('active');
+            chartCreators.monthly();
+        });
+
+        document.getElementById('cumulativeToggle').addEventListener('click', () => {
+            currentChartMode = 'cumulative';
+            document.getElementById('cumulativeToggle').classList.add('active');
+            document.getElementById('monthlyToggle').classList.remove('active');
+            chartCreators.monthly();
+        });
 
         // 네비게이션 핸들러
         document.querySelectorAll('.nav-icon').forEach(icon => {

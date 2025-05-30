@@ -40,8 +40,13 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/join").permitAll()
 
                                 // OAuth2 관련
-
                                 .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+
+                                // 계좌 카드 연동
+                                .requestMatchers("/mydataconnection", "/mybankandcardlist").authenticated()
+
+                                // 통계
+                                .requestMatchers("/view/statistics", "/api/**").authenticated()
 
                                 // 인증 필요한 기능
                                 .requestMatchers("/modal", "/account/edit", "/account/remove",
@@ -52,7 +57,9 @@ public class SecurityConfig {
                 .logout(
                         (logoutConfig) -> logoutConfig
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/")
+                                .logoutSuccessUrl("/loginView")
+                                .invalidateHttpSession(true)
+                                .deleteCookies("JSESSIONID")
                 )
                 .oauth2Login(
                         (oauth2) -> oauth2

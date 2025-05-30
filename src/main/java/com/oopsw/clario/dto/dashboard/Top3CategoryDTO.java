@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @Builder
 public class Top3CategoryDTO {
-    private int memberId;
+    private Integer memberId;
     private String categoryName;
     private Long categoryMoney;
 }

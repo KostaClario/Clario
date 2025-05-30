@@ -1,353 +1,543 @@
-// 1. 날짜 표시 (today-date, today-date2)
-function updateDate() {
-    const today = new Date();
-    const days = ['일', '월', '화', '수', '목', '금', '토'];
-    const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
-    document.getElementById("today-date").textContent = formatted;
-    document.getElementById("today-date2").textContent = formatted;
-}
-updateDate();
+const today = new Date();
+const yyyy = today.getFullYear();
+const mm = String(today.getMonth() + 1).padStart(2, '0');
+const dd = String(today.getDate()).padStart(2, '0');
 
-// 2. 데이터 변수 (실제 API 연동 시 대체)
+// 브라우저 시간 기준으로 할당
 const userData = {
-    member_id: 1,
-    target_assets: null,
-    total_assets: 45000000,
-    monthlyIncome: { "1": 12300000 },
-    monthlyCardSpending: { "1": 4560000 },
-    topTodayCardTrades: [
-        { card_store_name: "스타벅스", card_trade_money: 1200000 },
-        { card_store_name: "이마트", card_trade_money: 800000 },
-        { card_store_name: "편의점", card_trade_money: 500000 },
-    ],
-    topAccountTrades: [
-        { account_source: "급여", account_trade_money: 4000000 },
-        { account_source: "이자", account_trade_money: 1500000 },
-        { account_source: "기타", account_trade_money: 500000 },
-    ],
-    topCategories: [
-        { category_name: "식비", money: 3000000 },
-        { category_name: "교통", money: 1500000 },
-        { category_name: "문화", money: 1200000 },
-    ],
-    monthlyCardTradeSum: { "1": 1200000, "2": 1500000, "3": 1800000, "4": 2000000, "5": 2500000 },
-    monthlyAccountTradeSum: { "1": 5000000, "2": 4700000, "3": 4500000, "4": 4800000, "5": 5100000 }
+    memberId: 4,
+    yearDate: yyyy.toString(),
+    monthDate: mm,
+    todayDate: `${yyyy}-${mm}-${dd}` // "YYYY-MM-DD" 형태의 문자열
 };
 
-// 3. 수입, 소비, 남은 금액 계산 (월 1월 기준 예시)
-const income = userData.monthlyIncome["1"] || 0;
-const spending = userData.monthlyCardSpending["1"] || 0;
-const remaining = income - spending;
-const spendingPercent = income > 0 ? ((spending / income) * 100).toFixed(1) : 0;
-
-// 4. 도넛 차트 중앙 텍스트 플러그인
-const centerTextPlugin = {
-    id: 'centerTextPlugin',
-    beforeDraw(chart) {
-        const { width, height, ctx } = chart;
-        ctx.restore();
-        const fontSize = (height / 150).toFixed(2);
-        ctx.font = `${fontSize}em sans-serif`;
-        ctx.textBaseline = "middle";
-
-        const text = `${spendingPercent}%`;
-        const textX = Math.round((width - ctx.measureText(text).width) / 2);
-        const textY = height / 2 + 15;
-
-        ctx.fillStyle = '#333';
-        ctx.fillText(text, textX, textY);
-        ctx.save();
-    }
-};
-
-// 5. 수입 vs 소비 도넛 차트 생성
-const ctx = document.getElementById('incomeSpendingChart').getContext('2d');
-new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['소비', '남은 금액'],
-        datasets: [{
-            data: [spending, remaining],
-            backgroundColor: ['#6750A4', '#EBE1F5'],
-            hoverOffset: 10
-        }]
-    },
-    options: {
-        responsive: true,
-        layout: { padding: { top: 0, bottom: 20 } },
-        plugins: {
-            title: { display: true, /* text: '이번달 수입 대비 소비 비율' */ },
-            tooltip: {
-                callbacks: {
-                    label(context) {
-                        const total = spending + remaining;
-                        const value = context.raw;
-                        const percent = ((value / total) * 100).toFixed(1);
-                        return `${context.label}: ${value.toLocaleString()}원 (${percent}%)`;
-                    }
-                }
-            }
-        }
-    },
-    plugins: [centerTextPlugin]
-});
-
-// 6. 월별 수입/소비 라인 차트
-const monthlyLabels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-
-// 실제 데이터 매핑 (1~5월 데이터, 이후 null)
-const monthlyIncomeArr = monthlyLabels.map((label, i) => {
-    const month = (i + 1).toString();
-    return userData.monthlyAccountTradeSum[month] ?? null;
-});
-const monthlySpendingArr = monthlyLabels.map((label, i) => {
-    const month = (i + 1).toString();
-    return userData.monthlyCardTradeSum[month] ?? null;
-});
-
-const lineCtx = document.getElementById('monthlyLineChart').getContext('2d');
-new Chart(lineCtx, {
-    type: 'line',
-    data: {
-        labels: monthlyLabels,
-        datasets: [
-            {
-                label: '수입',
-                data: monthlyIncomeArr,
-                borderColor: '#36A2EB',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                fill: false,
-                tension: 0.4,
-                spanGaps: false
-            },
-            {
-                label: '소비',
-                data: monthlySpendingArr,
-                borderColor: '#FF6384',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                fill: false,
-                tension: 0.4,
-                spanGaps: false
-            }
-        ]
-    },
-    options: {
-        responsive: false,
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label(context) {
-                        if (context.raw === null) return context.dataset.label + ': 데이터 없음';
-                        return `${context.dataset.label}: ${context.raw.toLocaleString()}원`;
-                    }
-                }
-            },
-            legend: { position: 'top' }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    callback(value) {
-                        return value.toLocaleString() + '원';
-                    }
-                }
-            }
-        }
-    }
-});
-
-// 7. 상위 3개 카테고리 파이 차트 (실제 데이터 기준)
-const categories = userData.topCategories;
-// 상위 3개 정렬 (이미 정렬됐으면 생략 가능)
-const top3Categories = categories.slice(0, 3);
-const totalCategorySum = top3Categories.reduce((acc, c) => acc + c.money, 0);
-const pieLabels = top3Categories.map(c => c.category_name);
-const pieData = top3Categories.map(c => c.money);
-
-const pieCtx = document.getElementById('top3PieChart').getContext('2d');
-new Chart(pieCtx, {
-    type: 'pie',
-    data: {
-        labels: pieLabels,
-        datasets: [{
-            data: pieData,
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            hoverOffset: 15
-        }]
-    },
-    options: {
-        responsive: false,
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label(context) {
-                        const value = context.raw;
-                        const percent = ((value / totalCategorySum) * 100).toFixed(1);
-                        return `${context.label}: ${value.toLocaleString()}원 (${percent}%)`;
-                    }
-                }
-            }
-        }
-    }
-});
-
-// 8. 목표 자산 대비 현황 도넛 차트 (AnyChart 활용)
-anychart.onDocumentReady(function () {
-    const target = userData.target_assets || 0;
-    const total = userData.total_assets || 0;
-    const remainingAssets = Math.max(target - total, 0);
-
-    const data = [
-        { x: "현재 자산", value: total },
-        { x: "목표까지 남은 금액", value: remainingAssets }
-    ];
-
-    const chart = anychart.pie(data);
-    chart.innerRadius('65%');
-    chart.labels().position("outside");
-    chart.legend(true);
-    chart.container("target-assets-chart");
-    chart.draw();
-});
-
-// 9. 목표 자산 모달 열기/닫기
-
-function updateTotalBalance() {
-    const totalBalanceElem = document.querySelector(".totalBalance");
-    if (totalBalanceElem) {
-        totalBalanceElem.textContent = userData.total_assets.toLocaleString() + "원";
-    }
+function updateDate() {
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const dateObj = new Date(userData.todayDate);
+    const dayName = days[dateObj.getDay()];
+    const formatted = `${userData.yearDate}/${userData.monthDate}/${dd} ${dayName}`;
+    document.getElementById("today-date").textContent = formatted;
 }
 
-let goalChartInstance = null;
+function formatCurrency(num) {
+    if (typeof num !== 'number' || isNaN(num)) {
+        console.warn('formatCurrency에 잘못된 값:', num);
+        return '0원';
+    }
+    return num.toLocaleString('ko-KR') + '원';
+}
 
-function renderGoalChart() {
-    if (!userData.target_assets || userData.target_assets <= 0) {
-        if (goalChartInstance) {
-            goalChartInstance.destroy();
-            goalChartInstance = null;
+function fetchTodayIncome() {
+    const requestData = {
+        memberId: userData.memberId,
+        todayDate: userData.todayDate
+    };
+    return axios.post('/api/dashboard/today-income', requestData)
+        .then(res => res.data)
+        .catch(err => {
+            console.error('오늘 수입 데이터 로딩 실패:', err);
+            return [];
+        });
+}
+
+function fetchTodayExpense() {
+    const requestData = {
+        memberId: userData.memberId,
+        todayDate: userData.todayDate
+    };
+    return axios.post('/api/dashboard/today-expense', requestData)
+        .then(res => res.data)
+        .catch(err => {
+            console.error('오늘 지출 데이터 로딩 실패:', err);
+            return [];
+        });
+}
+
+function renderTodayRecords(incomeList, expenseList) {
+    const incomeColumn = document.getElementById('income-column');
+    const expenseColumn = document.getElementById('expense-column');
+
+    incomeColumn.innerHTML = '';
+    expenseColumn.innerHTML = '';
+
+    incomeList.forEach(item => {
+        const category = item.accountSource || '분류없음';
+        const amount = Number(item.accountTradeMoney) || 0;
+
+        const span = document.createElement('span');
+        span.className = 'plus blue';
+        span.textContent = `${category} ${formatCurrency(amount)}`;
+        incomeColumn.appendChild(span);
+    });
+
+    expenseList.forEach(item => {
+        const category = item.cardStoreName || '분류없음';
+        const amount = Number(item.cardTradeMoney) || 0;
+
+        const span = document.createElement('span');
+        span.className = 'minus red';
+        span.textContent = `${category} ${formatCurrency(amount)}`;
+        expenseColumn.appendChild(span);
+    });
+}
+
+function displayMonthlyIncomeAndExpense() {
+    const requestData = {
+        memberId: userData.memberId,
+        yearDate: userData.yearDate,
+        monthDate: userData.monthDate
+    };
+
+    return axios.all([
+        axios.post('/api/dashboard/monthly-income', requestData),
+        axios.post('/api/dashboard/monthly-expense', requestData)
+    ])
+        .then(axios.spread((incomeRes, expenseRes) => {
+            const income = incomeRes.data;
+            const expense = expenseRes.data;
+
+            document.getElementById('montylyIncome').innerText = formatCurrency(income);
+            document.getElementById('montylyExpense').innerText = formatCurrency(expense);
+
+            return { income, expense };
+        }))
+        .catch(error => {
+            console.error("수입/소비 정보 로딩 실패:", error);
+        });
+}
+
+function drawIncomeSpendingChart(income, expense) {
+    let remaining = income - expense;
+    let isOver = false;
+
+    if (remaining < 0) {
+        isOver = true;
+        remaining = Math.abs(remaining);
+    }
+
+    let labels, data, backgroundColor;
+
+    if (isOver) {
+        labels = ['소비', '초과 금액'];
+        data = [income, remaining];
+        backgroundColor = ['#FF6B6B', '#D32F2F'];
+    } else {
+        labels = ['소비', '남은 금액'];
+        data = [expense, remaining];
+        backgroundColor = ['#6750A4', '#EBE1F5'];
+    }
+
+    const centerTextPlugin = {
+        id: 'centerTextPlugin',
+        beforeDraw(chart) {
+            const { width, height, ctx } = chart;
+            ctx.restore();
+            const fontSize = (height / 150).toFixed(2);
+            ctx.font = `${fontSize}em sans-serif`;
+            ctx.textBaseline = "middle";
+
+            const incomeSpending = ((expense / income) * 100) || 0;
+            const text = `${incomeSpending.toFixed(1)}%`;
+            const textX = Math.round((width - ctx.measureText(text).width) / 2);
+            const textY = height / 2 + 15;
+
+            ctx.fillStyle = isOver ? '#D32F2F' : '#333';
+            ctx.fillText(text, textX, textY);
+            ctx.save();
         }
-        document.getElementById("goal-stats").innerHTML = '';
-        return;
-    }
+    };
 
-    const current = userData.total_assets || 0;
-    const target = userData.target_assets;
-    const remaining = Math.max(target - current, 0);
-
-    const ctx = document.getElementById("goalChart").getContext("2d");
-
-    if (goalChartInstance) {
-        goalChartInstance.destroy();
-    }
-
-    const percentage = Math.min((current / target) * 100, 100).toFixed(1); // 소수점 1자리
-    const percent = ((current / target) * 100).toFixed(1); // 소수점 1자리까지 표시
-    document.getElementById("goal-stats").innerHTML =
-        `<div style="font-weight: bold; margin-top: 5px; ">목표 대비 ${percent}%</div>`+
-        `<div>${current.toLocaleString()} 원 / ${target.toLocaleString()} 원</div>`;
-    goalChartInstance = new Chart(ctx, {
+    const ctxRatio = document.getElementById('incomeSpendingChart').getContext('2d');
+    new Chart(ctxRatio, {
         type: 'doughnut',
         data: {
-            labels: ['현재 자산', '남은 금액'],
+            labels: labels,
             datasets: [{
-                data: [current, remaining],
-                backgroundColor: ['#36A2EB', '#EBE1F5'],
-                borderWidth: 0
+                data: data,
+                backgroundColor: backgroundColor,
+                hoverOffset: 10
             }]
         },
         options: {
-            rotation: -90,
-            circumference: 180,
-            cutout: '65%',
+            responsive: true,
+            layout: { padding: { top: 0, bottom: 20 } },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label(context) {
+                            const total = income;
+                            const value = context.raw;
+                            const percent = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: ${value.toLocaleString()}원 (${percent}%)`;
+                        }
+                    }
+                },
+            }
+        },
+        plugins: [centerTextPlugin]
+    });
+}
+// 상위 3개 카테고리 파이차트 그리기
+function fetchAndDrawTop3Category() {
+    const requestData = {
+        memberId: userData.memberId,
+        yearDate: userData.yearDate,
+        monthDate: userData.monthDate
+    };
+
+    return axios.post('/api/dashboard/top3-category', requestData)
+        .then(res => {
+            const data = res.data;
+
+            if (!Array.isArray(data) || data.length === 0) {
+                console.warn('상위 카테고리 데이터가 없습니다.');
+                return;
+            }
+
+            // categoryName 배열, categoryMoney 배열 생성
+            const labels = data.map(item => item.categoryName);
+            const values = data.map(item => item.categoryMoney);
+
+            // 전체 합계 구하기 (백분율 계산용)
+            const total = values.reduce((acc, val) => acc + val, 0);
+
+            // 백분율 라벨 만들기 (ex: 고정비 55.2%)
+            const labelsWithPercent = data.map(item => {
+                const percent = ((item.categoryMoney / total) * 100).toFixed(1);
+                return `${item.categoryName} ${percent}%`;
+            });
+
+            // 차트 그리기
+            const ctx = document.getElementById('top3PieChart').getContext('2d');
+
+            // 만약 이전에 차트가 그려졌다면 제거 (차트 겹침 방지)
+            if (window.top3PieChartInstance) {
+                window.top3PieChartInstance.destroy();
+            }
+
+            window.top3PieChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labelsWithPercent,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'], // 원하는 색상 3가지
+                        hoverOffset: 30,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label(context) {
+                                    const value = context.raw;
+                                    const percent = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${value.toLocaleString()}원 (${percent}%)`;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+        })
+        .catch(err => {
+            console.error('상위 카테고리 데이터 로딩 실패:', err);
+        });
+}
+
+function drawMonthlyChart(incomeData, expenseData) {
+    const ctx = document.getElementById('monthlyLineChart').getContext('2d');
+
+    // 기존 차트 인스턴스 제거 (중복 방지)
+    if (window.monthlyChartInstance) {
+        window.monthlyChartInstance.destroy();
+    }
+
+    window.monthlyChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            datasets: [
+                {
+                    label: '월별 수입',
+                    data: incomeData,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    tension: 0.3,
+                    fill: true
+                },
+                {
+                    label: '월별 소비',
+                    data: expenseData,
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    tension: 0.3,
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: false,
             plugins: {
                 legend: {
-                    display: true,
                     position: 'bottom'
                 },
-                // 중앙 텍스트 표시 플러그인
-                afterDraw: (chart) => {
-                    const {ctx, chartArea: {width, height}} = chart;
-                    ctx.save();
-
-                    const centerX = width / 2;
-                    const centerY = height / 2; // 일단 중앙으로 고정
-
-                    // 배경색이 흰색이면 글씨가 잘 보임
-                    ctx.font = 'bold 28px Arial';
-                    ctx.fillStyle = '#333';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(`${percentage}%`, centerX, centerY - 10);
-
-                    ctx.font = '16px Arial';
-                    ctx.fillStyle = '#666';
-                    ctx.fillText(`${current.toLocaleString()}원`, centerX, centerY + 20);
-
-                    ctx.restore();
+                title: {
+                    display: false
                 }
-
-
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString() + '원';
+                        }
+                    }
+                }
             }
         }
     });
-
 }
 
-const goalModal = document.getElementById("goal-modal");
-const openGoalBtn = document.getElementById("goal-button");
-const closeGoalBtn = document.getElementById("close-modal");
-const setGoalBtn = document.getElementById("set-modal");
-const goalInput = document.getElementById("goalInput");
+//목표자산
+document.addEventListener("DOMContentLoaded", async () => {
+    const memberId = userData.memberId;
+    try {
+        const [targetRes, totalRes] = await Promise.all([
+            axios.get(`/api/dashboard/target-assets/${memberId}`),
+            axios.get(`/api/dashboard/total-assets/${memberId}`)
+        ]);
 
-// 총자산 표시 업데이트 (모달 열 때마다 반영)
-function openGoalModal() {
-    updateTotalBalance();
-    goalInput.value = userData.target_assets ? userData.target_assets.toLocaleString() : "";
-    goalModal.style.display = "block";
+        const targetAssets = targetRes.data;
+        const totalAssets = totalRes.data;
+
+        if (!targetAssets || targetAssets === 0) {
+            // 목표 자산이 없을 때
+            document.getElementById("no-goal-message").style.display = "block";
+            document.getElementById("goal-chart-container").style.display = "none";
+        } else {
+            // 목표 자산이 있을 때
+            document.getElementById("no-goal-message").style.display = "none";
+            document.getElementById("goal-chart-container").style.display = "block";
+
+            const remaining = Math.max(targetAssets - totalAssets, 0);
+            const progress = Math.min((totalAssets / targetAssets) * 100, 100).toFixed(2);
+
+            drawGoalChart(totalAssets, remaining);
+
+            document.getElementById("goal-details").innerText =
+                `현재 자산: ${totalAssets.toLocaleString()}원 / 목표 자산: ${targetAssets.toLocaleString()}원\n달성률: ${progress}%`;
+        }
+    } catch (error) {
+        console.error("자산 정보를 불러오는 중 오류 발생:", error);
+    }
+});
+
+function drawGoalChart(achieved, remaining) {
+    const ctxGoal = document.getElementById("goalChart").getContext("2d");
+
+    const total = achieved + remaining;
+    const percentage = ((achieved / total) * 100).toFixed(1);
+    document.getElementById("goal-details").innerText = `${percentage}%`;
+
+    // 기존 차트 인스턴스가 존재하면 제거
+    if (window.goalChartInstance) {
+        window.goalChartInstance.destroy();
+    }
+
+    window.goalChartInstance = new Chart(ctxGoal, {
+        type: 'doughnut',
+        data: {
+            labels: ['달성 자산', '남은 자산'],
+            datasets: [{
+                data: [achieved, remaining],
+                backgroundColor: ['#4caf50', '#c8e6c9'],
+                hoverOffset: 20
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label(context) {
+                            const value = context.raw;
+                            const percent = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: ${value.toLocaleString()}원 (${percent}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
-openGoalBtn.addEventListener("click", openGoalModal);
+document.addEventListener('DOMContentLoaded', function () {
+    const goalButton = document.getElementById('goal-button');
+    const goalModal = document.getElementById('goal-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const totalBalanceElement = document.querySelector('.totalBalance');
+    const goalInput = document.getElementById('goalInput');
+    const saveGoalBtn = document.getElementById('save-goal-btn');
 
-closeGoalBtn.addEventListener("click", () => {
-    goalModal.style.display = "none";
-});
+    let totalAssets = 0; // 총자산 값을 저장할 변수
+    const memberId = userData.memberId;
 
-window.addEventListener("click", (e) => {
-    if (e.target === goalModal) {
-        goalModal.style.display = "none";
-    }
-});
-
-// 콤마 자동포맷팅 (숫자만 허용)
-goalInput.addEventListener("input", (e) => {
-    let value = e.target.value.replace(/[^0-9]/g, ''); // 숫자 외 제거
-    if (value) {
-        value = parseInt(value, 10).toLocaleString();
-    }
-    e.target.value = value;
-});
-
-// 목표 자산 저장 처리
-setGoalBtn.addEventListener("click", () => {
-    let rawValue = goalInput.value.replace(/,/g, '');
-    let newTarget = parseInt(rawValue, 10);
-
-    if (isNaN(newTarget) || newTarget <= 0) {
-        alert("목표 자산은 0원 이상 숫자여야 합니다.");
-        return;
+    // 총자산을 서버에서 가져와서 표시하는 함수 (axios 버전)
+    async function fetchTotalAssets() {
+        try {
+            const res = await axios.get(`/api/dashboard/total-assets/${memberId}`);
+            totalAssets = res.data;
+            totalBalanceElement.textContent = totalAssets.toLocaleString('ko-KR') + '원';
+        } catch (error) {
+            console.error("총자산 불러오기 실패:", error);
+            totalBalanceElement.textContent = '불러오기 실패';
+        }
     }
 
-    userData.target_assets = newTarget;
-    goalModal.style.display = "none";
-    alert(`새 목표 자산: ${newTarget.toLocaleString()}원 으로 저장 처리(예시)`);
+    // 입력값 유효성 검사 및 메시지 반환 함수
+    function validateGoalValue(inputStr) {
+        if (!inputStr || inputStr.trim() === '') {
+            return { valid: false, message: '목표 금액을 입력해주세요.' };
+        }
 
-    renderGoalChart();
+        // 콤마 제거 후 숫자 변환
+        const value = Number(inputStr.replace(/,/g, ''));
+        if (isNaN(value) || value <= 0) {
+            return { valid: false, message: '목표 금액을 올바른 숫자로 입력해주세요.' };
+        }
+
+        if (value < totalAssets) {
+            return { valid: false, message: '⚠️ 목표금액이 총자산보다 작습니다.' };
+        }
+
+        return { valid: true, value };
+    }
+
+    // 숫자만 입력되게 (음수, 문자 입력 방지)
+    goalInput.addEventListener('input', function () {
+        let value = this.value.replace(/[^0-9]/g, '');
+
+        if (value === '') {
+            this.value = '';
+            return;
+        }
+
+        this.value = Number(value).toLocaleString('ko-KR');
+    });
+
+    // 목표 금액 저장 버튼 클릭 이벤트
+    saveGoalBtn.addEventListener('click', async function () {
+        const inputStr = goalInput.value;
+        const validation = validateGoalValue(inputStr);
+
+        if (!validation.valid) {
+            alert(validation.message);
+            return;
+        }
+
+        try {
+            const res = await axios.post("/api/dashboard/target-assets", {
+                memberId: memberId,
+                targetAssets: validation.value
+            });
+
+            if (res.data === true) {
+                alert('✅ 목표금액이 설정되었습니다.');
+                goalModal.style.display = 'none';
+                location.reload();
+            } else {
+                alert("저장 실패 😢");
+            }
+        } catch (err) {
+            alert("에러 발생: " + err);
+        }
+    });
+
+    // 모달 열기 버튼
+    goalButton.addEventListener('click', async function () {
+        goalModal.style.display = 'block';
+        await fetchTotalAssets();
+        goalInput.value = '';
+    });
+
+    // 닫기 버튼
+    closeModalBtn.addEventListener('click', function () {
+        goalModal.style.display = 'none';
+    });
+
+    // 모달 외부 클릭 시 닫기
+    window.addEventListener('click', function (event) {
+        if (event.target === goalModal) {
+            goalModal.style.display = 'none';
+        }
+    });
 });
 
-// 페이지 로드 시 목표 자산 차트 렌더링
-window.addEventListener("DOMContentLoaded", () => {
-    renderGoalChart();
+
+// 대시보드 초기화 함수 (연도별 수입/지출 통합됨)
+function initDashboard() {
+    updateDate();
+
+    displayMonthlyIncomeAndExpense()
+        .then(({ income, expense }) => {
+            drawIncomeSpendingChart(income, expense);
+        })
+        .catch(err => {
+            console.error('대시보드 초기화 중 오류:', err);
+        });
+
+    Promise.all([fetchTodayIncome(), fetchTodayExpense()])
+        .then(([incomeList, expenseList]) => {
+            renderTodayRecords(incomeList, expenseList);
+        })
+        .catch(error => {
+            console.error('오늘의 수입/지출 렌더링 중 오류:', error);
+        });
+
+    fetchAndDrawTop3Category();
+
+    // 연도별 수입/소비 그래프 데이터 로드 추가
+    const requestData = {
+        memberId: userData.memberId,
+        yearDate: userData.yearDate
+    };
+
+    Promise.all([
+        axios.post("/api/dashboard/year-incomes", requestData),
+        axios.post("/api/dashboard/year-expenses", requestData)
+    ]).then(([incomeRes, expenseRes]) => {
+        const incomeData = Array(12).fill(0);
+        const expenseData = Array(12).fill(0);
+
+        incomeRes.data.forEach(item => {
+            const monthIndex = parseInt(item.accountTradeMonth) - 1;
+            incomeData[monthIndex] = item.accountTradeMoney;
+        });
+
+        expenseRes.data.forEach(item => {
+            const monthIndex = parseInt(item.cardTradeMonth) - 1;
+            expenseData[monthIndex] = item.cardTradeMoney;
+        });
+
+        drawMonthlyChart(incomeData, expenseData);
+    }).catch(err => {
+        console.error("연도별 수입/지출 데이터 요청 오류:", err);
+    });
+}
+
+// DOMContentLoaded 시점에 초기화 실행
+document.addEventListener('DOMContentLoaded', () => {
+    initDashboard();
 });
 

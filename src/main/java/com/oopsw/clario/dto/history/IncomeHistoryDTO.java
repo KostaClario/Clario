@@ -9,12 +9,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class IncomeDto {
+public class IncomeHistoryDTO {
     private String accountDay;
-    private String accountName;
+    private Long accountMoney;
     private String source;
-    private int accountMoney;
-    private String accountType;
+    private String bankAccountName;
     private String bankName;
-    private String bankAccountNum;
+    private String date;
 }

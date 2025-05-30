@@ -1,4 +1,4 @@
-package com.oopsw.clario.dto;
+package com.oopsw.clario.dto.history;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,14 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
-public class expenseHistoryDto {
+public class CardDetailDTO {
+    private String cardName;
+    private String cardType;
+    private String cardNum;
     private String cardDay;
+    private String cancelDay;
+    private Long cardMoney;
     private String cardStoreName;
-    private int cardMoney;
+    private String industry;
     private String businessNum;
     private String categoryName;
-    private String cardName;
 }

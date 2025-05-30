@@ -8,8 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface MyDataRepository {
-    public List<MyBankDTO> getMyBankConnection(String memberId);
-    public List<MyCardDTO> getMyCardConnection(String memberId);
-    public List<MyBankDTO> getMyBankList(String memberId);
-    public List<MyCardDTO> getMyCardList(String memberId);
+    public List<MyBankDTO> getMyBankConnection(int memberId);
+    public List<MyCardDTO> getMyCardConnection(int memberId);
+    public List<MyBankDTO> getMyBankList(int memberId);
+    public List<MyCardDTO> getMyCardList(int memberId);
 }

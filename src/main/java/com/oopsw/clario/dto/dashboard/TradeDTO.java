@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @Builder
 public class TradeDTO {
-    private int memberId;
+    private Integer memberId;
     private String cardStoreName;
     private Long cardTradeMoney;
     private String accountSource;

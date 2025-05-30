@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CLARIO 대시보드</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+<!--    <link rel="stylesheet" th:href="@{/css/style.css}" />-->
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:src="@{/js/dashboard.js}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
@@ -31,7 +32,7 @@
 <header class="topbar">
     <div class="topbar-center" id="today-date">날짜 로딩 중...</div>
     <div class="topbar-right">
-        <span th:text="${username} + '님'">사용자님</span>
+        <span >사용자님</span>
         <button class="logout-btn" onclick="logout()">로그아웃</button>
         <button class="profile-btn" onclick="openProfile()">
             <i class="bi bi-person"></i>
@@ -39,17 +40,16 @@
     </div>
 </header>
 
-<!-- 메인 콘텐츠 내용 넣을거면 content만 건드리기-->
 <main class="main">
     <div class="content">
         <div class="dashboard">
             <div class="income card">
                 <h3>이번달 수입</h3>
-                <h2 class="blue" th:text="${income} + '원'">5,122,000원</h2>
+                <h2 class="blue" id="montylyIncome">5,122,000원</h2>
             </div>
             <div class="expense card">
                 <h3>이번달 소비</h3>
-                <h2 class="red" th:text="${expense} + '원'">1,422,000원</h2>
+                <h2 class="red" id="montylyExpense">1,422,000원</h2>
             </div>
             <div class="ratio card">
                 <h3>이번달 수입 대비 소비</h3>
@@ -58,8 +58,11 @@
 
             <div class="goal card">
                 <h3>자산목표 대비 총자산</h3>
-                <canvas id="goalChart"></canvas>
-                <div id="goal-stats"></div>
+                <p id="no-goal-message" style="display: none;">🎯 목표자산을 설정해주세요!</p>
+                <div id="goal-chart-container" style="display: none;">
+                    <canvas id="goalChart" width="300" height="300"></canvas>
+                    <p id="goal-details"></p>
+                </div>
                 <button id="goal-button">자산목표 설정하기</button>
             </div>
 
@@ -68,7 +71,7 @@
                     <h3>자산 목표 설정</h3>
                     <div class="row">
                         <label for="goalInput">총자산</label>
-                        <p th:text="${totalBalance} + '원'" class="totalBalance">343440000원</p>
+                        <h3 class="totalBalance">총자산 로딩</h3>
                     </div>
                     <div class="row">
                         <label for="goalInput">자산목표</label>
@@ -80,37 +83,38 @@
 
                     <div class="button-group">
                         <button class="modal-button" id="close-modal">닫기</button>
-                        <button class="modal-button" id="set-modal">확인</button>
+                        <button class="modal-button" id="save-goal-btn">확인</button>
                     </div>
                 </div>
             </div>
 
 
             <div class="daily card2">
-                <h3 id="today-date2" class="card-title" th:text="${today}">2025/5/17 토</h3>
+                <h3 id="today-date2" class="card-title" >오늘의 수입 및 소비</h3>
                 <div class="daily-box ">
                     <div class="record plus">
                         <p class="record-icon">+</p>
-                        <span class="plus blue" th:each="dailyIncome : ${todayIncomes}" th:text="'+' + ${dailyIncome}">블로그 수익 40,400원</span>
+                        <div id="income-column" class="record-column"></div>
                     </div>
                     <div class="record minus">
                         <p class="record-icon">-</p>
-                        <span class="minus red"  th:each="dailyExpense : ${todayExpenses}" th:text="'-' + ${dailyExpense}">세븐일레븐 6,000원</span>
+                        <div id="expense-column" class="record-column"></div>
                     </div>
                 </div>
             </div>
             <div class="category card">
-                <h3  th:text="${month} + '월 상위 카테고리'">5월 상위 카테고리</h3>
+                <h3  >5월 상위 카테고리</h3>
                 <canvas id="top3PieChart" width="250" height="250"></canvas>
             </div>
             <div class="graph card2">
-                <h3 th:text="${year} + '년 월별 수입 & 소비 추이'">2025년 월별 수입 & 소비 추이</h3>
+                <h3 >2025년 월별 수입 & 소비 추이</h3>
                 <canvas id="monthlyLineChart" width="950" height="290"></canvas>
-
             </div>
         </div>
     </div>
 </main>
+
+<!--<script src="js/chart-script.js" defer></script>-->
 
 </body>
 </html>

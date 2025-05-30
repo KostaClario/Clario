@@ -1,7 +1,6 @@
 package com.oopsw.clario.config.auth;
 
 import com.oopsw.clario.config.auth.authdto.OAuthAttributes;
-import com.oopsw.clario.config.auth.authdto.SessionUser;
 import com.oopsw.clario.domain.member.Member;
 import com.oopsw.clario.domain.member.MemberRepository;
 import com.oopsw.clario.domain.member.Role;

@@ -1,15 +1,17 @@
 package com.oopsw.clario.service;
 
 import com.oopsw.clario.dto.dashboard.MemberDateDTO;
+import com.oopsw.clario.dto.dashboard.MonthlyDTO;
 import com.oopsw.clario.dto.dashboard.Top3CategoryDTO;
 import com.oopsw.clario.dto.dashboard.TradeDTO;
 import com.oopsw.clario.repository.DashboardRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-
+@Slf4j
 @Service
 public class DashboardService {
     @Autowired
@@ -25,12 +27,29 @@ public class DashboardService {
         return (expense == null) ? 0L : expense;
     }
 
-    public Long getTargetAssets(int memberId) {
+    public MonthlyDTO getIncomeSpending(MemberDateDTO memberDateDTO) {
+        Long income = dashboardRepository.getMonthlyIncome(memberDateDTO);
+        Long expense = dashboardRepository.getMonthlyExpense(memberDateDTO);
+
+        income = income != null ? income : 0L;
+        expense = expense != null ? expense : 0L;
+
+        float percentage = 0f;
+
+        if (income > 0) {
+            percentage = Math.round(((float) expense / income) * 100 * 100) / 100f;
+        }
+        MonthlyDTO monthlyDTO = MonthlyDTO.builder().income(income).expense(expense).incomeSpending(percentage).build();
+
+        return monthlyDTO;
+    }
+
+    public Long getTargetAssets(Integer memberId) {
         Long target = dashboardRepository.getTargetAssets(memberId);
         return (target == null || target < 0) ? 0L : target;
     }
 
-    public Long getTotalAssets(int memberId) {
+    public Long getTotalAssets(Integer memberId) {
         Long total = dashboardRepository.getTotalAssets(memberId);
         return (total == null || total < 0) ? 0L : total;
     }

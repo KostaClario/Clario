@@ -12,8 +12,8 @@ import java.util.List;
 public interface DashboardRepository {
     public Long getMonthlyIncome(MemberDateDTO memberDateDTO);
     public Long getMonthlyExpense(MemberDateDTO memberDateDTO);
-    public Long getTargetAssets(int memberId);
-    public Long getTotalAssets(int memberId);
+    public Long getTargetAssets(Integer memberId);
+    public Long getTotalAssets(Integer memberId);
     public boolean addTargetAssets(HashMap<String, Object> targetAssets);
     public List<TradeDTO> getTodayExpense(MemberDateDTO memberDateDTO);
     public List<TradeDTO> getTodayIncome(MemberDateDTO memberDateDTO);

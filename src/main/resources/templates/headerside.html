@@ -32,7 +32,9 @@
     <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
     <div class="topbar-right">
         <span th:text="${name} + '님'">사용자님</span>
-        <button th:href="@{/logout}" class="logout-btn" onclick="logout()">로그아웃</button>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">로그아웃</button>
+        </form>
         <!-- 프로필 버튼 + 드롭다운 -->
         <div class="profile-container" onclick="this.classList.toggle('hover')">
             <button class="profile-btn">

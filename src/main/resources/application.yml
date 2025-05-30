@@ -1,5 +1,5 @@
 server:
-  port: 8881
+  port: 8883
   servlet:
     session:
       tracking-modes: cookie

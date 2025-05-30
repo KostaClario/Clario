@@ -149,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
         loadCategoryFromDB(); // ✅ 호출만
     });
     function loadCardsFromDB() {
-        const memberId = 1;
         cardList.innerHTML = ""; // 초기화
 
         axios.get(`/api/card/${memberId}`)
@@ -196,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedCategory,
             selectedCard
         });
-        const memberId = 1;
+
         const params = {};
 
         if (selectedDate) {
@@ -210,8 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (selectedType === "income") {
-            axios.get(`/api/incomeHistory/${memberId}`, { params })
+            axios.get(`/api/incomeHistory`, { params })
                 .then(response => {
+                    console.log("🟢 수신된 응답:", response.data);
                     const incomeBody = document.getElementById("income-body");
                     incomeBody.innerHTML = "";
                     response.data.forEach(item => {
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
         } else if (selectedType === "expense") {
-            axios.get(`/api/expenseHistory/${memberId}`, { params })
+            axios.get(`/api/expenseHistory`, { params })
                 .then(response => {
                     const expenseBody = document.getElementById("expense-body");
                     expenseBody.innerHTML = "";
@@ -252,12 +252,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
     }
-    document.querySelectorAll(".detail-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const cardTradeId = this.getAttribute("data-id");
+    document.getElementById("expense-body").addEventListener("click", function (e) {
+        if (e.target.classList.contains("detail-btn")) {
+            const cardTradeId = e.target.getAttribute("data-id");
             detailModal(cardTradeId);
-        });
+        }
     });
+
     // 가장 바깥에서 선언 (DOMContentLoaded 바깥 또는 window에 직접 등록)
     window.detailModal = function(cardTradeId) {
         const modal = document.getElementById("detailModal");
@@ -288,22 +289,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function loadAccounts() {
-        const memberId = 1;
-        axios.get(`/api/account/${memberId}`)
+        axios.get("/api/account")  // ❌ params 없이 호출
             .then(response => {
                 const select = document.getElementById("bankAccountSelect");
-                select.innerHTML = ""; // 초기화
+                select.innerHTML = "";
                 response.data.forEach(account => {
                     const option = document.createElement("option");
-                    option.value = account.bankAccountNum; // 서버로 보낼 값
-                    option.textContent = account.bankAccountName; // 사용자에게 보여줄 값
+                    option.value = account.bankAccountNum;
+                    option.textContent = account.bankAccountName;
                     select.appendChild(option);
                 });
             })
             .catch(error => {
                 console.error("계좌 목록 불러오기 실패", error);
             });
+
     }
+
+
     document.getElementById("saveIncomeBtn").addEventListener("click", () => {
         const dto = {
             accountDay: document.getElementById("incomeDate").value,
@@ -325,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
     function loadCards() {
-        const memberId = 1; // 로그인된 사용자 ID
+         // 로그인된 사용자 ID
         axios.get(`/api/card/${memberId}`)
             .then(response => {
                 const select = document.getElementById("expenseCard");

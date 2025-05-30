@@ -16,4 +16,9 @@ public class dashboardController {
         return "card/cardView";
     }
 
+    @GetMapping("/history")
+    public String history() {
+        return "history/history";
+    }
+
 }

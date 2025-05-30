@@ -1,10 +1,15 @@
 package com.oopsw.clario.controller.history;
 
 
+import com.oopsw.clario.config.auth.CustomOAuth2User;
+import com.oopsw.clario.domain.member.Member;
 import com.oopsw.clario.dto.history.*;
+import com.oopsw.clario.service.MemberService;
 import com.oopsw.clario.service.history.HistoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -12,49 +17,63 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class HistoryController {
-    @Autowired
-    HistoryService historyService;
 
-    @GetMapping("/account/{memberId}")
-    public List<Map<String, Object>> accountList(@PathVariable int memberId) {
+    private final HistoryService historyService;
+    private final MemberService memberService;
+
+    @GetMapping("/account")
+    public List<Map<String, Object>> accountList(@AuthenticationPrincipal CustomOAuth2User user) {
+        String email = user.getEmail();
+        Member member = memberService.getMemberByEmail(email);
+        Integer memberId = member.getMemberId();
+
         return historyService.accountList(memberId);
     }
 
-    @GetMapping("/card/{memberId}")
-    public List<Map<String, Object>> cardList(@PathVariable int memberId) {
-        System.out.println("------카드 컨트롤러-------");
+    @GetMapping("/card")
+    public List<Map<String, Object>> cardList(@AuthenticationPrincipal CustomOAuth2User user) {
+        String email = user.getEmail();
+        Member member = memberService.getMemberByEmail(email);
+        Integer memberId = member.getMemberId();
         return historyService.cardList(memberId);
     }
 
-    @GetMapping("/cardDetail/{memberId}")
-    public List<CardDetailDTO> cardDetail(@PathVariable int memberId) {
-        System.out.println("------컨트롤러------");
+    @GetMapping("/cardDetail")
+    public List<CardDetailDTO> cardDetail(@AuthenticationPrincipal CustomOAuth2User user) {
+        String email = user.getEmail();
+        Member member = memberService.getMemberByEmail(email);
+        Integer memberId = member.getMemberId();
         return historyService.cardDetail(memberId);
     }
 
-    @GetMapping("/incomeHistory/{memberId}")
-    public List<IncomeHistoryDTO> incomeHistory(@PathVariable int memberId,
+    @GetMapping("/incomeHistory")
+    public List<IncomeHistoryDTO> incomeHistory(@AuthenticationPrincipal CustomOAuth2User user,
                                                 @RequestParam(required = false) String date) {
+        Integer memberId = memberService.getMemberByEmail(user.getEmail()).getMemberId();
+        System.out.println("컨트롤러");
         return historyService.incomeHistory(memberId, date);
     }
 
-    @GetMapping("/expenseHistory/{memberId}")
-    public List<ExpenseHistoryDTO> expenseHistory(
-            @PathVariable int memberId,
-            @RequestParam(required = false) String date,
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String card
-    ) {
+    @GetMapping("/expenseHistory")
+    public List<ExpenseHistoryDTO> expenseHistory(@AuthenticationPrincipal CustomOAuth2User user,
+                                                  @RequestParam(required = false) String date,
+                                                  @RequestParam(required = false) String category,
+                                                  @RequestParam(required = false) String card) {
         Map<String, Object> params = new HashMap<>();
-        params.put("memberId", memberId);
+        params.put("memberId", getMemberId(user));
         params.put("date", date);
         params.put("category", category);
         params.put("card", card);
         return historyService.expenseHistory(params);
     }
-
+    private Integer getMemberId(CustomOAuth2User user) {
+        String email = user.getEmail();
+        Member member = memberService.getMemberByEmail(email);
+        return member.getMemberId();
+    }
     @PostMapping("/income")
     public ResponseEntity<String> income(@RequestBody IncomeDTO dto) {
         int result = historyService.income(dto);

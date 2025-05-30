@@ -6,6 +6,7 @@ import com.oopsw.clario.repository.history.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,19 +15,24 @@ public class HistoryService {
     @Autowired
     private HistoryRepository historyRepository;
 
-    public List<Map<String, Object>> accountList(int memberId) {
+    public List<Map<String, Object>> accountList(Integer memberId) {
+        System.out.println("------계좌 서비스------");
         return historyRepository.accountList(memberId);
     }
-    public List<Map<String, Object>> cardList(int memberId) {
+    public List<Map<String, Object>> cardList(Integer memberId) {
         System.out.println("------카드 서비스-------");
         return historyRepository.cardList(memberId);
     }
-    public List<CardDetailDTO> cardDetail(int memberId) {
+    public List<CardDetailDTO> cardDetail(Integer memberId) {
         System.out.println("--------서비스--------");
         return historyRepository.cardDetail(memberId);
     }
-    public List<IncomeHistoryDTO> incomeHistory(int memberId, String date) {
-        return historyRepository.incomeHistory(memberId, date);
+    public List<IncomeHistoryDTO> incomeHistory(Integer memberId, String date) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberId", memberId);
+        params.put("date", date);
+        System.out.println(params+"서비스");
+        return historyRepository.incomeHistory(memberId);
     }
     public List<ExpenseHistoryDTO> expenseHistory(Map<String, Object> params) {
         return historyRepository.expenseHistory(params);

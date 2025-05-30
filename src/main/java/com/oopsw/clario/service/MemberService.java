@@ -4,7 +4,7 @@ package com.oopsw.clario.service;
 import com.oopsw.clario.domain.member.Member;
 import com.oopsw.clario.domain.member.MemberRepository;
 import com.oopsw.clario.domain.member.Role;
-import com.oopsw.clario.dto.MemberUpdateDTO;
+import com.oopsw.clario.dto.UpdateMemberDTO;
 import com.oopsw.clario.exception.EmailAlreadyExistsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void resetMemberInfo(String email, MemberUpdateDTO dto){
+    public void resetMemberInfo(String email, UpdateMemberDTO dto){
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 이메일"));
 
@@ -98,10 +98,7 @@ public class MemberService {
     public boolean checkPassword(String email, String password) {
         return memberRepository.findByEmail(email)
                 .map(member -> {
-                    System.out.println("입력된 비밀번호: " + password);
-                    System.out.println("DB 저장된 비밀번호: " + member.getPassword());
                     boolean result = passwordEncoder.matches(password, member.getPassword());
-                    System.out.println("비밀번호 일치 여부: " + result);
                     return result;
                 })
                 .orElse(false);

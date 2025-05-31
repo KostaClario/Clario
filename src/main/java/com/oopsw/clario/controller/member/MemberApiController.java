@@ -1,4 +1,4 @@
-package com.oopsw.clario.controller;
+package com.oopsw.clario.controller.member;
 
 
 import com.oopsw.clario.config.auth.CustomOAuth2User;

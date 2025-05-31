@@ -14,19 +14,19 @@ public class MyDataService {
     @Autowired
     private MyDataRepository myDataRepository;
 
-    public List<MyBankDTO> getMyBankConnection(@Param("memberId") String memberId) {
+    public List<MyBankDTO> getMyBankConnection(int memberId) {
         return myDataRepository.getMyBankConnection(memberId);
     }
 
-    public List<MyCardDTO> getMyCardConnection(String memberId) {
+    public List<MyCardDTO> getMyCardConnection(int memberId) {
         return myDataRepository.getMyCardConnection(memberId);
     }
 
-    public List<MyBankDTO> getMyBankList(String memberId) {
+    public List<MyBankDTO> getMyBankList(int memberId) {
         return myDataRepository.getMyBankList(memberId);
     }
 
-    public List<MyCardDTO> getMyCardList(String memberId) {
+    public List<MyCardDTO> getMyCardList(int memberId) {
         return myDataRepository.getMyCardList(memberId);
     }
 }

@@ -12,21 +12,21 @@ public class MyDataServiceTests {
 
     @Test
     public void testGetMyBankConnection() {
-        System.out.println(myDataService.getMyBankConnection("1"));
+        System.out.println(myDataService.getMyBankConnection(1));
     }
 
     @Test
     public void testGetMyCardConnection() {
-        System.out.println(myDataService.getMyCardConnection("1"));
+        System.out.println(myDataService.getMyCardConnection(1));
     }
 
     @Test
     public void testGetMyBankList() {
-        System.out.println(myDataService.getMyBankList("1"));
+        System.out.println(myDataService.getMyBankList(1));
     }
 
     @Test
     public void testGetMyCardList() {
-        System.out.println(myDataService.getMyCardList("1"));
+        System.out.println(myDataService.getMyCardList(1));
     }
 }

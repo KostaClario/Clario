@@ -11,22 +11,22 @@ public class MyDataRepositoryTests {
 
     @Test
     public void testGetMyBankConnection(){
-        System.out.println(myDataRepository.getMyBankConnection("1"));
+        System.out.println(myDataRepository.getMyBankConnection(1));
     }
 
     @Test
     public void testGetMyCardConnection(){
-        System.out.println(myDataRepository.getMyCardConnection("1"));
+        System.out.println(myDataRepository.getMyCardConnection(1));
     }
 
     @Test
     public void testGetMyBankList(){
-        System.out.println(myDataRepository.getMyBankList("1"));
+        System.out.println(myDataRepository.getMyBankList(1));
     }
 
     @Test
     public void testGetMyCardList(){
-        System.out.println(myDataRepository.getMyCardList("1"));
+        System.out.println(myDataRepository.getMyCardList(1));
     }
 
 

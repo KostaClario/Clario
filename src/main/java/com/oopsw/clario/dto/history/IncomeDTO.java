@@ -1,21 +1,22 @@
-package com.oopsw.clario.dto;
+package com.oopsw.clario.dto.history;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class incomeHistoryDto {
+public class IncomeDTO {
     private String accountDay;
-    private int accountMoney;
+    private String accountName;
     private String source;
-    private String bankAccountNum;
-    private String bankName;
+    private Long accountMoney;
     private String accountType;
+    private String bankName;
+    private String bankAccountName;
+    private String bankAccountNum;
+    private int CategoryId;
 }

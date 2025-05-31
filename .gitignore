@@ -3,7 +3,8 @@ HELP.md
 /target/
 
 #yml
-apllication.yml
+*/src/main/resources/application.yml
+
 ### STS ###
 .apt_generated
 .classpath

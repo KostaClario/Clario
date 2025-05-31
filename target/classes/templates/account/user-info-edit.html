@@ -8,15 +8,16 @@
     <!-- 아이콘 폰트 & 구글 폰트 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/bar.css}" />
     <link rel="stylesheet" th:href="@{/account-css/style.css}" />
 </head>
 <body>
 
 <!-- 사이드바 삽입 -->
-<aside th:replace="headerside :: sidebar"></aside>
+<aside th:replace="~{headerside :: sidebar}"></aside>
 
 <!-- 상단바 삽입 (파라미터 넘기기) -->
-<header th:replace="headerside :: header(${memberId}, ${name}, ${user})"></header>
+<div th:replace="~{headerside :: header}"></div>
 
 
 <main class="container">
@@ -67,10 +68,6 @@
                 <button type="button" class="btn btn-cancel" th:onclick="|window.location.href='@{/modal}'|">취소</button>
                 <button type="submit" class="btn btn-quit">수정 완료</button>
             </div>
-        </form>
-
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">로그아웃</button>
         </form>
     </section>
 </main>

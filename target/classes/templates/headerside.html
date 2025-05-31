@@ -2,11 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CLARIO 대시보드</title>
-    <link rel="stylesheet" th:href="@{/css/bar.css}"/>
+    <title>헤더와 사이드바</title>
 </head>
 <body>
+
 <!-- 사이드바 Fragment -->
 <aside th:fragment="sidebar" class="sidebar">
     <div class="logo">
@@ -29,49 +28,46 @@
 </aside>
 
 <!-- 상단바 Fragment -->
-<header th:fragment="header (memberId, name, user)" class="topbar">
+<header th:fragment="header" class="topbar">
     <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
+
     <div class="topbar-right">
-        <span th:text="${name} + '님'">사용자님</span>
+        <span th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
+        <span th:unless="${name != null}">로그인 사용자</span>
 
         <!-- 로그아웃 -->
         <form th:action="@{/logout}" method="post" id="logoutForm">
-            <button
-                    type="button" class="logout-btn"
-                    onclick="document.getElementById('logoutForm').submit();">
-                로그아웃
-            </button>
+            <button type="button" class="logout-btn"
+                    onclick="document.getElementById('logoutForm').submit();">로그아웃</button>
         </form>
 
         <!-- 프로필 사진 + 드롭다운 -->
         <div class="profile-container" onclick="this.classList.toggle('hover')">
             <button class="profile-btn">
-                <!-- 구글 프로필 사진이 있으면 img, 없으면 기본 아이콘 -->
-                <img th:if="${user.photo != null}"
-                     th:src="${user.photo}"
-                     alt="프로필 사진"
-                     class="profile-img"/>
-                <i th:if="${user.photo == null}" class="bi bi-person"></i>
+                <img th:if="${profile != null}" th:src="${profile}" alt="프로필" class="profile-img" />
+                <i th:if="${profile == null}" class="bi bi-person"></i>
             </button>
             <div class="profile-menu">
                 <button type="button" class="profile-menu-item"
                         th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
                     자산 조회
                 </button>
-                <button type="button"
-                        class="profile-menu-item"
+                <button type="button" class="profile-menu-item"
                         th:onclick="|window.location.href='@{/account/edit}'|">
                     정보 수정
                 </button>
             </div>
         </div>
     </div>
-    <script>
+
+    <!-- 날짜 표시 스크립트 -->
+    <script th:inline="javascript">
         const today = new Date();
         const days = ['일', '월', '화', '수', '목', '금', '토'];
         const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
         document.getElementById("today-date").textContent = formatted;
     </script>
 </header>
+
 </body>
 </html>

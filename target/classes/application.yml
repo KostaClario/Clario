@@ -17,6 +17,7 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - email
+              - profile
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://34.64.69.172:3306/clario?characterEncoding=UTF-8

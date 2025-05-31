@@ -17,5 +17,5 @@ public class ExpenseDTO {
     private String industry;
     private String cardType;
     private String categoryName;
-    private String cardNum;
+    private String cardName;
 }

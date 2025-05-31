@@ -41,12 +41,10 @@ public class HistoryController {
         return historyService.cardList(memberId);
     }
 
-    @GetMapping("/cardDetail")
-    public List<CardDetailDTO> cardDetail(@AuthenticationPrincipal CustomOAuth2User user) {
-        String email = user.getEmail();
-        Member member = memberService.getMemberByEmail(email);
-        Integer memberId = member.getMemberId();
-        return historyService.cardDetail(memberId);
+    @GetMapping("/cardDetail/{cardTradeId}")
+    public CardDetailDTO cardDetail(@PathVariable int cardTradeId) {
+        System.out.println("🟡 전달된 거래 ID: " + cardTradeId); // ✅ 찍어보기
+        return historyService.cardDetail(cardTradeId);
     }
 
     @GetMapping("/incomeHistory")

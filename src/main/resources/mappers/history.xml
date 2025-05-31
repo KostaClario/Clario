@@ -86,14 +86,17 @@
 	</select>
 
 <!-- 입금 내역 조회-->
-	<select id="incomeHistory" parameterType="int" resultType="com.oopsw.clario.dto.history.IncomeHistoryDTO">
-		SELECT at.account_trade_day as accountDay,
-			   mb.bank_name as bankName,
-			   at.account_source as source,
-			   at.account_trade_money as accountMoney
+	<select id="incomeHistory" parameterType="map" resultType="com.oopsw.clario.dto.history.IncomeHistoryDTO">
+		SELECT at.account_trade_day AS accountDay,
+		mb.bank_name AS bankName,
+		at.account_source AS source,
+		at.account_trade_money AS accountMoney
 		FROM AccountTrade at
-    JOIN MyBank mb ON at.bank_account_num = mb.bank_account_num
+		JOIN MyBank mb ON at.bank_account_num = mb.bank_account_num
 		WHERE mb.member_id = #{memberId}
+		<if test="date != null and date != ''">
+			AND at.account_trade_day LIKE CONCAT(#{date}, '%')
+		</if>
 		ORDER BY at.account_trade_day DESC
 	</select>
 
@@ -117,6 +120,7 @@
 	WHERE ct.card_trade_id = #{cardTradeId}
 	ORDER BY ct.card_trade_day DESC
 	</select>
+
 	<select id="categoryList" resultType="map">
 		SELECT category_id, category_name FROM Category
 	</select>

@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadCardsFromDB() {
         cardList.innerHTML = ""; // 초기화
 
-        axios.get(`/api/card/${memberId}`)
+        axios.get(`/api/card`)
             .then(response => {
                 const cards = response.data;
                 if (!cards || cards.length === 0) {
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (selectedType === "income") {
-            axios.get(`/api/incomeHistory`, { params })
+            axios.get(`/api/incomeHistory`, {params})
                 .then(response => {
                     console.log("🟢 수신된 응답:", response.data);
                     const incomeBody = document.getElementById("income-body");
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
         } else if (selectedType === "expense") {
-            axios.get(`/api/expenseHistory`, { params })
+            axios.get(`/api/expenseHistory`, {params})
                 .then(response => {
                     const expenseBody = document.getElementById("expense-body");
                     expenseBody.innerHTML = "";
@@ -252,12 +252,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
     }
-    document.getElementById("expense-body").addEventListener("click", function (e) {
-        if (e.target.classList.contains("detail-btn")) {
-            const cardTradeId = e.target.getAttribute("data-id");
-            detailModal(cardTradeId);
-        }
-    });
 
     // 가장 바깥에서 선언 (DOMContentLoaded 바깥 또는 window에 직접 등록)
     window.detailModal = function(cardTradeId) {
@@ -270,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(`/api/cardDetail/${cardTradeId}`)
             .then(response => {
                 const data = response.data;
+                console.log("🟢 상세 응답:", response.data);
                 modal.style.display = "flex";
 
                 document.getElementById("detail-card-name").value = data.cardName || "-";
@@ -328,8 +323,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
     function loadCards() {
-         // 로그인된 사용자 ID
-        axios.get(`/api/card/${memberId}`)
+        // 로그인된 사용자 ID
+        axios.get(`/api/card`)
             .then(response => {
                 const select = document.getElementById("expenseCard");
                 select.innerHTML = ""; // 초기화

@@ -13,13 +13,11 @@ public interface HistoryRepository {
 
     List<Map<String, Object>> cardList(Integer memberId);
 
-    List<CardDetailDTO> cardDetail(Integer memberId);
+    CardDetailDTO cardDetail(int cardTradeId);
 
     List<ExpenseHistoryDTO> expenseHistory(Map<String, Object> params);
 
-    List<IncomeHistoryDTO> incomeHistory(@Param("memberId") Integer memberId);
-
-
+    List<IncomeHistoryDTO> incomeHistory(Map<String, Object> income);
 
     int income(IncomeDTO dto);
 

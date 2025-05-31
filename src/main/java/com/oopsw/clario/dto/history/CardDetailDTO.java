@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class CardDetailDTO {
+    private int cardTradeId;
     private String cardName;
     private String cardType;
     private String cardNum;

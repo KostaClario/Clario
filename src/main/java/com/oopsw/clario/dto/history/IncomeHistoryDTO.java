@@ -16,4 +16,5 @@ public class IncomeHistoryDTO {
     private String bankAccountName;
     private String bankName;
     private String date;
+    private int memberId;
 }

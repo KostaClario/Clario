@@ -57,9 +57,9 @@ public class HistoryController {
 
     @GetMapping("/expenseHistory")
     public List<ExpenseHistoryDTO> expenseHistory(@AuthenticationPrincipal CustomOAuth2User user,
-                                                  @RequestParam(required = false) String date,
-                                                  @RequestParam(required = false) String category,
-                                                  @RequestParam(required = false) String card) {
+                                                  @RequestParam (required = false) String date,
+                                                  @RequestParam (required = false) String category,
+                                                  @RequestParam (required = false) String card) {
         Map<String, Object> params = new HashMap<>();
         params.put("memberId", getMemberId(user));
         params.put("date", date);

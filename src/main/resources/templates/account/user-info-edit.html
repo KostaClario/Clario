@@ -16,8 +16,7 @@
 <!-- 사이드바 삽입 -->
 <aside th:replace="~{headerside :: sidebar}"></aside>
 
-<!-- 상단바 삽입 (파라미터 넘기기) -->
-<div th:replace="~{headerside :: header}"></div>
+
 
 
 <main class="container">
@@ -104,6 +103,7 @@
         });
     });
 </script>
-
+<!-- 상단바 삽입 (파라미터 넘기기) -->
+<div th:replace="~{headerside :: header}"></div>
 </body>
 </html>

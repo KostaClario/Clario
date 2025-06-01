@@ -3,44 +3,40 @@
 <head>
     <meta charset="UTF-8"/>
     <title>헤더와 사이드바</title>
+    <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
 </head>
 <body>
 
-<!-- 사이드바 Fragment -->
+<!-- ✅ 사이드바 Fragment -->
 <aside th:fragment="sidebar" class="sidebar">
     <div class="logo">
         <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
     </div>
     <ul class="menu">
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/dashboard}'|">
+            <button class="menu-btn" th:onclick="|window.location.href='@{/dashboard}'|">
                 <i class="bi bi-house-door"></i>
             </button>
         </li>
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/view/statistics}'|">
+            <button class="menu-btn" th:onclick="|window.location.href='@{/view/statistics}'|">
                 <i class="bi bi-graph-up"></i>
             </button>
         </li>
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/history}'|">
+            <button class="menu-btn" th:onclick="|window.location.href='@{/history}'|">
                 <i class="bi bi-list-task"></i>
             </button>
         </li>
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/cards}'|">
+            <button class="menu-btn" th:onclick="|window.location.href='@{/cards}'|">
                 <i class="bi bi-credit-card"></i>
             </button>
         </li>
     </ul>
 </aside>
 
-
-<!-- 상단바 Fragment -->
+<!-- ✅ 상단바 Fragment -->
 <header th:fragment="header" class="topbar">
     <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
 
@@ -57,7 +53,7 @@
         <!-- 프로필 사진 + 드롭다운 -->
         <div class="profile-container" onclick="this.classList.toggle('hover')">
             <button class="profile-btn">
-                <img th:if="${profile != null}" th:src="${profile}" alt="프로필" class="profile-img" />
+                <img th:if="${profile != null}" th:src="${profile}" alt="프로필" class="profile-img"/>
                 <i th:if="${profile == null}" class="bi bi-person"></i>
             </button>
             <div class="profile-menu">
@@ -65,8 +61,7 @@
                         th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
                     자산 조회
                 </button>
-                <button type="button" class="profile-menu-item"
-                        th:onclick="|window.location.href='@{/account/edit}'|">
+                <button type="button" id="infoEditBtn" class="profile-menu-item">
                     정보 수정
                 </button>
             </div>
@@ -80,7 +75,32 @@
         const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
         document.getElementById("today-date").textContent = formatted;
     </script>
+
+    <div th:replace="~{account/modal :: allModals}"></div>
 </header>
+
+<script>
+    function openPwInputModal() {
+        document.getElementById('pwInputModal').style.display = 'flex';
+    }
+</script>
+
+<!-- ✅ 모달 포함 -->
+
+
+<!-- ✅ 스크립트는 반드시 마지막에 -->
+<script src="/js/modal.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const infoEditBtn = document.getElementById('infoEditBtn');
+        if (infoEditBtn) {
+            infoEditBtn.addEventListener('click', function () {
+                document.getElementById('pwInputModal').style.display = 'flex';
+            });
+        }
+    });
+</script>
 
 </body>
 </html>

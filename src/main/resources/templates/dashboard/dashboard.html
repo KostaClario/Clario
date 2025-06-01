@@ -25,16 +25,16 @@
     </div>
     <ul class="menu">
         <li>
-            <a class="menu-btn" href="/dashboard"><i class="bi bi-house-door"></i></a>
+            <a class="nav-icon active" href="/dashboard">🏠</a>
         </li>
         <li>
-            <a class="menu-btn" href="/statistics"><i class="bi bi-graph-up"></i></a>
+            <a class="nav-icon" href="/statistics">📈</a>
         </li>
         <li>
-            <a class="menu-btn" href="/history"><i class="bi bi-list-task"></i></a>
+            <a class="nav-icon" href="/history">☰</a>
         </li>
         <li>
-            <a class="menu-btn" href="/card"><i class="bi bi-credit-card"></i></a>
+            <a class="nav-icon" href="/card">💳</a>
         </li>
     </ul>
 </aside>
@@ -44,7 +44,7 @@
     <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
 
     <div class="topbar-right">
-        <span th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
+        <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
         <input type="hidden" id="memberId" th:value="${memberId}" />
         <span th:unless="${name != null}">로그인 사용자</span>
 
@@ -58,7 +58,7 @@
         <div class="profile-container" onclick="this.classList.toggle('hover')">
             <button class="profile-btn">
                 <img th:if="${profile != null}" th:src="${profile}" alt="프로필" class="profile-img" />
-                <i th:if="${profile == null}" class="bi bi-person"></i>
+                <i th:if="${profile == null}" class="bi user-avatar"></i>
             </button>
             <div class="profile-menu">
                 <button type="button" class="profile-menu-item"

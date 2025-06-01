@@ -194,12 +194,64 @@
         GROUP BY YEAR(at.account_trade_day), MONTH(at.account_trade_day)
     </select>
 
+    <!-- getTopCategoriesByCount : 횟수기준-->
+    <select id="getTopCategoriesByCount"
+            parameterType="map"
+            resultType="com.oopsw.clario.dto.statistics.TopCategoryByCountDTO">
+        SELECT
+            ct.category_id AS categoryId,
+            c.category_name AS categoryName,
+            COUNT(*) AS usageCount
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+                 JOIN member m ON mc.member_id = m.member_id
+                 JOIN Category c ON ct.category_id = c.category_id
+        WHERE m.member_id = #{memberId}
+            AND YEAR(ct.card_trade_day) = #{year}
+          AND MONTH(ct.card_trade_day) = #{month}
+        GROUP BY ct.category_id, c.category_name
+        ORDER BY usageCount DESC
+    </select>
 
+    <!-- getTopCategoriesByAmount : 금액기준 -->
+    <select id="getTopCategoriesByAmount"
+            parameterType="map"
+            resultType="com.oopsw.clario.dto.statistics.TopCategoryByAmountDTO">
+        SELECT
+            ct.category_id AS categoryId,
+            c.category_name AS categoryName,
+            SUM(ct.card_trade_money) AS totalAmount
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+                 JOIN member m ON mc.member_id = m.member_id
+                 JOIN Category c ON ct.category_id = c.category_id
+        WHERE m.member_id = #{memberId}
+            AND YEAR(ct.card_trade_day) = #{year}
+          AND MONTH(ct.card_trade_day) = #{month}
+        GROUP BY ct.category_id, c.category_name
+        ORDER BY totalAmount DESC
+    </select>
 
+    <!-- 월별 수입 합계 -->
+    <select id="getMonthlyIncomeSum" parameterType="map" resultType="long">
+        SELECT COALESCE(SUM(account_trade_money), 0)
+        FROM AccountTrade at
+        JOIN MyBank mb ON at.bank_account_num = mb.bank_account_num
+        WHERE mb.member_id = #{memberId}
+          AND at.account_trade_type = '입금'
+          AND YEAR(at.account_trade_day) = #{year}
+          AND MONTH(at.account_trade_day) = #{month}
+    </select>
 
-
-
-
-
+    <!-- 월별 지출 합계 -->
+    <select id="getMonthlyExpenseSum" parameterType="map" resultType="long">
+        SELECT COALESCE(SUM(account_trade_money), 0)
+        FROM AccountTrade at
+        JOIN MyBank mb ON at.bank_account_num = mb.bank_account_num
+        WHERE mb.member_id = #{memberId}
+          AND at.account_trade_type = '출금'
+          AND YEAR(at.account_trade_day) = #{year}
+          AND MONTH(at.account_trade_day) = #{month}
+    </select>
 
 </mapper>

@@ -30,7 +30,8 @@ aside {
 /* 메인 컨테이너 */
 .container {
     flex: 1;
-    max-width: 1500px;
+    width: 1000px;
+    height: 650px;
     margin: 40px auto;
     padding: 40px;
     background-color: var(--white);
@@ -50,18 +51,19 @@ aside {
 .notice h2 {
     font-size: 1.25rem;
     margin-bottom: 20px;
+    margin-left: 100px;
     color: #333;
 }
 
 .notice{
-    margin-left: 370px;
+    margin-left: 0px;
 }
 
 .notice-list {
     list-style: decimal inside;
     color: var(--gray-dark);
     line-height: 1.6;
-    margin-left: 20px;
+    margin-left: 100px;
     padding-left: 0;
 }
 

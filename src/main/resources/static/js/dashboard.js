@@ -6,7 +6,8 @@ const dd = String(today.getDate()).padStart(2, '0');
 
 // 브라우저 시간 기준으로 할당
 const userData = {
-    memberId: parseInt(memberId),
+    // memberId: parseInt(memberId),
+    memberId: 21,
     yearDate: yyyy.toString(),
     monthDate: mm,
     todayDate: `${yyyy}-${mm}-${dd}` // "YYYY-MM-DD" 형태의 문자열

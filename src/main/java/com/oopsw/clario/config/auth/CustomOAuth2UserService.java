@@ -57,7 +57,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             redirectUrl = "/privacy";
         }else{
             log.info("회원이므로 modal로 리디렉트");
-            redirectUrl = "/modal";
+            redirectUrl = "/account/edit";
         }
 
         log.info("CustomOAuth2UserService 실행됨");

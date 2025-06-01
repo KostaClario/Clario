@@ -46,7 +46,7 @@ public class SecurityConfig {
                                 .requestMatchers("/myData/**").authenticated()
 
                                 // 통계
-                                .requestMatchers("/api/**", "/statistics", "/card").authenticated()
+                                .requestMatchers("/api/**", "/statistics", "/card", "/dashboard").authenticated()
 
                                 // 인증 필요한 기능
                                 .requestMatchers("/modal", "/account/edit", "/account/remove",

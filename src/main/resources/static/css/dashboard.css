@@ -1,4 +1,11 @@
+.main {
+    margin-left: 100px; /* 사이드바 너비 */
+    margin-top: 70px;   /* 상단바 높이 */
+    padding: 20px;
+    overflow: visible;
+}
 .dashboard {
+    height: 100vh;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -23,46 +30,62 @@
 .red { color: #ef4444; }
 .card {
     background: white;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.daily{
+.daily {
     text-align: center;
-    padding: 1.5rem;
 }
 
-.daily-box{
+.daily-box {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 1rem;
     margin-top: 1rem;
     border-top: 1px solid #aaa;
-    padding-top: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .record {
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    min-height: 100px;
 }
 
 .record-icon {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    height: 30px;
 }
+
+.record-column {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 
 #incomeSpendingChart{
     width: 300px;
     height: 300px;
 }
-
+.ratio {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .card2 {
     background: white;
@@ -79,6 +102,7 @@
 
 #goal-button {
     padding: 5px 10px;
+    margin-top: 10px;
     font-size: 0.9rem;
     cursor: pointer;
     background-color: #B99EC4;
@@ -175,4 +199,11 @@
     font-weight: bold;
     margin-top: 5px;
     color: #B99EC4;
+}
+#goal-details {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    white-space: pre-line;
 }

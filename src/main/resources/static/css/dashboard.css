@@ -1,3 +1,9 @@
+.main {
+    margin-left: 100px; /* 사이드바 너비 */
+    margin-top: 70px;   /* 상단바 높이 */
+    padding: 20px;
+    overflow: visible;
+}
 .dashboard {
     height: 100vh;
     display: grid;
@@ -24,13 +30,14 @@
 .red { color: #ef4444; }
 .card {
     background: white;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .daily {

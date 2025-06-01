@@ -1,3 +1,4 @@
+const memberId = document.getElementById("memberId").value;
 const today = new Date();
 const yyyy = today.getFullYear();
 const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -5,7 +6,7 @@ const dd = String(today.getDate()).padStart(2, '0');
 
 // 브라우저 시간 기준으로 할당
 const userData = {
-    memberId: 4,
+    memberId: parseInt(memberId),
     yearDate: yyyy.toString(),
     monthDate: mm,
     todayDate: `${yyyy}-${mm}-${dd}` // "YYYY-MM-DD" 형태의 문자열
@@ -18,7 +19,13 @@ function updateDate() {
     const formatted = `${userData.yearDate}/${userData.monthDate}/${dd} ${dayName}`;
     document.getElementById("today-date").textContent = formatted;
 }
-
+function updateTopCategoryMonth() {
+    const month = today.getMonth() + 1;
+    document.getElementById("topCategoryMonth").textContent = `${month}월`;
+}
+function updateYearTitle() {
+    document.getElementById("currentYear").textContent = yyyy;
+}
 function formatCurrency(num) {
     if (typeof num !== 'number' || isNaN(num)) {
         console.warn('formatCurrency에 잘못된 값:', num);
@@ -539,5 +546,8 @@ function initDashboard() {
 // DOMContentLoaded 시점에 초기화 실행
 document.addEventListener('DOMContentLoaded', () => {
     initDashboard();
+    updateDate();
+    updateTopCategoryMonth();
+    updateYearTitle();
 });
 

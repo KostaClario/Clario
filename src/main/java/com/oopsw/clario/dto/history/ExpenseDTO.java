@@ -18,4 +18,5 @@ public class ExpenseDTO {
     private String cardType;
     private String categoryName;
     private String cardName;
+    private String cardNum;
 }

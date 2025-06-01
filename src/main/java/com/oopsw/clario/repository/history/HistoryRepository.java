@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Mapper
 public interface HistoryRepository {
-    List<Map<String, Object>> accountList(@Param("memberId") Integer memberId);
+    List<Map<String, Object>> accountList(Integer memberId);
 
     List<Map<String, Object>> cardList(Integer memberId);
 

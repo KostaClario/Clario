@@ -17,4 +17,6 @@ public class ExpenseHistoryDTO {
     private String categoryName;    // 카테고리 이름
     private String cardName;        // 카드 이름
     private int cardTradeId;
+    private int memberId;
+    private String date;
 }

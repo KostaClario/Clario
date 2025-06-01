@@ -322,6 +322,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("입금에 실패했습니다.");
             });
     });
+    function generateRandomBusinessNum() {
+        const part1 = String(Math.floor(100 + Math.random() * 900)); // 100~999
+        const part2 = String(Math.floor(10 + Math.random() * 90));   // 10~99
+        const part3 = String(Math.floor(10000 + Math.random() * 90000)); // 10000~99999
+        return `${part1}-${part2}-${part3}`;
+    }
     function loadCards() {
         // 로그인된 사용자 ID
         axios.get(`/api/card`)
@@ -351,8 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cardNum: document.getElementById("expenseCard").value,
             cardStoreName: document.getElementById("expenseStore").value,
             cardMoney: parseInt(document.getElementById("expenseAmount").value),
-            businessNum: "123-45-67890",
-            industry: "카페",
+            businessNum: generateRandomBusinessNum(),
             cardType: "승인",
             categoryName : document.getElementById("categorySelect").value
         };

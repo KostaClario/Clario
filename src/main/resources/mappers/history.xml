@@ -52,7 +52,7 @@
 		#{businessNum},
 		#{industry},
 		#{cardType},
-		(SELECT category_id FROM Category WHERE category_name = #{categoryName}),  <!-- 🔁 여기 변경 -->
+		(SELECT category_id FROM Category WHERE category_name = #{categoryName}),
 		#{cardNum}
 		)
 	</insert>

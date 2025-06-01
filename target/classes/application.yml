@@ -19,7 +19,7 @@ spring:
               - email
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://34.64.69.172:3306/clario?characterEncoding=UTF-8
+    url:
     username: cla
     password: clapw
 

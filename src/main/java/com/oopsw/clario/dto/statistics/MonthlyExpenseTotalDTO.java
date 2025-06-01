@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MonthlyExpenseTotalDTO {
-    private Long memberId;
+    private Integer memberId;
     private String name;
     private String tradeMonth;
     private int categoryId;

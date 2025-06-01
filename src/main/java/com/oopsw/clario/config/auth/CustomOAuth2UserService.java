@@ -56,8 +56,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             httpSession.setAttribute("oauthAttributes", attributes);
             redirectUrl = "/privacy";
         }else{
-            log.info("회원이므로 modal로 리디렉트");
-            redirectUrl = "/account/edit";
+            log.info("회원이므로 dashabord MainPage로 리디렉트");
+            redirectUrl = "/dashboard";
         }
 
         log.info("CustomOAuth2UserService 실행됨");

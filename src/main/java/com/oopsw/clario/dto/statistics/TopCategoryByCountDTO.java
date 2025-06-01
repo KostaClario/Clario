@@ -1,4 +1,4 @@
-package com.oopsw.clario.dto;
+package com.oopsw.clario.dto.statistics;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class accountDto {
-    private String cardName;
-    private String accountName;
-
+public class TopCategoryByCountDTO {
+    private Long categoryId;
+    private String categoryName;
+    private int usageCount;
 }

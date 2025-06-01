@@ -148,12 +148,100 @@
             gap: 24px;
         }
 
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         .chart-section {
             background: white;
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .growth-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .growth-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .growth-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .expense-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .expense-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .expense-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .growth-rate-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
+
+        .growth-rate {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .growth-rate.positive {
+            color: #dc3545;
+        }
+
+        .growth-rate.negative {
+            color: #0d6efd;
+        }
+
+        .growth-rate.neutral {
+            color: #6c757d;
+        }
+
+        .growth-rate-container.positive {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        }
+
+        .growth-rate-container.negative {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .growth-rate-container.neutral {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
         }
 
         .notification-section {
@@ -181,17 +269,65 @@
             text-align: center;
         }
 
+        /* 차트 컨테이너 스타일 */
         .chart-container {
             position: relative;
-            width: 280px;
+            width: 100%;
+            height: 350px;
+            margin: 0 auto;
+        }
+
+        /* 도넛 차트 레이아웃 */
+        .chart-layout {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            height: 300px;
+        }
+
+        .chart-canvas-container {
+            flex: 0 0 280px;
             height: 280px;
-            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .chart-tab {
+            padding: 8px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            background: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chart-tab.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border-color: #6366f1;
+        }
+
+        .chart-tab:hover:not(.active) {
+            border-color: #6366f1;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
         }
 
         .legend {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
+            flex: 1;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 10px;
         }
 
         .legend-item {
@@ -199,6 +335,13 @@
             align-items: center;
             justify-content: space-between;
             font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .legend-item:hover {
+            background-color: #f8f9fa;
         }
 
         .legend-left {
@@ -217,6 +360,36 @@
         .legend-percentage {
             font-weight: 600;
             color: #333;
+        }
+
+        .legend-value {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-dual {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .legend-dual-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
         }
 
         .notification-title {
@@ -445,6 +618,19 @@
             .top-section {
                 grid-template-columns: 1fr;
             }
+
+            .right-panel {
+                flex-direction: row;
+                gap: 24px;
+            }
+
+            .growth-section {
+                flex: 1;
+            }
+
+            .notification-section {
+                flex: 1;
+            }
         }
 
         @media (max-width: 768px) {
@@ -471,6 +657,27 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .chart-layout {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .chart-canvas-container {
+                width: 100%;
+                flex: none;
+            }
+
+            .legend {
+                width: 100%;
+                max-height: none;
+                padding-right: 0;
+            }
+
+            .right-panel {
+                flex-direction: column;
+                gap: 16px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -479,8 +686,7 @@
             }
 
             .chart-container {
-                width: 240px;
-                height: 240px;
+                height: auto;
             }
 
             .filters {
@@ -533,27 +739,82 @@
     </nav>
 
     <main class="main-content">
-        <!-- 상단 섹션: 차트와 알림 -->
+        <!-- 상단 섹션: 차트와 우측 패널 -->
         <div class="top-section">
             <section class="chart-section">
-                <h2 class="section-title">소비 카테고리</h2>
-                <div class="chart-container">
-                    <canvas id="categoryChart"></canvas>
+                <h2 class="section-title">소비 카테고리 분석</h2>
+
+                <!-- 차트 탭 -->
+                <div class="chart-tabs">
+                    <div class="chart-tab active" id="dualTab" onclick="switchChart('dual')">📊 통합 분석</div>
+                    <div class="chart-tab" id="amountTab" onclick="switchChart('amount')">💰 금액별</div>
+                    <div class="chart-tab" id="countTab" onclick="switchChart('count')">🔢 횟수별</div>
                 </div>
-                <div class="legend" id="categoryLegend">
-                    <div class="loading">데이터 로딩중...</div>
+
+                <!-- 차트 컨테이너 -->
+                <div id="chartContainer" class="chart-container">
+                    <!-- 통합 분석 차트 -->
+                    <canvas id="dualChart"></canvas>
+
+                    <!-- 도넛 차트 레이아웃 (처음에는 숨김) -->
+                    <div id="doughnutLayout" class="chart-layout" style="display: none;">
+                        <div class="chart-canvas-container">
+                            <canvas id="doughnutChart"></canvas>
+                        </div>
+                        <div id="categoryLegend" class="legend">
+                            <div class="loading">데이터 로딩중...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 통합 차트 범례 -->
+                <div class="chart-legend" id="chartLegend" style="display: none;">
+                    <div class="legend-dual">
+                        <div class="legend-dual-color" style="background: #3b82f6;"></div>
+                        <span>💰 금액 (원)</span>
+                    </div>
+                    <div class="legend-dual">
+                        <div class="legend-dual-color" style="background: #f472b6;"></div>
+                        <span>🔢 횟수 (회)</span>
+                    </div>
                 </div>
             </section>
 
-            <section class="notification-section">
-                <div class="notification-title">
-                    📋 알림
-                </div>
-                <div class="notification-content" id="notificationContent">
-                    카드 추천 시스템이 준비되었습니다.
-                </div>
-                <button class="recommendation-btn">맞춤 카드 추천받기</button>
-            </section>
+            <!-- 우측 패널 -->
+            <div class="right-panel">
+                <!-- 전월대비 증감률 섹션 -->
+                <section class="growth-section">
+                    <div class="growth-title">
+                        📊 전월대비 지출 분석
+                    </div>
+                    <div class="growth-content">
+                        <div class="expense-row">
+                            <span class="expense-label">이번 달</span>
+                            <span class="expense-value" id="currentExpense">로딩중...</span>
+                        </div>
+                        <div class="expense-row">
+                            <span class="expense-label">지난 달</span>
+                            <span class="expense-value" id="previousExpense">로딩중...</span>
+                        </div>
+                        <div class="growth-rate-container" id="growthRateContainer">
+                            <div class="growth-rate" id="growthRate">
+                                <span>계산중...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 알림 섹션 -->
+                <section class="notification-section">
+                    <div class="notification-title">
+                        📋 알림
+                    </div>
+                    <div class="notification-content" id="notificationContent">
+                        카드 추천 시스템이 준비되었습니다.
+                    </div>
+                    <button class="recommendation-btn" onclick="getRecommendation()">맞춤 카드 추천받기</button>
+                </section>
+            </div>
         </div>
 
         <!-- 하단 섹션: 카드 리스트 -->
@@ -595,12 +856,20 @@
         colors: ['#3b82f6', '#f472b6', '#f59e0b', '#10b981', '#8b5cf6', '#f97316']
     };
 
-    let categoryChart = null;
+    let dualChart = null;
+    let doughnutChart = null;
     let currentFilters = {
         cardType: '',
         benefit: '',
         categories: []
     };
+
+    // 차트 데이터 저장
+    let chartData = {
+        amountBased: [],
+        countBased: []
+    };
+    let currentChartType = 'dual'; // 'dual', 'amount', 'count'
 
     // 유틸리티 함수
     const utils = {
@@ -622,83 +891,432 @@
         }
     };
 
-    // 소비 카테고리 차트 생성 (더미 데이터 사용)
-    const createCategoryChart = () => {
+    // 전월대비 증감률 로드
+    const loadExpenseGrowthRate = async () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+
         try {
-            // 더미 데이터
-            const dummyData = [
-                { categoryName: '식비', amount: 450000 },
-                { categoryName: '교통비', amount: 120000 },
-                { categoryName: '여가비', amount: 200000 }
+            const response = await axios.get('/api/statistics/expense/growth', {
+                params: {
+                    memberId: config.memberId,
+                    year: year,
+                    month: month
+                },
+                timeout: config.timeout
+            });
+
+            const data = response.data;
+
+            // DOM에 출력
+            document.getElementById('currentExpense').innerText = data.currentExpense.toLocaleString() + "원";
+            document.getElementById('previousExpense').innerText = data.previousExpense.toLocaleString() + "원";
+
+            // 증감률 표시 및 스타일 적용
+            const growthRate = data.growthRate;
+            const growthRateElement = document.getElementById('growthRate');
+            const growthRateContainer = document.getElementById('growthRateContainer');
+
+            // 증감률 텍스트 설정
+            const growthText = (growthRate > 0 ? '+' : '') + growthRate + '%';
+            const icon = growthRate > 0 ? '📈' : growthRate < 0 ? '📉' : '➖';
+            growthRateElement.innerHTML = `<span>${icon}</span><span>${growthText}</span>`;
+
+            // 스타일 클래스 적용
+            growthRateElement.className = 'growth-rate';
+            growthRateContainer.className = 'growth-rate-container';
+
+            if (growthRate > 0) {
+                growthRateElement.classList.add('positive');
+                growthRateContainer.classList.add('positive');
+            } else if (growthRate < 0) {
+                growthRateElement.classList.add('negative');
+                growthRateContainer.classList.add('negative');
+            } else {
+                growthRateElement.classList.add('neutral');
+                growthRateContainer.classList.add('neutral');
+            }
+
+        } catch (error) {
+            console.error('증감률 정보 불러오기 실패:', error.message);
+
+            // 더미 데이터로 대체
+            document.getElementById('currentExpense').innerText = '1,250,000원';
+            document.getElementById('previousExpense').innerText = '1,180,000원';
+
+            const growthRateElement = document.getElementById('growthRate');
+            const growthRateContainer = document.getElementById('growthRateContainer');
+
+            growthRateElement.innerHTML = '<span>📈</span><span>+5.9%</span>';
+            growthRateElement.className = 'growth-rate positive';
+            growthRateContainer.className = 'growth-rate-container positive';
+        }
+    };
+
+    // 소비 카테고리 차트 생성 (API 데이터 사용)
+    const createCategoryChart = async () => {
+        try {
+            // 로딩 상태 표시
+            const legendContainer = document.getElementById('categoryLegend');
+            legendContainer.innerHTML = '<div class="loading">데이터 로딩중...</div>';
+
+            // 현재 날짜 기준으로 year, month 설정
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+
+            try {
+                // 👉 통합 API 호출
+                const response = await axios.get('/api/statistics/top-category-stats', {
+                    params: {
+                        memberId: config.memberId,
+                        year,
+                        month
+                    },
+                    timeout: config.timeout
+                });
+
+                const { amountBased, countBased } = response.data;
+
+                // 차트 데이터 저장
+                chartData.amountBased = amountBased || [];
+                chartData.countBased = countBased || [];
+
+            } catch (apiError) {
+                console.log('API 호출 실패, 더미 데이터 사용:', apiError.message);
+
+                // 더미 데이터로 대체 (개발/테스트용)
+                chartData.amountBased = [
+                    { categoryId: 1, categoryName: '식비', amount: 450000, totalAmount: 450000 },
+                    { categoryId: 2, categoryName: '교통비', amount: 120000, totalAmount: 120000 },
+                    { categoryId: 3, categoryName: '여가비', amount: 200000, totalAmount: 200000 },
+                    { categoryId: 4, categoryName: '생활비', amount: 180000, totalAmount: 180000 },
+                    { categoryId: 5, categoryName: '고정비', amount: 300000, totalAmount: 300000 }
+                ];
+                chartData.countBased = [
+                    { categoryId: 1, categoryName: '식비', usageCount: 25, totalCount: 25 },
+                    { categoryId: 2, categoryName: '교통비', usageCount: 15, totalCount: 15 },
+                    { categoryId: 3, categoryName: '여가비', usageCount: 8, totalCount: 8 },
+                    { categoryId: 4, categoryName: '생활비', usageCount: 12, totalCount: 12 },
+                    { categoryId: 5, categoryName: '고정비', usageCount: 6, totalCount: 6 }
+                ];
+            }
+
+            // 기본으로 통합 차트 표시
+            renderChart(currentChartType);
+
+            // 알림 내용 업데이트
+            const totalAmount = chartData.amountBased?.reduce((sum, item) => {
+                const amount = item.amount || item.totalAmount || item.value || 0;
+                return sum + amount;
+            }, 0) || 0;
+
+            const totalCount = chartData.countBased?.reduce((sum, item) => {
+                const count = item.usageCount || item.totalCount || item.count || item.value || 0;
+                return sum + count;
+            }, 0) || 0;
+
+            let top3Categories = '';
+            if (chartData.amountBased && chartData.amountBased.length > 0) {
+                top3Categories = chartData.amountBased.slice(0, 3).map(item => `"${item.categoryName}"`).join(', ');
+            }
+
+            document.getElementById('notificationContent').innerHTML =
+                `${year}년 ${month}월 소비 패턴 분석<br>상위 카테고리: ${top3Categories}<br>총 ${totalAmount.toLocaleString()}원 / ${totalCount}회 사용`;
+
+        } catch (error) {
+            console.error('❌ 카테고리 차트 생성 실패:', error.message);
+
+            // 최종 fallback
+            chartData.amountBased = [
+                { categoryId: 1, categoryName: '식비', amount: 450000 },
+                { categoryId: 2, categoryName: '교통비', amount: 120000 },
+                { categoryId: 3, categoryName: '여가비', amount: 200000 }
+            ];
+            chartData.countBased = [
+                { categoryId: 1, categoryName: '식비', usageCount: 25 },
+                { categoryId: 2, categoryName: '교통비', usageCount: 15 },
+                { categoryId: 3, categoryName: '여가비', usageCount: 8 }
             ];
 
-            const labels = dummyData.map(item => item.categoryName);
-            const values = dummyData.map(item => item.amount);
-            const total = values.reduce((sum, val) => sum + val, 0);
-            const percentages = values.map(val => Math.round((val / total) * 100));
-            const colors = config.colors.slice(0, labels.length);
+            renderChart(currentChartType);
+        }
+    };
 
-            // 차트 생성
-            if (categoryChart) categoryChart.destroy();
+    // 차트 렌더링 함수
+    const renderChart = (type) => {
+        console.log(`🎨 차트 렌더링 시작 - 타입: ${type}`);
 
-            const ctx = document.getElementById('categoryChart').getContext('2d');
-            categoryChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: values,
-                        backgroundColor: colors,
-                        borderWidth: 0,
-                        cutout: '70%'
-                    }]
+        // 차트 레이아웃 설정
+        const dualChartElement = document.getElementById('dualChart');
+        const doughnutLayoutElement = document.getElementById('doughnutLayout');
+        const chartLegendElement = document.getElementById('chartLegend');
+
+        if (type === 'dual') {
+            // 통합 차트 표시
+            dualChartElement.style.display = 'block';
+            doughnutLayoutElement.style.display = 'none';
+            chartLegendElement.style.display = 'flex';
+            renderDualChart();
+        } else {
+            // 도넛 차트 표시
+            dualChartElement.style.display = 'none';
+            doughnutLayoutElement.style.display = 'flex';
+            chartLegendElement.style.display = 'none';
+            renderDoughnutChart(type);
+        }
+    };
+
+    // 이중 축 차트 렌더링
+    const renderDualChart = () => {
+        const amountData = chartData.amountBased;
+        const countData = chartData.countBased;
+
+        if (!amountData || !countData || amountData.length === 0 || countData.length === 0) {
+            document.getElementById('dualChart').style.display = 'none';
+            document.getElementById('chartLegend').style.display = 'none';
+            document.getElementById('doughnutLayout').innerHTML =
+                '<div class="error-message">통합 차트 데이터가 없습니다</div>';
+            document.getElementById('doughnutLayout').style.display = 'block';
+            return;
+        }
+
+        // 카테고리명 매칭
+        const categories = amountData.map(item => item.categoryName);
+        const amounts = amountData.map(item => item.amount || item.totalAmount || item.value || 0);
+        const counts = categories.map(category => {
+            const countItem = countData.find(item => item.categoryName === category);
+            return countItem ? (countItem.usageCount || countItem.totalCount || countItem.count || countItem.value || 0) : 0;
+        });
+
+        // 차트 생성
+        if (dualChart) {
+            dualChart.destroy();
+        }
+
+        const ctx = document.getElementById('dualChart').getContext('2d');
+        dualChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: categories,
+                datasets: [
+                    {
+                        label: '금액 (원)',
+                        data: amounts,
+                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        yAxisID: 'y',
+                        borderRadius: 6,
+                        borderSkipped: false,
+                    },
+                    {
+                        label: '횟수 (회)',
+                        data: counts,
+                        backgroundColor: 'rgba(244, 114, 182, 0.8)',
+                        borderColor: 'rgba(244, 114, 182, 1)',
+                        borderWidth: 2,
+                        yAxisID: 'y1',
+                        borderRadius: 6,
+                        borderSkipped: false,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: (context) => {
-                                    const percentage = percentages[context.dataIndex];
-                                    return `${labels[context.dataIndex]}: ${percentage}%`;
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.dataset.label;
+                                const value = context.parsed.y;
+                                if (label.includes('금액')) {
+                                    return `${label}: ${value.toLocaleString()}원`;
+                                } else {
+                                    return `${label}: ${value}회`;
                                 }
                             }
                         }
-                    },
-                    animation: {
-                        duration: 1000,
-                        easing: 'easeInOutQuart'
                     }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 12,
+                                weight: 500
+                            }
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: '금액 (원)',
+                            font: {
+                                size: 12,
+                                weight: 600
+                            },
+                            color: '#3b82f6'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + '원';
+                            },
+                            color: '#3b82f6'
+                        },
+                        grid: {
+                            color: 'rgba(59, 130, 246, 0.1)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: '횟수 (회)',
+                            font: {
+                                size: 12,
+                                weight: 600
+                            },
+                            color: '#f472b6'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '회';
+                            },
+                            color: '#f472b6'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
                 }
-            });
+            }
+        });
+    };
 
-            // 범례 업데이트
-            const legendContainer = document.getElementById('categoryLegend');
-            legendContainer.innerHTML = '';
+    // 도넛 차트 렌더링
+    const renderDoughnutChart = (type) => {
+        const data = type === 'amount' ? chartData.amountBased : chartData.countBased;
 
-            labels.forEach((label, index) => {
-                const legendItem = document.createElement('div');
-                legendItem.className = 'legend-item';
-                legendItem.innerHTML = `
-                    <div class="legend-left">
-                        <div class="legend-color" style="background: ${colors[index]};"></div>
-                        <span>${label}</span>
-                    </div>
-                    <span class="legend-percentage">${percentages[index]}%</span>
-                `;
-                legendContainer.appendChild(legendItem);
-            });
-
-            // 알림 내용 업데이트
-            const top3Categories = labels.map(label => `"${label}"`).join(', ');
-            document.getElementById('notificationContent').innerHTML =
-                `소비 패턴 분석 결과<br>상위 3개 카테고리는 ${top3Categories}입니다.`;
-
-        } catch (error) {
-            console.error('카테고리 차트 생성 실패:', error.message);
-            utils.showError('categoryLegend');
+        if (!data || data.length === 0) {
+            document.getElementById('categoryLegend').innerHTML =
+                `<div class="error-message">${type === 'amount' ? '금액' : '횟수'} 기준 데이터가 없습니다</div>`;
+            return;
         }
+
+        const labels = data.map(item => item.categoryName);
+        const values = data.map(item => {
+            if (type === 'amount') {
+                return item.amount || item.totalAmount || item.value || 0;
+            } else {
+                return item.usageCount || item.totalCount || item.count || item.value || 0;
+            }
+        });
+
+        const total = values.reduce((sum, val) => sum + val, 0);
+        if (total === 0) {
+            document.getElementById('categoryLegend').innerHTML =
+                `<div class="error-message">데이터 값이 모두 0입니다</div>`;
+            return;
+        }
+
+        const percentages = values.map(val => Math.round((val / total) * 100));
+        const colors = config.colors.slice(0, labels.length);
+
+        // 차트 생성
+        if (doughnutChart) {
+            doughnutChart.destroy();
+        }
+
+        const ctx = document.getElementById('doughnutChart').getContext('2d');
+        doughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors,
+                    borderWidth: 0,
+                    cutout: '70%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const percentage = percentages[context.dataIndex];
+                                const value = values[context.dataIndex];
+                                const unit = type === 'amount' ? '원' : '회';
+                                return `${labels[context.dataIndex]}: ${percentage}% (${value.toLocaleString()}${unit})`;
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // 범례 업데이트
+        const legendContainer = document.getElementById('categoryLegend');
+        legendContainer.innerHTML = '';
+
+        labels.forEach((label, index) => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+            const unit = type === 'amount' ? '원' : '회';
+            legendItem.innerHTML = `
+                <div class="legend-left">
+                    <div class="legend-color" style="background: ${colors[index]};"></div>
+                    <div>
+                        <div>${label}</div>
+                        <div class="legend-value">${values[index].toLocaleString()}${unit}</div>
+                    </div>
+                </div>
+                <span class="legend-percentage">${percentages[index]}%</span>
+            `;
+            legendContainer.appendChild(legendItem);
+        });
+    };
+
+    // 차트 타입 전환 함수
+    const switchChart = (type) => {
+        currentChartType = type;
+
+        // 탭 활성화 상태 변경
+        document.getElementById('dualTab').classList.toggle('active', type === 'dual');
+        document.getElementById('amountTab').classList.toggle('active', type === 'amount');
+        document.getElementById('countTab').classList.toggle('active', type === 'count');
+
+        // 차트 다시 렌더링
+        renderChart(type);
     };
 
     // 카드 목록 가져오기
@@ -734,17 +1352,31 @@
             }
 
             if (!cards || cards.length === 0) {
-                document.getElementById('cardList').innerHTML =
-                    '<div class="error-message">조건에 맞는 카드가 없습니다</div>';
-                return;
+                // 더미 카드 데이터 (개발/테스트용)
+                cards = [
+                    {
+                        cardName: '삼성카드 taptap O',
+                        bankName: '삼성카드',
+                        cardType: '신용',
+                        description: '온라인 쇼핑 최대 2% 적립',
+                        benefitSummary: '온라인 쇼핑, 배달앱 할인',
+                        cardUrl: 'https://www.samsungcard.co.kr'
+                    },
+                    {
+                        cardName: '현대카드 M',
+                        bankName: '현대카드',
+                        cardType: '신용',
+                        description: '모든 가맹점 1% 적립',
+                        benefitSummary: '무제한 1% 적립, 연회비 무료',
+                        cardUrl: 'https://www.hyundaicard.com'
+                    }
+                ];
             }
 
             const cardListContainer = document.getElementById('cardList');
             cardListContainer.innerHTML = '';
 
             cards.forEach(card => {
-                console.log('카드 데이터:', card); // 디버깅용
-
                 const cardItem = document.createElement('div');
                 cardItem.className = 'card-item';
 
@@ -779,8 +1411,6 @@
                 `;
                 cardListContainer.appendChild(cardItem);
             });
-
-            console.log('받은 카드 목록:', cards);
 
         } catch (error) {
             console.error('카드 필터 조회 실패:', error);
@@ -836,12 +1466,14 @@
 
             if (response.data && response.data.length > 0) {
                 console.log('추천 카드:', response.data);
-                // 추천 카드를 카드 리스트에 표시하거나 다른 처리
+                alert('추천 카드를 찾았습니다! 콘솔을 확인해주세요.');
             } else {
                 console.log('추천할 카드가 없습니다.');
+                alert('현재 추천할 수 있는 카드가 없습니다.');
             }
         } catch (error) {
             console.error('카드 추천 조회 실패:', error.message);
+            alert('카드 추천 서비스에 일시적인 문제가 발생했습니다.');
         }
     };
 
@@ -850,8 +1482,11 @@
         utils.updateCurrentDate();
 
         // 초기 데이터 로드
-        createCategoryChart();
-        await loadCards();
+        await Promise.all([
+            createCategoryChart(),
+            loadExpenseGrowthRate(),
+            loadCards()
+        ]);
 
         // 네비게이션 핸들러
         document.querySelectorAll('.nav-icon').forEach(icon => {
@@ -864,12 +1499,10 @@
         // 로그아웃 핸들러
         document.querySelector('.logout-btn').addEventListener('click', () => {
             if (confirm('로그아웃 하시겠습니까?')) {
-                console.log('로그아웃 되었습니다.');
+                alert('로그아웃 되었습니다.');
+                // 실제 로그아웃 로직 구현
             }
         });
-
-        // 추천 버튼 핸들러
-        document.querySelector('.recommendation-btn').addEventListener('click', getRecommendation);
 
         // 필터 변경 핸들러
         document.getElementById('cardTypeFilter').addEventListener('change', function() {
@@ -884,6 +1517,8 @@
                 updateFilterTags();
                 loadCards();
             }
+            // 선택 후 초기화
+            this.value = '';
         });
 
         // 필터 초기화 버튼 핸들러

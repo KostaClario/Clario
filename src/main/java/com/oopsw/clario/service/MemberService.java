@@ -104,4 +104,8 @@ public class MemberService {
                 .orElse(false);
     }
 
+    public Member findNullableMemberByEmail(String email){
+        return memberRepository.findByEmail(email).orElse(null);
+    }
+
 }

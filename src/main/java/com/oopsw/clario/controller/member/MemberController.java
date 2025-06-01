@@ -1,4 +1,4 @@
-package com.oopsw.clario.controller;
+package com.oopsw.clario.controller.member;
 
 import com.oopsw.clario.config.auth.CustomOAuth2User;
 import com.oopsw.clario.config.auth.authdto.OAuthAttributes;
@@ -77,6 +77,11 @@ public class MemberController {
 
         Member member = memberService.getMemberByEmail(email);
 
+        //프래그먼트용 속성들(model)에 추가
+        model.addAttribute("memberId", member.getMemberId());
+        model.addAttribute("name", member.getName());
+        model.addAttribute("user", user);
+
         UpdateMemberDTO dto = new UpdateMemberDTO();
         dto.setEmail(email);
         dto.setName(member.getName());
@@ -99,7 +104,7 @@ public class MemberController {
         }
 
         memberService.resetMemberInfo(email,dto);
-        return "redirect:/modal";
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/loginSuccess")

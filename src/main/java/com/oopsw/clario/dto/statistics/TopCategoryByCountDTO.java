@@ -9,11 +9,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MonthlyExpenseTotalDTO {
-    private Integer memberId;
-    private String name;
-    private String tradeMonth;
-    private int categoryId;
+public class TopCategoryByCountDTO {
+    private Long categoryId;
     private String categoryName;
-    private Long totalSpending;
+    private int usageCount;
 }

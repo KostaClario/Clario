@@ -1,10 +1,15 @@
 package com.oopsw.clario.controller.card;
 
+import com.oopsw.clario.config.auth.CustomOAuth2User;
 import com.oopsw.clario.dto.card.AllCardsDTO;
 import com.oopsw.clario.dto.card.CardFilterRequestDTO;
+import com.oopsw.clario.dto.statistics.CategoryStatisticsDTO;
+import com.oopsw.clario.dto.statistics.MonthlyExpenseComparisonDTO;
 import com.oopsw.clario.service.card.CardService;
+import com.oopsw.clario.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardRestController {
     private final CardService cardService;
+    private final AuthUtil authUtil;
 
     @GetMapping("/all") //모든 카드 조회
     public ResponseEntity<List<AllCardsDTO>> getAllCards() {
@@ -32,6 +38,32 @@ public class CardRestController {
             filter.getCardType()
     );
     return ResponseEntity.ok(cards);
+    }
+
+    @GetMapping("/top-category-stats")
+    public ResponseEntity<CategoryStatisticsDTO> getCategoryStatistics(@AuthenticationPrincipal CustomOAuth2User user,
+                                                                       @RequestParam Long year,
+                                                                       @RequestParam Long month) {
+        Integer memberId = authUtil.extractMemberId(user);
+        return ResponseEntity.ok(cardService.getCategoryStatistics(memberId, year, month));
+    }
+
+    @GetMapping("/monthly-expense")
+    public ResponseEntity<Long> getMonthlyExpenseSum(@AuthenticationPrincipal CustomOAuth2User user,
+                                                     @RequestParam Long year,
+                                                     @RequestParam Long month) {
+        Integer memberId = authUtil.extractMemberId(user);
+        Long totalExpense = cardService.getMonthlyExpenseSum(memberId, year, month);
+        return ResponseEntity.ok(totalExpense);
+    }
+
+    @GetMapping("/expense/growth")
+    public ResponseEntity<MonthlyExpenseComparisonDTO> getMonthlyExpenseGrowth(
+            @AuthenticationPrincipal CustomOAuth2User user,
+            @RequestParam Long year,
+            @RequestParam Long month) {
+        Integer memberId = authUtil.extractMemberId(user);
+        return ResponseEntity.ok(cardService.getMonthlyExpenseComparison(memberId, year, month));
     }
 
 }

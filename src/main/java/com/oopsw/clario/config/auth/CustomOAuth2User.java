@@ -42,4 +42,18 @@ public class CustomOAuth2User implements OAuth2User {
         Object pic = attributes.get("picture");
         return pic != null ? pic.toString() : null;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomOAuth2User)) return false;
+        CustomOAuth2User that = (CustomOAuth2User) o;
+        return email.equals(that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return email.hashCode();
+    }
+
 }

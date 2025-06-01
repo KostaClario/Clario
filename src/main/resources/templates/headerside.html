@@ -13,19 +13,32 @@
     </div>
     <ul class="menu">
         <li>
-            <a class="menu-btn" href="/dashboard"><i class="bi bi-house-door"></i></a>
+            <button class="menu-btn"
+                    th:onclick="|window.location.href='@{/dashboard}'|">
+                <i class="bi bi-house-door"></i>
+            </button>
         </li>
         <li>
-            <a class="menu-btn" href="/statistics"><i class="bi bi-graph-up"></i></a>
+            <button class="menu-btn"
+                    th:onclick="|window.location.href='@{/view/statistics}'|">
+                <i class="bi bi-graph-up"></i>
+            </button>
         </li>
         <li>
-            <a class="menu-btn" href="/history"><i class="bi bi-list-task"></i></a>
+            <button class="menu-btn"
+                    th:onclick="|window.location.href='@{/history}'|">
+                <i class="bi bi-list-task"></i>
+            </button>
         </li>
         <li>
-            <a class="menu-btn" href="/card"><i class="bi bi-credit-card"></i></a>
+            <button class="menu-btn"
+                    th:onclick="|window.location.href='@{/cards}'|">
+                <i class="bi bi-credit-card"></i>
+            </button>
         </li>
     </ul>
 </aside>
+
 
 <!-- 상단바 Fragment -->
 <header th:fragment="header" class="topbar">

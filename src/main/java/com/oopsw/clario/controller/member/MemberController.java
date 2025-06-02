@@ -116,7 +116,7 @@ public class MemberController {
         }
 
         memberService.resetMemberInfo(email,dto);
-        return "redirect:/modal";
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/loginSuccess")

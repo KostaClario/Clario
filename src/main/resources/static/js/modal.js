@@ -123,7 +123,10 @@ window.addEventListener("DOMContentLoaded", () => {
     axios.get('/api/user/email')
         .then(response => {
             const email = response.data.email;
-            document.getElementById('email').value = email;
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.value = email;
+            }
         })
         .catch(err => {
             console.error('이메일 불러오기 실패:', err);

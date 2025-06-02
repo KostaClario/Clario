@@ -3,7 +3,6 @@ package com.oopsw.clario.service;
 import com.oopsw.clario.dto.MyBankDTO;
 import com.oopsw.clario.dto.MyCardDTO;
 import com.oopsw.clario.repository.MyDataRepository;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

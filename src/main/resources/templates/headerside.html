@@ -14,43 +14,51 @@
         <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
     </div>
     <ul class="menu">
-        <li><button class="menu-btn" th:onclick="|window.location.href='@{/dashboard}'|"><i class="bi bi-house-door"></i></button></li>
-        <li><button class="menu-btn" th:onclick="|window.location.href='@{/view/statistics}'|"><i class="bi bi-graph-up"></i></button></li>
-        <li><button class="menu-btn" th:onclick="|window.location.href='@{/history}'|"><i class="bi bi-list-task"></i></button></li>
-        <li><button class="menu-btn" th:onclick="|window.location.href='@{/cards}'|"><i class="bi bi-credit-card"></i></button></li>
+        <li>
+            <a class="nav-icon" href="/dashboard">🏠</a>
+        </li>
+        <li>
+            <a class="nav-icon" href="/statistics">📈</a>
+        </li>
+        <li>
+            <a class="nav-icon" href="/history">☰</a>
+        </li>
+        <li>
+            <a class="nav-icon" href="/card">💳</a>
+        </li>
     </ul>
 </aside>
 
 <!-- 상단바 Fragment -->
 <header th:fragment="header" class="topbar">
-    <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
+    <div class="topbar-center" id="currentDate">날짜 로딩 중…</div>
+
     <div class="topbar-right">
-        <span th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
+        <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
         <span th:unless="${name != null}">로그인 사용자</span>
 
+        <!-- 로그아웃 -->
         <form th:action="@{/logout}" method="post" id="logoutForm">
-            <button type="button" class="logout-btn" onclick="document.getElementById('logoutForm').submit();">로그아웃</button>
+            <button type="button" class="logout-btn"
+                    onclick="document.getElementById('logoutForm').submit();">로그아웃</button>
         </form>
 
+        <!-- 프로필 사진 + 드롭다운 -->
         <div class="profile-container" onclick="this.classList.toggle('hover')">
             <button class="profile-btn">
                 <img th:if="${profile != null}" th:src="${profile}" alt="프로필" class="profile-img" />
                 <i th:if="${profile == null}" class="bi bi-person"></i>
             </button>
             <div class="profile-menu">
-                <button type="button" class="profile-menu-item" th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">자산 조회</button>
+                <button type="button" class="profile-menu-item"
+                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
+                    자산 조회
+                </button>
                 <button type="button" class="profile-menu-item" onclick="openPwInputModal()">정보 수정</button>
             </div>
         </div>
     </div>
-    <script th:inline="javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            const today = new Date();
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
-            const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
-            document.getElementById("today-date").textContent = formatted;
-        });
-    </script>
+
 </header>
 
 <!-- 모달 Fragment -->
@@ -112,5 +120,23 @@
 </div>
 
 <script th:src="@{/js/modal.js}"></script> <!-- JS는 따로 분리해두는 걸 추천 -->
+</header>
+<!-- 날짜 표시 스크립트 -->
+<script th:inline="javascript">
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const year    = today.getFullYear();
+    const month   = String(today.getMonth() + 1).padStart(2, '0');
+    const date    = String(today.getDate()).padStart(2, '0');
+    const weekday = days[today.getDay()];
+
+    const formatted = `${year}/${month}/${date} ${weekday}`;
+
+    const el = document.getElementById('currentDate');
+    if (el) {
+        el.textContent = formatted;
+    }
+</script>
 </body>
 </html>

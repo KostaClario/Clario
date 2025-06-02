@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedDate = null;
     let selectedCategory = null;
     let selectedCard = null;
-    let selectedCategoryId = null;
+
 
     const selection = document.getElementById("selection");
     const incomeTable = document.getElementById("income-table");

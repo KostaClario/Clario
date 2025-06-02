@@ -19,7 +19,7 @@
     <ul class="menu">
       <li><button class="menu-btn" onclick="goTo('home')"><i class="bi bi-house-door"></i></button></li>
       <li><button class="menu-btn" onclick="goTo('stats')"><i class="bi bi-graph-up"></i></button></li>
-      <li><button class="menu-btn" onclick="goTo('tasks')"><i class="bi bi-list-task"></i></button></li>
+      <li><button class="menu-btn" onclick="location.href='/history'"><i class="bi bi-list-task"></i></button></li>
       <li><button class="menu-btn" onclick="goTo('cards')"><i class="bi bi-credit-card"></i></button></li>
     </ul>
   </div>
@@ -29,10 +29,11 @@
 <header class="topbar">
   <div class="topbar-center" id="today-date">날짜 로딩 중...</div>
   <div class="topbar-right">
-    <span >정능혁님</span>
+    <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
+    <input type="hidden" id="memberId" th:value="${memberId}" />
     <button class="logout-btn" onclick="logout()">로그아웃</button>
     <button class="profile-btn" onclick="openProfile()">
-      <i class="bi bi-person"></i>
+      <img th:src="${profile}" alt="프로필 이미지" class="profile-img" />
     </button>
   </div>
 </header>

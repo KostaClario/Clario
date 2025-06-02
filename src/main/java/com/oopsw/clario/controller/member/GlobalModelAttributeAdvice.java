@@ -3,12 +3,17 @@ package com.oopsw.clario.controller.member;
 
 import com.oopsw.clario.config.auth.CustomOAuth2User;
 import com.oopsw.clario.domain.member.Member;
+import com.oopsw.clario.exception.SaveFailedException;
 import com.oopsw.clario.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.client.ResourceAccessException;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -33,6 +38,7 @@ public class GlobalModelAttributeAdvice {
                 model.addAttribute("profile", user.getPhoto());
             }
         }
+
     }
 
 }

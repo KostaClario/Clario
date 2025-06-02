@@ -1,9 +1,9 @@
 body {
     margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
     background-color: #EBE1F5;
     padding-top: 30px;
     padding-left: 80px;
+    padding-right: 50px;
     padding-bottom: -50px;
 }
 /* === 메인 영역 === */

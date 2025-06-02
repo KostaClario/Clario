@@ -108,6 +108,24 @@
         });
     });
 </script>
+
 <script th:src="@{/js/modal.js}"></script>
+
+<script th:inline="javascript">
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const year    = today.getFullYear();
+    const month   = String(today.getMonth() + 1).padStart(2, '0');
+    const date    = String(today.getDate()).padStart(2, '0');
+    const weekday = days[today.getDay()];
+
+    const formatted = `${year}. ${month}. ${date}. (${weekday})`;
+
+    const el = document.getElementById('currentDate');
+    if (el) {
+        el.textContent = formatted;
+    }
+</script>
 </body>
 </html>

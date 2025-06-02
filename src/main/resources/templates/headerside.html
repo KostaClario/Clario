@@ -13,28 +13,16 @@
     </div>
     <ul class="menu">
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/dashboard}'|">
-                <i class="bi bi-house-door"></i>
-            </button>
+            <a class="nav-icon" href="/dashboard">🏠</a>
         </li>
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/view/statistics}'|">
-                <i class="bi bi-graph-up"></i>
-            </button>
+            <a class="nav-icon" href="/statistics">📈</a>
         </li>
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/history}'|">
-                <i class="bi bi-list-task"></i>
-            </button>
+            <a class="nav-icon" href="/history">☰</a>
         </li>
         <li>
-            <button class="menu-btn"
-                    th:onclick="|window.location.href='@{/cards}'|">
-                <i class="bi bi-credit-card"></i>
-            </button>
+            <a class="nav-icon" href="/card">💳</a>
         </li>
     </ul>
 </aside>
@@ -42,10 +30,10 @@
 
 <!-- 상단바 Fragment -->
 <header th:fragment="header" class="topbar">
-    <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
+    <div class="topbar-center" id="currentDate">날짜 로딩 중…</div>
 
     <div class="topbar-right">
-        <span th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
+        <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
         <span th:unless="${name != null}">로그인 사용자</span>
 
         <!-- 로그아웃 -->
@@ -73,14 +61,23 @@
         </div>
     </div>
 
-    <!-- 날짜 표시 스크립트 -->
-    <script th:inline="javascript">
-        const today = new Date();
-        const days = ['일', '월', '화', '수', '목', '금', '토'];
-        const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
-        document.getElementById("today-date").textContent = formatted;
-    </script>
 </header>
+<!-- 날짜 표시 스크립트 -->
+<script th:inline="javascript">
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
 
+    const year    = today.getFullYear();
+    const month   = String(today.getMonth() + 1).padStart(2, '0');
+    const date    = String(today.getDate()).padStart(2, '0');
+    const weekday = days[today.getDay()];
+
+    const formatted = `${year}/${month}/${date} ${weekday}`;
+
+    const el = document.getElementById('currentDate');
+    if (el) {
+        el.textContent = formatted;
+    }
+</script>
 </body>
 </html>

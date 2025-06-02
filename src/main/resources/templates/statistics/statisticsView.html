@@ -125,7 +125,7 @@
         /*}*/
 
         .main-content {
-            margin-left: 80px;
+            margin-left: 100px;
             padding: 90px 24px 24px 24px;
             flex: 1;
         }
@@ -826,32 +826,14 @@
             if (element) element.textContent = message;
         },
 
-        // updateCurrentDate: () => {
-        //     const dateString = new Date().toLocaleDateString('ko-KR', {
-        //         year: 'numeric',
-        //         month: '2-digit',
-        //         day: '2-digit',
-        //         weekday: 'short'
-        //     });
-        //     document.getElementById('currentDate').textContent = dateString;
-        // },
-        updateCurrentDate : () => {
-            const today = new Date();
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
-
-            const year    = today.getFullYear();
-            const month   = String(today.getMonth() + 1).padStart(2, '0'); // 01 ~ 12
-            const date    = String(today.getDate()).padStart(2, '0');      // 01 ~ 31
-            const weekday = days[today.getDay()];                          // '월' 등
-
-            // “YYYY/MM/DD/요일” 형태로 포맷팅
-            const formatted = `${year}/${month}/${date} ${weekday}`;
-
-            // 헤더에 있는 #currentDate 태그에 대입
-            const el = document.getElementById('currentDate');
-            if (el) {
-                el.textContent = formatted;
-            }
+        updateCurrentDate: () => {
+            const dateString = new Date().toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                weekday: 'short'
+            });
+            document.getElementById('currentDate').textContent = dateString;
         },
 
         apiCall: async (endpoint, params) => {

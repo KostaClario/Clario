@@ -722,4 +722,16 @@ body {
     .table td {
         padding: 12px 8px;
     }
+    select,
+    select option {
+        color: var(--purple3);
+        background-color: white;
+        font-weight: 600;
+    }
+
+    .modal-content select,
+    .modal-content select option {
+        color: var(--purple3);
+        background-color: white;
+    }
 }

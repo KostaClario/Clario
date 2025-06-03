@@ -8,7 +8,6 @@ import com.oopsw.clario.exception.SaveFailedException;
 import com.oopsw.clario.service.MemberService;
 import com.oopsw.clario.service.history.HistoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +17,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RestControllerAdvice
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HistoryController {
+public class HistoryRestController {
 
     private final HistoryService historyService;
     private final MemberService memberService;
 
     @GetMapping("/account")
-    public List<Map<String, Object>> accountList(@AuthenticationPrincipal CustomOAuth2User user) {
+    public List<AccountDTO> accountList(@AuthenticationPrincipal CustomOAuth2User user) {
         String email = user.getEmail();
         Member member = memberService.getMemberByEmail(email);
         Integer memberId = member.getMemberId();
@@ -36,10 +36,11 @@ public class HistoryController {
     }
 
     @GetMapping("/card")
-    public List<Map<String, Object>> cardList(@AuthenticationPrincipal CustomOAuth2User user) {
+    public List<CardDTO> cardList(@AuthenticationPrincipal CustomOAuth2User user) {
         String email = user.getEmail();
         Member member = memberService.getMemberByEmail(email);
         Integer memberId = member.getMemberId();
+
         return historyService.cardList(memberId);
     }
 
@@ -77,7 +78,7 @@ public class HistoryController {
     @PostMapping("/income")
     public ResponseEntity<String> income(@RequestBody IncomeDTO dto) {
         int result = historyService.income(dto);
-
+        System.out.println("받은 DTO: " + dto);
         if (result == 1) {
             return ResponseEntity.ok("입금 성공");
         } else {
@@ -104,18 +105,5 @@ public class HistoryController {
 
         return historyService.categoryList();
     }
-    @GetMapping("/null")
-    public void throwNullPointer() {
-        throw new NullPointerException("널 오류 발생");
-    }
 
-    @GetMapping("/resource")
-    public void throwResourceAccess() {
-        throw new ResourceAccessException("리소스 접근 불가");
-    }
-
-    @GetMapping("/save")
-    public void throwSaveFail() {
-        throw new SaveFailedException("DB 저장 실패");
-    }
 }

@@ -3,70 +3,39 @@
 <head>
     <meta charset="UTF-8"/>
     <title>헤더와 사이드바</title>
+    <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bar.css}"/>
 </head>
 <body>
 
-<!-- ✅ 모달은 사이드바 밖 또는 맨 위에 배치 -->
-<div id="pwInputModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('pwInputModal')">&times;</span>
-        <h2 style="text-align:center;">비밀번호</h2>
-
-        <div class="form-field" style="justify-content:center;">
-            <input type="password" id="currentPassword" placeholder="Password" />
-        </div>
-        <div id="pwInputError" class="error-msg" style="display:none;">
-            비밀번호가 올바르지 않습니다.
-        </div>
-
-        <div class="btn-group">
-            <button class="btn btn-cancel" onclick="closeModal('pwInputModal')">취소</button>
-            <button class="btn" onclick="validatePassword()">확인</button>
-        </div>
-        <div style="text-align:center; margin-top:8px;">
-            <button class="btn-cancel" style="background:none; color:#ccc; border:none; cursor: pointer"
-                    onclick="openEmailModalFromPwInput()">
-                비밀번호 재설정
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- ✅ 사이드바 Fragment -->
+<!-- 사이드바 Fragment -->
 <aside th:fragment="sidebar" class="sidebar">
     <div class="logo">
         <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
     </div>
     <ul class="menu">
         <li>
-            <button class="menu-btn" onclick="confirmNavigation('/dashboard')">
-                <i class="bi bi-house-door"></i>
-            </button>
+            <a class="nav-icon" href="/dashboard">🏠</a>
         </li>
         <li>
-            <button class="menu-btn" onclick="confirmNavigation('/view/statistics')">
-                <i class="bi bi-graph-up"></i>
-            </button>
+            <a class="nav-icon" href="/statistics">📈</a>
         </li>
         <li>
-            <button class="menu-btn" onclick="confirmNavigation('/history')">
-                <i class="bi bi-list-task"></i>
-            </button>
+            <a class="nav-icon" href="/history">☰</a>
         </li>
         <li>
-            <button class="menu-btn" onclick="confirmNavigation('/cards')">
-                <i class="bi bi-credit-card"></i>
-            </button>
+            <a class="nav-icon" href="/card">💳</a>
         </li>
     </ul>
 </aside>
 
-<!-- ✅ 상단바 Fragment -->
+<!-- 상단바 Fragment -->
 <header th:fragment="header" class="topbar">
-    <div class="topbar-center" id="today-date">날짜 로딩 중…</div>
+    <div class="topbar-center" id="currentDate">날짜 로딩 중…</div>
 
     <div class="topbar-right">
-        <span th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
+        <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
         <span th:unless="${name != null}">로그인 사용자</span>
 
         <!-- 로그아웃 -->
@@ -82,53 +51,93 @@
                 <i th:if="${profile == null}" class="bi bi-person"></i>
             </button>
             <div class="profile-menu">
-                <button type="button" class="profile-menu-item" onclick="confirmNavigation('/mydata/mybankandcardlist')">
+                <button type="button" class="profile-menu-item"
+                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
                     자산 조회
                 </button>
-                <button type="button" class="profile-menu-item" onclick="confirmNavigation('/account/edit')">
-                    정보 수정
-                </button>
+                <button type="button" class="profile-menu-item" onclick="openPwInputModal()">정보 수정</button>
             </div>
         </div>
     </div>
 
-    <!-- 날짜 표시 및 모달 스크립트 -->
-    <script th:inline="javascript">
-        const today = new Date();
-        const days = ['일', '월', '화', '수', '목', '금', '토'];
-        const formatted = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/${days[today.getDay()]}`;
-        document.getElementById("today-date").textContent = formatted;
-
-        function openEmailModalFromPwInput() {
-            alert("비밀번호 재설정은 아직 구현되지 않았습니다.");
-        }
-
-        let pendingUrl = null;
-        function confirmNavigation(url) {
-            pendingUrl = url;
-            document.getElementById('pwInputModal').style.display = 'block';
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-            pendingUrl = null;
-        }
-
-        function validatePassword() {
-            const pw = document.getElementById("currentPassword").value;
-
-            // 테스트용 비밀번호 로직
-            if (pw === "1234") {
-                document.getElementById('pwInputModal').style.display = 'none';
-                if (pendingUrl) {
-                    window.location.href = pendingUrl;
-                }
-            } else {
-                document.getElementById("pwInputError").style.display = "block";
-            }
-        }
-    </script>
 </header>
 
+<!-- 모달 Fragment -->
+<div th:fragment="allModals">
+    <!-- 비밀번호 입력 모달 -->
+    <div id="pwInputModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('pwInputModal')">&times;</span>
+            <h2 style="text-align:center;">비밀번호</h2>
+            <div class="form-field" style="justify-content:center;">
+                <input type="password" id="currentPassword" placeholder="Password" />
+            </div>
+            <div id="pwInputError" class="error-msg" style="display:none;">비밀번호가 올바르지 않습니다.</div>
+            <div class="btn-group">
+                <button class="btn btn-cancel" onclick="closeModal('pwInputModal')">취소</button>
+                <button class="btn" onclick="validatePassword()">확인</button>
+            </div>
+            <div style="text-align:center; margin-top:8px;">
+                <button class="btn-cancel" style="background:none; color:#ccc; border:none; cursor: pointer" onclick="openEmailModalFromPwInput()">비밀번호 재설정</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 이메일 인증 모달 -->
+    <div id="emailModal" class="modal" data-email="">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('emailModal')">&times;</span>
+            <h2 style="text-align:center;">이메일 인증</h2>
+            <div class="form-field"><input type="text" id="email" readonly /></div>
+            <div class="btn-group">
+                <button id="sendCodeBtn" class="btn" onclick="sendVerificationEmail()">인증</button>
+                <div id="timer" style="margin-top: 10px; font-weight: bold;"></div>
+            </div>
+            <div class="form-field" style="margin-top:16px;">
+                <input type="text" id="emailCode" placeholder="인증 코드 입력" />
+            </div>
+            <div id="emailError" class="error-msg" style="display:none;">인증에 실패했습니다.</div>
+            <div class="btn-group">
+                <button class="btn btn-cancel" onclick="closeModal('emailModal')">취소</button>
+                <button id="verifyBtn" class="btn" onclick="verifyEmailCode()">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 비밀번호 재설정 모달 -->
+    <div id="resetModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('resetModal')">&times;</span>
+            <h2 style="text-align:center;">비밀번호 재설정</h2>
+            <div class="form-field"><label>새 비밀번호</label><input type="password" id="newPassword" /></div>
+            <div class="form-field"><label>비밀번호 확인</label><input type="password" id="confirmNewPassword" /></div>
+            <div id="resetError" class="error-msg" style="display:none;">비밀번호가 일치하지 않습니다.</div>
+            <div class="btn-group">
+                <button class="btn btn-cancel" onclick="closeModal('resetModal')">취소</button>
+                <button class="btn" onclick="changePassword()">변경</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/modal.js}"></script> <!-- JS는 따로 분리해두는 걸 추천 -->
+</header>
+<!-- 날짜 표시 스크립트 -->
+<script th:inline="javascript">
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const year    = today.getFullYear();
+    const month   = String(today.getMonth() + 1).padStart(2, '0');
+    const date    = String(today.getDate()).padStart(2, '0');
+    const weekday = days[today.getDay()];
+
+    const formatted = `${year}/${month}/${date} ${weekday}`;
+
+    const el = document.getElementById('currentDate');
+    if (el) {
+        el.textContent = formatted;
+    }
+</script>
 </body>
 </html>

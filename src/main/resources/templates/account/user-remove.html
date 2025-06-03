@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원 탈퇴</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- 아이콘, 폰트, 스타일 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{/css/bar.css}" />
     <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+    <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
+    <link rel="stylesheet" th:href="@{/css/bar.css}" />
 </head>
 <body>
 
@@ -18,6 +21,8 @@
 
     <!-- 사이드바 삽입 -->
     <div th:replace="~{headerside :: sidebar}"></div>
+
+    <div th:replace="~{headerside :: allModals}"></div>
 
     <!-- 본문 영역 -->
     <div class="main">
@@ -72,13 +77,13 @@
 <!-- 모달 제어 스크립트 -->
 <script>
     function openConfirmModal() {
-        document.getElementById("confirmModal").style.display = "block";
+        document.getElementById("confirmModal").style.display = "flex";
     }
 
     function closeConfirmModal() {
         document.getElementById("confirmModal").style.display = "none";
     }
 </script>
-
+<script th:src="@{/js/modal.js}"></script>
 </body>
 </html>

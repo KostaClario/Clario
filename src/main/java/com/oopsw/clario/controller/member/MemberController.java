@@ -151,20 +151,13 @@ public class MemberController {
             model.addAttribute("email", email);
             return "account/join";
         }
-        try{
             if(!memberService.existsByEmail(email)){
                 memberService.saveMember(email,name,phonenum,password);
             }
 
             session.removeAttribute("oauthAttributes");
-            session.setAttribute("redirectAfterLogin", "/modal");
+            session.setAttribute("redirectAfterLogin", "mydata/mybankandcardlist");
 
-            return "redirect:/modal";
-
-        }catch (EmailAlreadyExistsException e){
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("email", email);
-            return "account/join";
+            return "redirect:/mydata/mybankandcardlist";
         }
     }
-}

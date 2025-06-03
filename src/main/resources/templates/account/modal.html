@@ -105,7 +105,6 @@
 
 <script>
     // 공통 열기/닫기
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) {
         const modal = document.getElementById(id);
         modal.style.display = 'none';
@@ -134,6 +133,7 @@
             verifyBtn.disabled = false;
         }
     }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
 
     function openEmailModalFromPwInput(){
         closeModal('pwInputModal');

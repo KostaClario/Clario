@@ -9,9 +9,9 @@ import java.util.Map;
 
 @Mapper
 public interface HistoryRepository {
-    List<Map<String, Object>> accountList(Integer memberId);
+    List<AccountDTO> accountList(Integer memberId);
 
-    List<Map<String, Object>> cardList(Integer memberId);
+    List<CardDTO> cardList(Integer memberId);
 
     CardDetailDTO cardDetail(int cardTradeId);
 
@@ -24,4 +24,6 @@ public interface HistoryRepository {
     int expense(ExpenseDTO dto);
 
     List<Map<String, Object>> categoryList();
+
+
 }

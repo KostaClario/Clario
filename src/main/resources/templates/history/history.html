@@ -17,10 +17,10 @@
   <div class="logo">CLARIO</div>
   <div class="menu-wrapper">
     <ul class="menu">
-      <li><button class="menu-btn" onclick="goTo('home')"><i class="bi bi-house-door"></i></button></li>
-      <li><button class="menu-btn" onclick="goTo('stats')"><i class="bi bi-graph-up"></i></button></li>
+      <li><button class="menu-btn" onclick="location.href='/dashboard'"><i class="bi bi-house-door"></i></button></li>
+      <li><button class="menu-btn" onclick="location.href='/statistics'"><i class="bi bi-graph-up"></i></button></li>
       <li><button class="menu-btn" onclick="location.href='/history'"><i class="bi bi-list-task"></i></button></li>
-      <li><button class="menu-btn" onclick="goTo('cards')"><i class="bi bi-credit-card"></i></button></li>
+      <li><button class="menu-btn" onclick="location.href='/card'"><i class="bi bi-credit-card"></i></button></li>
     </ul>
   </div>
 </aside>
@@ -31,8 +31,8 @@
   <div class="topbar-right">
     <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
     <input type="hidden" id="memberId" th:value="${memberId}" />
-    <button class="logout-btn" onclick="logout()">로그아웃</button>
-    <button class="profile-btn" onclick="openProfile()">
+    <button class="logout-btn" onclick="location.href='/login'">로그아웃</button>
+    <button class="profile-btn" onclick="location.href='/user-info-edit'">
       <img th:src="${profile}" alt="프로필 이미지" class="profile-img" />
     </button>
   </div>
@@ -105,9 +105,15 @@
           <label>거래 일자</label>
           <input type = "date" id = "incomeDate" value =  >
         </div>
+        <div class="modal-row">
+          <label>계좌 이름 선택</label>
+          <select id="bankAccountSelect">
+            <option value="">계좌 선택</option>
+          </select>
+        </div>
         <div class = "modal-row">
-          <label>계좌이름 선택</label>
-          <select id = "bankAccountSelect">
+          <label>계좌번호 선택</label>
+            <select id="bankAccountNumSelect">
             <option></option>
           </select>
         </div>

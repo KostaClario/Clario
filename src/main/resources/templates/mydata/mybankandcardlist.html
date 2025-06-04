@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 계좌 및 카드</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/myBankAndCardList.css}"/>
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
 </head>
@@ -12,7 +13,7 @@
 <div class="wrapper">
     <div th:replace="~{headerside :: sidebar}"></div>
     <div class="main">
-        <div th:replace="~{headerside :: header (${memberId}, ${name}, ${user})}"></div>
+        <div th:replace="~{headerside :: header}"></div>
         <main class="content">
             <section class="section">
                 <div class="section-inner">
@@ -81,5 +82,21 @@
         </main>
     </div>
 </div>
+<script th:inline="javascript">
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const year    = today.getFullYear();
+    const month   = String(today.getMonth() + 1).padStart(2, '0');
+    const date    = String(today.getDate()).padStart(2, '0');
+    const weekday = days[today.getDay()];
+
+    const formatted = `${year}. ${month}. ${date}. (${weekday})`;
+
+    const el = document.getElementById('currentDate');
+    if (el) {
+        el.textContent = formatted;
+    }
+</script>
 </body>
 </html>

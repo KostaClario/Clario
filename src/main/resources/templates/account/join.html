@@ -16,11 +16,11 @@
 <main class="consent-container">
     <!-- 왼쪽 브랜드 영역 -->
     <div class="left">
-        <img th:src="@{/img/ClarioPig.png}" alt="CLARIO Logo">
+        <img th:src="@{/img/ClarioLogo.png}" alt="CLARIO Logo">
     </div>
 
     <!-- 오른쪽 폼 영역 -->
-    <div class="right">
+    <div class="right2">
         <section class="content">
             <h2 style="text-align:center; margin-bottom:24px;">개인정보 입력</h2>
             <form class="form-edit" th:action="@{/join}" method="post">
@@ -30,14 +30,12 @@
 
                 <!-- 이름 -->
                 <div class="form-field">
-                    <input type="text" name="name" placeholder="이름"
-                           th:value="${name}" required />
+                    <input type="text" name="name" placeholder="이름" required/>
                 </div>
 
                 <!-- 전화번호 -->
                 <div class="form-field">
-                    <input type="text" name="phonenum" placeholder="휴대폰번호"
-                           th:value="${phonenum}" required />
+                    <input type="text" name="phonenum" placeholder="휴대폰번호 ( - 없이 입력)" required />
                 </div>
 
                 <!-- 비밀번호 -->
@@ -57,7 +55,7 @@
 
                 <!-- 버튼 그룹 -->
                 <div class="btn-group" style="margin-top:32px;">
-                    <button type="button" class="btn btn-cancel">다음에</button>
+                    <button type="button" class="btn btn-cancel" th:onclick="|location.href='@{/loginView}'|">다음에</button>
                     <button type="submit" class="btn btn-quit">확인</button>
                 </div>
             </form>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLARIO - 카드 추천</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bar.css}"/>
     <style>
         * {
             margin: 0;
@@ -14,8 +16,13 @@
         }
 
         body {
+<<<<<<< HEAD
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+=======
+            /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;*/
+            background-color: #f8f9fa;
+>>>>>>> dev
             color: #333;
         }
 
@@ -24,6 +31,7 @@
             min-height: 100vh;
         }
 
+<<<<<<< HEAD
         .header {
             position: fixed;
             top: 0;
@@ -55,13 +63,43 @@
             color: #64748b;
             font-weight: 500;
         }
+=======
+        /*.header {*/
+        /*    position: fixed;*/
+        /*    top: 0;*/
+        /*    left: 0;*/
+        /*    right: 0;*/
+        /*    height: 70px;*/
+        /*    background: white;*/
+        /*    border-bottom: 1px solid #e9ecef;*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    justify-content: space-between;*/
+        /*    padding: 0 24px;*/
+        /*    z-index: 100;*/
+        /*    backdrop-filter: blur(10px);*/
+        /*    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);*/
+        /*}*/
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        /*.logo {*/
+        /*    font-size: 24px;*/
+        /*    font-weight: bold;*/
+        /*    color: #6366f1;*/
+        /*}*/
 
+        /*.date {*/
+        /*    font-size: 16px;*/
+        /*    color: #666;*/
+        /*}*/
+>>>>>>> dev
+
+        /*.header-right {*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    gap: 16px;*/
+        /*}*/
+
+<<<<<<< HEAD
         .user-name {
             font-size: 14px;
             color: #334155;
@@ -139,9 +177,85 @@
             color: white;
             box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
+=======
+        /*.user-name {*/
+        /*    font-size: 14px;*/
+        /*    color: #333;*/
+        /*    font-weight: 500;*/
+        /*}*/
+
+        /*.logout-btn {*/
+        /*    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);*/
+        /*    color: white;*/
+        /*    border: none;*/
+        /*    padding: 10px 20px;*/
+        /*    border-radius: 25px;*/
+        /*    font-size: 14px;*/
+        /*    font-weight: 500;*/
+        /*    cursor: pointer;*/
+        /*    transition: all 0.3s ease;*/
+        /*    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);*/
+        /*}*/
+
+        /*.logout-btn:hover {*/
+        /*    transform: translateY(-1px);*/
+        /*    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);*/
+        /*}*/
+
+        /*.user-avatar {*/
+        /*    width: 40px;*/
+        /*    height: 40px;*/
+        /*    border-radius: 50%;*/
+        /*    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    justify-content: center;*/
+        /*    color: #6366f1;*/
+        /*    font-size: 18px;*/
+        /*    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);*/
+        /*}*/
+
+        /*.sidebar {*/
+        /*    width: 80px;*/
+        /*    background: white;*/
+        /*    border-right: 1px solid #e9ecef;*/
+        /*    padding: 90px 0 20px 0;*/
+        /*    position: fixed;*/
+        /*    height: 100vh;*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    align-items: center;*/
+        /*    gap: 24px;*/
+        /*    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*.nav-icon {*/
+        /*    width: 48px;*/
+        /*    height: 48px;*/
+        /*    border-radius: 12px;*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    justify-content: center;*/
+        /*    cursor: pointer;*/
+        /*    transition: all 0.3s ease;*/
+        /*    font-size: 20px;*/
+        /*}*/
+
+        /*.nav-icon:hover {*/
+        /*    background: #f1f5f9;*/
+        /*    transform: translateY(-2px);*/
+        /*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
+        /*}*/
+
+        /*.nav-icon.active {*/
+        /*    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);*/
+        /*    color: white;*/
+        /*    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);*/
+        /*}*/
+>>>>>>> dev
 
         .main-content {
-            margin-left: 80px;
+            margin-left: 100px;
             padding: 90px 24px 24px 24px;
             flex: 1;
             display: flex;
@@ -845,22 +959,18 @@
 </head>
 <body>
 <div class="container">
-    <header class="header">
-        <div class="logo">CLARIO</div>
-        <div class="date" id="currentDate"></div>
-        <div class="header-right">
-            <span class="user-name" id="userName">사용자님</span>
-            <button class="logout-btn">로그아웃</button>
-            <div class="user-avatar">👤</div>
+    <aside th:fragment="sidebar" class="sidebar">
+        <div class="logo">
+            <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
         </div>
-    </header>
-
-    <nav class="sidebar">
-        <div class="nav-icon">🏠</div>
-        <div class="nav-icon">📈</div>
-        <div class="nav-icon">☰</div>
-        <div class="nav-icon active">💳</div>
-    </nav>
+        <ul class="menu">
+            <li><a class="nav-icon" href="/dashboard">🏠</a></li>
+            <li><a class="nav-icon" href="/statistics">📈</a></li>
+            <li><a class="nav-icon" href="/history">☰</a></li>
+            <li><a class="nav-icon active" href="/card">💳</a></li>
+        </ul>
+    </aside>
+    <div th:replace="~{headerside :: header}"></div>
 
     <main class="main-content">
         <div class="top-section">

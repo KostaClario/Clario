@@ -1,11 +1,14 @@
 HELP.md
+<<<<<<< HEAD
 target/
+=======
+>>>>>>> dev
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+/target/
 
 #yml
 */src/main/resources/application.yml
+
 ### STS ###
 .apt_generated
 .classpath
@@ -33,3 +36,4 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/resources/application.yml

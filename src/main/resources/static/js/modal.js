@@ -29,6 +29,10 @@ window.openPwInputModal = function() {
     if (window.location.pathname === '/account/edit') return; // 현재 페이지가 개인정보 수정이면 무시
     openModal('pwInputModal');
 };
+window.openPwInputModal = function() {
+    if (window.location.pathname === '/mydata/mybankandcardlist') return; // 현재 페이지가 개인정보 수정이면 무시
+    openModal('pwInputModal');
+};
 window.openEmailModal = function() { openModal('emailModal'); };
 window.openResetModal = function() { openModal('resetModal'); };
 window.openEmailModalFromPwInput = function() {

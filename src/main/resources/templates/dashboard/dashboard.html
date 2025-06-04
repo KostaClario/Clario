@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,8 @@
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
     <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
     <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+<!--    <link rel="stylesheet" href="/css/dashboard.css" />-->
+<!--    <link rel="stylesheet" th:href="@{/css/style.css}" />-->
     <script th:src="@{/js/dashboard.js}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js"></script>
@@ -131,6 +133,7 @@
                             <span>원</span>
                         </div>
                     </div>
+
                     <div class="button-group">
                         <button class="modal-button" id="close-modal">닫기</button>
                         <button class="modal-button" id="save-goal-btn">확인</button>

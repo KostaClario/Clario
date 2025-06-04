@@ -30,11 +30,6 @@ public class SecurityConfig {
                 .csrf(
                         (csrfConfig) -> csrfConfig.disable()
                 )
-                .headers(
-                        (headerConfig) ->headerConfig.frameOptions(
-                                frameOptionsConfig -> frameOptionsConfig.disable()
-                        )
-                )
                 .authorizeHttpRequests(
                         (auth) -> auth
                                 .requestMatchers("/", "/css/**", "/js/**", "/img/**", "/account-css/**").permitAll()
@@ -54,7 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/**", "/statistics", "/card", "/dashboard").authenticated()
 
                                 // 인증 필요한 기능
-                                .requestMatchers("/modal", "/account/edit", "/account/remove",
+                                .requestMatchers("/account/edit", "/account/remove",
                                         "/account/reset-password", "/account/verify-password").authenticated()
 
                                 .anyRequest().authenticated()

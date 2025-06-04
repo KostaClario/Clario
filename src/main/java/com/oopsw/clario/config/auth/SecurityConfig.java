@@ -22,6 +22,7 @@ public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2FailureHandler customOAuth2FailureHandler;
+    private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,7 +40,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/css/**", "/js/**", "/img/**", "/account-css/**").permitAll()
 
                                 // 로그인 및 회원가입 관련
-                                .requestMatchers("/loginView", "/loginSuccess").permitAll()
+                                .requestMatchers("/loginView").permitAll()
                                 .requestMatchers("/privacy", "/agree", "/join").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/join").permitAll()
 
@@ -81,7 +82,8 @@ public class SecurityConfig {
                                         (userInfo) -> userInfo
                                                 .userService(customOAuth2UserService)
                                 )
-                                .defaultSuccessUrl("/loginSuccess", true) // "/"에서 리다이렉트 처리
+                                // redirectUrl 세션 기반 분기 처리
+                                .successHandler(customOAuth2SuccessHandler)
                 )
         ;
         return http.build();

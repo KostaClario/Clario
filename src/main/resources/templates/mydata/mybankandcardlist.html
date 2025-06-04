@@ -31,19 +31,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="bank : ${banks}">
+                        <tr th:each="bank : ${banks}" th:if="${not #lists.isEmpty(banks)}">
                             <td th:text="${bank.bankAccountName}">계좌명</td>
                             <td th:text="${bank.bankName}">은행</td>
                             <td th:text="${bank.bankAccountNum}">계좌번호</td>
                             <td th:text="${T(java.lang.String).format('%,d', bank.balance.longValue())}">금액</td>
                         </tr>
-                        <tr th:if="${banks.empty}">
-                            <td colspan="4">등록된 은행 계좌가 없습니다.</td>
+                        <tr th:unless="${not #lists.isEmpty(banks)}">
+                            <td>신한 주거래통장</td>
+                            <td>신한은행</td>
+                            <td>110-445-892364</td>
+                            <td>3,200,000</td>
+                        </tr>
+                        <tr th:unless="${not #lists.isEmpty(banks)}">
+                            <td>국민 급여우대통장</td>
+                            <td>국민은행</td>
+                            <td>822-25-4981327</td>
+                            <td>2,750,000</td>
                         </tr>
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <!-- 페이지 네비게이션: 필요시 서버에서 pageNumbers 모델로 전달 -->
                         <a th:each="pageNum : ${pageNumbers}"
                            th:href="@{/myDataConnection/{memberId}(memberId=${memberId}) + '?page=' + ${pageNum}}"
                            th:text="${pageNum}" th:classappend="${pageNum == currentPage} ? 'active' : ''">1</a>
@@ -63,14 +71,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="card : ${cards}">
+                        <tr th:each="card : ${cards}" th:if="${not #lists.isEmpty(cards)}">
                             <td th:text="${card.cardName}">카드이름</td>
                             <td th:text="${card.cardCompany}">카드사</td>
-                            <td th:text="${#strings.concat(card.cardBank, ' ', card.cardBankAccount)}">은행 계좌번호
-                            </td>
+                            <td th:text="${#strings.concat(card.cardBank, ' ', card.cardBankAccount)}">납부계좌</td>
                         </tr>
-                        <tr th:if="${cards.empty}">
-                            <td colspan="3">등록된 카드 정보가 없습니다.</td>
+                        <tr th:unless="${not #lists.isEmpty(cards)}">
+                            <td>신한 Deep Dream 카드</td>
+                            <td>신한카드</td>
+                            <td>신한은행 110-445-892364</td>
+                        </tr>
+                        <tr th:unless="${not #lists.isEmpty(cards)}">
+                            <td>KB국민 체크카드 라이프</td>
+                            <td>국민카드</td>
+                            <td>국민은행 822-25-4981327</td>
                         </tr>
                         </tbody>
                     </table>
@@ -85,6 +99,7 @@
         </main>
     </div>
 </div>
+
 <script th:inline="javascript">
     const today = new Date();
     const days = ['일', '월', '화', '수', '목', '금', '토'];
@@ -103,6 +118,5 @@
 </script>
 
 <script th:src="@{/js/modal.js}"></script>
-
 </body>
 </html>

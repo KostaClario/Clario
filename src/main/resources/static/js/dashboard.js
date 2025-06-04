@@ -1,5 +1,5 @@
-// const memberId = document.getElementById("memberId").value;
-// memberId: parseInt(memberId),
+const memberId = document.getElementById("memberId").value;
+
 function getFormattedDate(date = new Date()) {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const yyyy = date.getFullYear();
@@ -19,7 +19,7 @@ function getFormattedDate(date = new Date()) {
 // 초기 사용자 날짜 데이터 설정
 const dateInfo = getFormattedDate();
 const userData = {
-    memberId: 21,
+    memberId: parseInt(memberId),
     yearDate: dateInfo.yyyy.toString(),
     monthDate: dateInfo.mm,
     todayDate: dateInfo.isoDate

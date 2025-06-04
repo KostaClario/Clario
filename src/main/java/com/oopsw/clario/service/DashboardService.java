@@ -55,13 +55,17 @@ public class DashboardService {
     }
 
     public boolean addTargetAssets(HashMap<String, Object> map) {
-        try {
-            if (map.get("memberId") == null || map.get("targetAssets") == null) return false;
+        if (map.get("memberId") == null || map.get("targetAssets") == null) {
+            throw new IllegalArgumentException("memberId 또는 targetAssets가 누락되었습니다.");
+        }
 
+        try {
             int memberId = Integer.parseInt(map.get("memberId").toString());
             long targetAssets = Long.parseLong(map.get("targetAssets").toString());
 
-            if (memberId <= 0 || targetAssets <= 0) return false;
+            if (memberId <= 0 || targetAssets <= 0) {
+                throw new IllegalArgumentException("memberId와 targetAssets는 양수여야 합니다.");
+            }
 
             HashMap<String, Object> result = new HashMap<>();
             result.put("memberId", memberId);
@@ -70,10 +74,10 @@ public class DashboardService {
             return dashboardRepository.addTargetAssets(result);
 
         } catch (NumberFormatException e) {
-            System.err.println("잘못된 입력값: " + e.getMessage());
-            return false;
+            throw new IllegalArgumentException("숫자 형식이 올바르지 않습니다.", e);
         }
     }
+
 
     public List<TradeDTO> getTodayExpense(MemberDateDTO memberDateDTO) {
         List<TradeDTO> list = dashboardRepository.getTodayExpense(memberDateDTO);

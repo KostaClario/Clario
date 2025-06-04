@@ -7,6 +7,7 @@ import com.oopsw.clario.dto.dashboard.TradeDTO;
 import com.oopsw.clario.service.DashboardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,60 +22,57 @@ public class DashboardRestController {
     private DashboardService dashboardService;
 
     @PostMapping("/monthly-income")
-    public Long getMonthlyIncome(@RequestBody MemberDateDTO memberDateDTO) {
-        log.info("memberDateDTO : " + memberDateDTO.getMemberId());
-        log.info("memberDateDTO : " + memberDateDTO.getMonthDate());
-        log.info("memberDateDTO : " + memberDateDTO.getYearDate());
-        return dashboardService.getMonthlyIncome(memberDateDTO);
+    public ResponseEntity<Long> getMonthlyIncome(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getMonthlyIncome(memberDateDTO));
     }
 
     @PostMapping("/monthly-expense")
-    public Long getMonthlyExpense(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getMonthlyExpense(memberDateDTO);
+    public ResponseEntity<Long> getMonthlyExpense(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getMonthlyExpense(memberDateDTO));
     }
 
     @PostMapping("/monthly-ratio")
-    public MonthlyDTO getMonthlyRatio(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getIncomeSpending(memberDateDTO);
+    public ResponseEntity<MonthlyDTO> getMonthlyRatio(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getIncomeSpending(memberDateDTO));
     }
 
     @GetMapping("/target-assets/{memberId}")
-    public Long getTargetAssets(@PathVariable Integer memberId) {
-        return dashboardService.getTargetAssets(memberId);
+    public ResponseEntity<Long> getTargetAssets(@PathVariable Integer memberId) {
+        return ResponseEntity.ok(dashboardService.getTargetAssets(memberId));
     }
 
     @GetMapping("/total-assets/{memberId}")
-    public Long getTotalAssets(@PathVariable Integer memberId) {
-        return dashboardService.getTotalAssets(memberId);
+    public ResponseEntity<Long> getTotalAssets(@PathVariable Integer memberId) {
+        return ResponseEntity.ok(dashboardService.getTotalAssets(memberId));
     }
 
     @PostMapping("/target-assets")
-    public boolean addTargetAssets(@RequestBody HashMap<String, Object> map) {
-        return dashboardService.addTargetAssets(map);
+    public ResponseEntity<Boolean> addTargetAssets(@RequestBody HashMap<String, Object> map) {
+        return ResponseEntity.ok(dashboardService.addTargetAssets(map));
     }
 
     @PostMapping("/today-expense")
-    public List<TradeDTO> getTodayExpense(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getTodayExpense(memberDateDTO);
+    public ResponseEntity<List<TradeDTO>> getTodayExpense(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getTodayExpense(memberDateDTO));
     }
 
     @PostMapping("/today-income")
-    public List<TradeDTO> getTodayIncome(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getTodayIncome(memberDateDTO);
+    public ResponseEntity<List<TradeDTO>> getTodayIncome(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getTodayIncome(memberDateDTO));
     }
 
     @PostMapping("/top3-category")
-    public List<Top3CategoryDTO> getTop3Category(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getTop3Category(memberDateDTO);
+    public ResponseEntity<List<Top3CategoryDTO>> getTop3Category(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getTop3Category(memberDateDTO));
     }
 
     @PostMapping("/year-expenses")
-    public List<TradeDTO> getYearsExpenses(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getYearsExpenses(memberDateDTO);
+    public ResponseEntity<List<TradeDTO>> getYearsExpenses(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getYearsExpenses(memberDateDTO));
     }
 
     @PostMapping("/year-incomes")
-    public List<TradeDTO> getYearsIncomes(@RequestBody MemberDateDTO memberDateDTO) {
-        return dashboardService.getYearsIncomes(memberDateDTO);
+    public ResponseEntity<List<TradeDTO>> getYearsIncomes(@RequestBody MemberDateDTO memberDateDTO) {
+        return ResponseEntity.ok(dashboardService.getYearsIncomes(memberDateDTO));
     }
 }

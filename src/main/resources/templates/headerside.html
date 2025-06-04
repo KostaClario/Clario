@@ -51,8 +51,8 @@
                 <i th:if="${profile == null}" class="bi bi-person"></i>
             </button>
             <div class="profile-menu">
-                <button type="button" class="profile-menu-item"
-                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
+                <button type="button" class="profile-menu-item" onclick="openPwInputModal()">
+<!--                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">-->
                     자산 조회
                 </button>
                 <button type="button" class="profile-menu-item" onclick="openPwInputModal()">정보 수정</button>
@@ -121,7 +121,7 @@
 </div>
 
 <script th:src="@{/js/modal.js}"></script> <!-- JS는 따로 분리해두는 걸 추천 -->
-</header>
+
 <!-- 날짜 표시 스크립트 -->
 <script th:inline="javascript">
     const today = new Date();

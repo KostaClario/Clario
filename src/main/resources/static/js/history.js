@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedDate = null;
     let selectedCategory = null;
     let selectedCard = null;
+    let currentPage = 1;
+    const itemsPerPage = 20;
+    let allIncomeData = [];
+    let allExpenseData = [];
 
 
     const selection = document.getElementById("selection");
@@ -199,69 +203,125 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     function fetchFilteredResults() {
         console.log("필터링 호출됨:", selectedType, selectedDate, selectedCategory, selectedCard);
-        console.log("🟢 선택된 값 확인", {
-            selectedType,
-            selectedDate,
-            selectedCategory,
-            selectedCard
-        });
 
         const params = {};
-
-        if (selectedDate) {
-            params.date = selectedDate;
-        }
-        if (selectedCategory) {
-            params.category = selectedCategory;
-        }
-        if (selectedCard) {
-            params.card = selectedCard;
-        }
+        if (selectedDate) params.date = selectedDate;
+        if (selectedCategory) params.category = selectedCategory;
+        if (selectedCard) params.card = selectedCard;
 
         if (selectedType === "income") {
-            axios.get(`/api/incomeHistory`, {params})
+            axios.get(`/api/incomeHistory`, { params })
                 .then(response => {
-                    console.log("🟢 수신된 응답:", response.data);
-                    const incomeBody = document.getElementById("income-body");
-                    incomeBody.innerHTML = "";
-                    response.data.forEach(item => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                        <td>${item.accountDay || "-"}</td>
-                        <td>${item.bankName || "-"}</td>
-                        <td>${item.source || "-"}</td>
-                        <td>${item.accountMoney != null && !isNaN(item.accountMoney) ? item.accountMoney.toLocaleString() : "-"}</td>
-                    `;
-                        incomeBody.appendChild(row);
-                    });
+                    allIncomeData = response.data;
+                    currentPage = 1;
+                    renderIncomePage();
                 })
                 .catch(error => {
                     console.error("수입 내역 불러오기 실패", error);
                 });
 
         } else if (selectedType === "expense") {
-            axios.get(`/api/expenseHistory`, {params})
+            axios.get(`/api/expenseHistory`, { params })
                 .then(response => {
-                    const expenseBody = document.getElementById("expense-body");
-                    expenseBody.innerHTML = "";
-                    response.data.forEach(item => {
-                        if (!item) return;
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                        <td>${item.cardDay || "-"}</td>
-                        <td>${item.categoryName || "-"}</td>
-                        <td>${item.cardStoreName || "-"}</td>
-                        <td>${item.cardMoney != null ? item.cardMoney.toLocaleString() : "-"}</td>
-                        <td><button class="detail-btn" onclick="detailModal(${item.cardTradeId})">상세보기</button></td>
-                    `;
-                        expenseBody.appendChild(row);
-                    });
+                    allExpenseData = response.data;
+                    currentPage = 1;
+                    renderExpensePage();
                 })
                 .catch(error => {
                     console.error("소비 내역 불러오기 실패", error);
                 });
         }
     }
+    //페이지 함수
+    function renderIncomePage() {
+        const incomeBody = document.getElementById("income-body");
+        incomeBody.innerHTML = "";
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = allIncomeData.slice(start, end);
+
+        pageItems.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${item.accountDay || "-"}</td>
+            <td>${item.bankName || "-"}</td>
+            <td>${item.source || "-"}</td>
+            <td>${item.accountMoney != null && !isNaN(item.accountMoney) ? item.accountMoney.toLocaleString() : "-"}</td>
+        `;
+            incomeBody.appendChild(row);
+        });
+
+        renderPaginationControls(allIncomeData.length);
+    }
+    function renderExpensePage() {
+        const expenseBody = document.getElementById("expense-body");
+        expenseBody.innerHTML = "";
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = allExpenseData.slice(start, end);
+
+        pageItems.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${item.cardDay || "-"}</td>
+            <td>${item.categoryName || "-"}</td>
+            <td>${item.cardStoreName || "-"}</td>
+            <td>${item.cardMoney != null ? item.cardMoney.toLocaleString() : "-"}</td>
+            <td><button class="detail-btn" onclick="detailModal(${item.cardTradeId})">상세보기</button></td>
+        `;
+            expenseBody.appendChild(row);
+        });
+
+        renderPaginationControls(allExpenseData.length);
+    }
+    function renderPaginationControls(totalItems) {
+        const paginationDiv = document.getElementById("pagination");
+        paginationDiv.innerHTML = "";
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const maxButtonsToShow = 10;
+
+        const group = Math.floor((currentPage - 1) / maxButtonsToShow);
+        const startPage = group * maxButtonsToShow + 1;
+        const endPage = Math.min(startPage + maxButtonsToShow - 1, totalPages);
+
+        // < 이전 그룹
+        if (startPage > 1) {
+            const prev = document.createElement("button");
+            prev.textContent = "<";
+            prev.onclick = () => {
+                currentPage = startPage - 1;
+                selectedType === "income" ? renderIncomePage() : renderExpensePage();
+            };
+            paginationDiv.appendChild(prev);
+        }
+
+        // 페이지 번호들
+        for (let i = startPage; i <= endPage; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            btn.className = i === currentPage ? "active" : "";
+            btn.onclick = () => {
+                currentPage = i;
+                selectedType === "income" ? renderIncomePage() : renderExpensePage();
+            };
+            paginationDiv.appendChild(btn);
+        }
+
+        // > 다음 그룹
+        if (endPage < totalPages) {
+            const next = document.createElement("button");
+            next.textContent = ">";
+            next.onclick = () => {
+                currentPage = endPage + 1;
+                selectedType === "income" ? renderIncomePage() : renderExpensePage();
+            };
+            paginationDiv.appendChild(next);
+        }
+    }
+
 
     // 가장 바깥에서 선언 (DOMContentLoaded 바깥 또는 window에 직접 등록)
     window.detailModal = function(cardTradeId) {

@@ -3,6 +3,8 @@ package com.oopsw.clario.service.card;
 import com.oopsw.clario.dto.card.AllCardsDTO;
 import com.oopsw.clario.dto.statistics.CategoryStatisticsDTO;
 import com.oopsw.clario.dto.statistics.MonthlyExpenseComparisonDTO;
+import com.oopsw.clario.dto.statistics.MonthlyIncomeDTO;
+import com.oopsw.clario.dto.statistics.TopCategoryByAmountDTO;
 import com.oopsw.clario.repository.card.CardRepository;
 import com.oopsw.clario.service.statistics.StatisticsService;
 import com.oopsw.clario.util.CategoryMapper;
@@ -10,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -49,6 +51,35 @@ public class CardService {
 
     public MonthlyExpenseComparisonDTO getMonthlyExpenseComparison(Integer memberId, Long year, Long month) {
         return statisticsService.getMonthlyExpenseComparison(memberId, year, month);
+    }
+
+    public Map<String, List<AllCardsDTO>> getGroupedRecommendedCards(List<String> parentCategories, String cardType) {
+        // 1. 모든 하위 카테고리 추출
+        List<String> allChildCategories = CategoryMapper.getChildCategories(parentCategories);
+
+        // 2. 한 번의 쿼리로 전체 카드 조회
+        List<AllCardsDTO> allCards = cardRepository.getCardsByCategoryNamesAndType(allChildCategories, cardType);
+
+        // 3. 상위 카테고리 기준으로 그룹핑
+        Map<String, List<AllCardsDTO>> grouped = CategoryMapper.groupCardsByParentCategory(allCards);
+
+        // 4. 각 그룹에서 최대 3개만 반환
+        Map<String, List<AllCardsDTO>> result = new LinkedHashMap<>();
+        for (String parent : parentCategories) {
+            List<AllCardsDTO> cards = grouped.getOrDefault(parent, Collections.emptyList());
+            result.put(parent, cards.stream().limit(3).collect(Collectors.toList()));
+        }
+
+        return result;
+    }
+
+
+    public List<TopCategoryByAmountDTO> getTopCategoriesByAmount(Integer memberId, Long year, Long month) {
+        return statisticsService.getTopCategoriesByAmount1(memberId, year, month);
+    }
+
+    public MonthlyIncomeDTO getMonthlyIncome(Integer memberId, Long year, Long month){
+        return statisticsService.getMonthlyIncome(memberId, year, month);
     }
 
 

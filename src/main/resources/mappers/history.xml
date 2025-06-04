@@ -4,7 +4,7 @@
 
 
 	<!--계좌 목록 조회 -->
-	<select id="accountList" parameterType="int" resultType="map">
+	<select id="accountList" parameterType="int" resultType="com.oopsw.clario.dto.history.AccountDTO">
 		SELECT bank_account_num AS bankAccountNum,
 			   bank_account_name AS bankAccountName
 		FROM MyBank
@@ -12,7 +12,7 @@
 	</select>
 
 	<!--카드 목록 조회 -->
-	<select id="cardList" parameterType="int" resultType="map">
+	<select id="cardList" parameterType="int" resultType="com.oopsw.clario.dto.history.CardDTO">
 		SELECT card_num AS cardNum,
 			   card_name AS cardName
 		FROM MyCard
@@ -22,18 +22,19 @@
 	<insert id="income" parameterType="com.oopsw.clario.dto.history.IncomeDTO">
 		INSERT INTO AccountTrade (
 			account_trade_day,
-			account_trade_money,
 			account_source,
+			account_trade_money,
 			account_trade_type,
 			bank_account_num
-		) VALUES (
+			) VALUES (
 					 #{accountDay},
-					 #{accountMoney},
 					 #{source},
+					 #{accountMoney},
 					 #{accountType},
 					 #{bankAccountNum}
 				 )
 	</insert>
+
 	<!--결제-->
 	<insert id="expense" parameterType="com.oopsw.clario.dto.history.ExpenseDTO">
 		INSERT INTO CardTrade (
@@ -124,4 +125,5 @@
 	<select id="categoryList" resultType="map">
 		SELECT category_id, category_name FROM Category
 	</select>
+
 </mapper>

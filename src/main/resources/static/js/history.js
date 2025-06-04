@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("today-date").textContent = formatted;
     document.getElementById("incomeDate").valueAsDate = new Date();
     document.getElementById("expenseDate").valueAsDate = new Date();
+    loadCards();
 
 
     // 변수 선언
@@ -148,27 +149,35 @@ document.addEventListener("DOMContentLoaded", function () {
         cardList.style.display = "none";
         loadCategoryFromDB(); // ✅ 호출만
     });
+
     function loadCardsFromDB() {
         cardList.innerHTML = ""; // 초기화
 
         axios.get(`/api/card`)
             .then(response => {
-                const cards = response.data;
+                const cards = response.data; // ✅ JSON 배열 직접 받음
+
                 if (!cards || cards.length === 0) {
                     cardList.innerHTML = "<p>등록된 카드가 없습니다.</p>";
                     return;
                 }
 
                 cards.forEach(card => {
+                    const bankName = card.linked_account?.bank_name || "-";  // snake_case 접근
                     const btn = document.createElement("button");
-                    btn.textContent = card.cardName;   // 카드 이름 표시
+                    btn.textContent = `${card.card_name} (${bankName})`;
+                    btn.value = card.card_id;
+
                     btn.onclick = () => {
-                        selectedCard = card.cardName;  // 필터 조건으로 사용
+                        selectedCard = card.card_name;  // 임시 대체
+                        cardBtn.textContent = btn.textContent;
                         cardList.style.display = "none";
                         fetchFilteredResults();
                     };
+
                     cardList.appendChild(btn);
                 });
+
 
                 cardList.style.display = "block";
                 adjustScrollBoxHeight("cardList");
@@ -177,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("카드 불러오기 실패", error);
             });
     }
+
     // 카드 버튼 이벤트
     cardBtn.addEventListener("click", () => {
         if (cardList.style.display === "none" || cardList.style.display === "") {
@@ -281,93 +291,209 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("상세 내역 불러오기 실패", error);
             });
     };
+    function formatAccountNumber(accountNum) {
+        if (!accountNum) return "";
+        if (accountNum.length === 11) {
+            return `${accountNum.slice(0, 3)}-${accountNum.slice(3, 7)}-${accountNum.slice(7)}`;
+        } else if (accountNum.length === 10) {
+            return `${accountNum.slice(0, 3)}-${accountNum.slice(3, 6)}-${accountNum.slice(6)}`;
+        }
+        return accountNum;
+    }
+    function maskAccountNumber(accountNum) {
+        if (!accountNum) return "";
 
+        // 숫자만 있을 경우 하이픈 자동 삽입
+        const digitsOnly = accountNum.replace(/\D/g, '');
+        if (digitsOnly.length === 10) {
+            return `${digitsOnly.slice(0, 3)}-****-${digitsOnly.slice(6)}`;
+        } else if (digitsOnly.length === 11) {
+            return `${digitsOnly.slice(0, 3)}-****-${digitsOnly.slice(7)}`;
+        }
 
+        // 하이픈이 이미 포함된 경우 (123-4567-8901)
+        const parts = accountNum.split("-");
+        if (parts.length === 3) {
+            return `${parts[0]}-****-${parts[2]}`;
+        }
+
+        // 예상되지 않은 포맷은 원본 반환
+        return accountNum;
+    }
+
+    // 계좌 목록 로드 함수
     function loadAccounts() {
-        axios.get("/api/account")  // ❌ params 없이 호출
+        axios.get("/api/account")
             .then(response => {
-                const select = document.getElementById("bankAccountSelect");
-                select.innerHTML = "";
+                const nameSelect = document.getElementById("bankAccountSelect");
+                const numSelect = document.getElementById("bankAccountNumSelect");
+
+                nameSelect.innerHTML = "<option value=''>계좌 이름 선택</option>";
+                numSelect.innerHTML = "<option value=''>계좌 번호 선택</option>";
+                numSelect.disabled = true;  // 초기에는 비활성화
+
                 response.data.forEach(account => {
-                    const option = document.createElement("option");
-                    option.value = account.bankAccountNum;
-                    option.textContent = account.bankAccountName;
-                    select.appendChild(option);
+                    const nameOption = document.createElement("option");
+                    nameOption.value = account.account_name;
+                    nameOption.textContent = account.account_name;
+                    nameOption.dataset.accountNum = account.account_num_masked;  // 실제 번호
+                    nameOption.dataset.bankName = account.bank_name;
+                    nameSelect.appendChild(nameOption);
+                });
+
+                nameSelect.addEventListener("change", function () {
+                    const selectedOption = nameSelect.options[nameSelect.selectedIndex];
+                    const matchedNum = selectedOption.dataset.accountNum;
+                    const bankName = selectedOption.dataset.bankName;
+
+                    numSelect.innerHTML = "";
+                    if (matchedNum) {
+                        const opt = document.createElement("option");
+                        opt.value = matchedNum;
+                        opt.textContent = maskAccountNumber(matchedNum); // ✅ 마스킹 적용
+                        opt.dataset.accountName = selectedOption.value;
+                        opt.dataset.bankName = bankName;
+                        numSelect.appendChild(opt);
+                        numSelect.disabled = false;
+                    } else {
+                        numSelect.disabled = true;
+                    }
                 });
             })
             .catch(error => {
                 console.error("계좌 목록 불러오기 실패", error);
             });
-
     }
+    document.getElementById("bankAccountSelect").addEventListener("change", function () {
+        const selectedAccountName = this.value;
+        const numSelect = document.getElementById("bankAccountNumSelect");
 
+        for (let option of numSelect.options) {
+            if (option.dataset.accountName === selectedAccountName) {
+                option.selected = true;
+                break;
+            }
+        }
+    });
 
     document.getElementById("saveIncomeBtn").addEventListener("click", () => {
+        const nameSelect = document.getElementById("bankAccountSelect");
+        const numSelect = document.getElementById("bankAccountNumSelect");
+
+        const selectedNameOption = nameSelect.options[nameSelect.selectedIndex];
+        const selectedNumOption = numSelect.options[numSelect.selectedIndex];
+
+        const bankAccountNum = selectedNumOption.value;
+        const accountName = selectedNameOption.value;
+        const bankName = selectedNumOption.dataset.bankName;
+        const amount = document.getElementById("incomeAmount").value;
+
+        if (!bankAccountNum || !accountName) {
+            alert("계좌 이름과 번호를 선택하세요.");
+            return;
+        }
+
+        if (!amount || isNaN(parseInt(amount))) {
+            alert("입금 금액을 올바르게 입력하세요.");
+            return;
+        }
+
         const dto = {
+            memberId: parseInt(document.getElementById("memberId").value),
             accountDay: document.getElementById("incomeDate").value,
             source: document.getElementById("incomeSource").value,
-            accountMoney: parseInt(document.getElementById("incomeAmount").value),
+            accountMoney: parseInt(amount),
             accountType: '입금',
-            bankAccountNum: document.getElementById("bankAccountSelect").value  // <- 계좌번호
+            bankAccountNum: bankAccountNum,
+            bankAccountName: accountName,
+            bankName: bankName
         };
 
         axios.post("/api/income", dto)
             .then(res => {
                 alert("입금 완료!");
-                document.getElementById("incomeModal").style.display = "none";
-                fetchFilteredResults();
+                closeModal("incomeModal");
             })
             .catch(err => {
                 console.error("입금 실패", err);
-                alert("입금에 실패했습니다.");
+                alert("입금 실패!");
             });
     });
+
+
     function generateRandomBusinessNum() {
         const part1 = String(Math.floor(100 + Math.random() * 900)); // 100~999
         const part2 = String(Math.floor(10 + Math.random() * 90));   // 10~99
         const part3 = String(Math.floor(10000 + Math.random() * 90000)); // 10000~99999
         return `${part1}-${part2}-${part3}`;
     }
+
     function loadCards() {
-        // 로그인된 사용자 ID
         axios.get(`/api/card`)
             .then(response => {
+                const cards = response.data; // 배열임
                 const select = document.getElementById("expenseCard");
-                select.innerHTML = ""; // 초기화
+                select.innerHTML = "";
 
-                response.data.forEach(card => {
+                cards.forEach(card => {
                     const option = document.createElement("option");
-                    option.value = card.cardNum;             // 실제 서버에 넘길 값
-                    option.textContent = card.cardName;      // 사용자에게 보이는 값
+                    option.value = card.card_num_masked;            // ✅ snake_case로 수정
+                    option.textContent = card.card_name;    // ✅ snake_case로 수정
                     select.appendChild(option);
                 });
             })
             .catch(error => {
-                console.error("카드 목록 불러오기 실패", error);
+                console.error("💥 결제용 카드 목록 로딩 실패", error);
             });
     }
+
+
     expenseBtn.addEventListener("click", () => {
         loadCards();
         loadCateforyModelList();// 카드 목록 로드
         document.getElementById("expenseModal").style.display = "flex";
     });
     window.saveExpense = function () {
+        const cardSelect = document.getElementById("expenseCard");
+        const cardNum = cardSelect.value;
+        const cardName = cardSelect.options[cardSelect.selectedIndex].textContent; // ✅ 카드 이름 가져오기
+        const amount = document.getElementById("expenseAmount").value;
+        const category = document.getElementById("categorySelect").value;
+
+        if (!cardNum) {
+            alert("카드를 선택하세요.");
+            return;
+        }
+
+        if (!amount || isNaN(parseInt(amount))) {
+            alert("결제 금액을 올바르게 입력하세요.");
+            return;
+        }
+
+        if (!category) {
+            alert("카테고리를 선택하세요.");
+            return;
+        }
+
         const dto = {
             cardDay: document.getElementById("expenseDate").value,
-            cardNum: document.getElementById("expenseCard").value,
+            cardNum: cardNum,
+            cardName: cardName, // ✅ 추가
+            industry: "소매업", // ✅ 임시값 또는 추후 자동 분류
             cardStoreName: document.getElementById("expenseStore").value,
-            cardMoney: parseInt(document.getElementById("expenseAmount").value),
+            cardMoney: parseInt(amount),
             businessNum: generateRandomBusinessNum(),
             cardType: "승인",
-            categoryName : document.getElementById("categorySelect").value
+            categoryName: category
         };
+
+        console.log("📦 전송할 expense dto:", dto);
 
         axios.post("/api/expense", dto)
             .then(res => {
                 alert("결제 완료!");
                 closeModal("expenseModal");
 
-                // ✅ 필터 초기화 후 목록 다시 조회
                 const today = new Date();
                 const year = today.getFullYear();
                 const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -383,6 +509,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("결제에 실패했습니다.");
             });
     };
+
+
     function loadCateforyModelList(){
         axios.get("/api/category")
             .then(response => {

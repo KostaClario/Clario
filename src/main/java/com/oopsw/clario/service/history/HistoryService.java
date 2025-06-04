@@ -44,7 +44,6 @@ public class HistoryService {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            // ✅ 핵심: snake_case → camelCase 자동 변환 설정 추가
             mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 
             InputStream is = new ClassPathResource("data/cards.json").getInputStream();

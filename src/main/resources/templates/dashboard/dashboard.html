@@ -156,6 +156,13 @@
     if (el) {
         el.textContent = formatted;
     }
+
+    // 로그아웃 핸들러
+    document.querySelector('.logout-btn').addEventListener('click', () => {
+        if (confirm('로그아웃 하시겠습니까?')) {
+            alert('로그아웃 되었습니다.');
+        }
+    });
 </script>
 </body>
 </html>

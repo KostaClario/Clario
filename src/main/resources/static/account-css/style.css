@@ -197,7 +197,7 @@ input[type="password"]:focus {
     justify-content: center;     /* 가로 중앙 정렬 */
     align-items: center;         /* 세로 중앙 정렬 */
     height: 80vh;
-    gap: 300px;                   /* 왼쪽-오른쪽 사이 간격 */
+    gap: 200px;                   /* 왼쪽-오른쪽 사이 간격 */
     padding: 0 40px;
     overflow-x: hidden;
     box-sizing: border-box;

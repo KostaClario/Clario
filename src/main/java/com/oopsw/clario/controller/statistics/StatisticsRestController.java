@@ -96,6 +96,7 @@ public class StatisticsRestController {
         return ResponseEntity.ok(statisticsService.getCategoryStatistics(memberId, year, month));
     }
 
+
     @GetMapping("/expense/growth")
     public ResponseEntity<MonthlyExpenseComparisonDTO> getMonthlyExpenseGrowth(
             @AuthenticationPrincipal CustomOAuth2User user,
@@ -113,6 +114,24 @@ public class StatisticsRestController {
         Integer memberId = authUtil.extractMemberId(user);
         return ResponseEntity.ok(statisticsService.getIncomeVsExpense(memberId, year, month));
     }
+
+    @GetMapping("/next-month-prediction")
+    public ResponseEntity<Long> getNextMonthPrediction(@AuthenticationPrincipal CustomOAuth2User user) {
+        Integer memberId = authUtil.extractMemberId(user);
+        long prediction = statisticsService.predictNextMonthExpense(memberId);
+        return ResponseEntity.ok(prediction);
+    }
+
+    @GetMapping("/spending-trend")
+    public ResponseEntity<SpendingTrendDTO> getSpendingTrend(@AuthenticationPrincipal CustomOAuth2User user,
+                                                             @RequestParam Long year,
+                                                             @RequestParam Long month) {
+        Integer memberId = authUtil.extractMemberId(user);
+        SpendingTrendDTO trend = statisticsService.analyzeSpendingTrend(memberId, year, month);
+        return ResponseEntity.ok(trend);
+    }
+
+
 
 }
 

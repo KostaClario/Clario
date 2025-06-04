@@ -89,10 +89,11 @@ public class MemberService {
         );
     }
 
-    public void removeMember(String email) {
+    public void deactivateMember(String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 메일"));
-        memberRepository.delete(member);
+        member.setActivation(false);
+        memberRepository.save(member);
     }
 
     public boolean checkPassword(String email, String password) {

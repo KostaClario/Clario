@@ -17,4 +17,6 @@ public class AllCardsDTO {
     private String cardUrl;            // 카드 URL
     private String cardImage;          // 카드 이미지
     private String benefitCategory;    // 혜택 카테고리
+    private String cardType;           // 카드 타입
+    private String parentCategory;
 }

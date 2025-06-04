@@ -5,6 +5,7 @@ import com.oopsw.clario.dto.card.AllCardsDTO;
 import com.oopsw.clario.dto.card.CardFilterRequestDTO;
 import com.oopsw.clario.dto.statistics.CategoryStatisticsDTO;
 import com.oopsw.clario.dto.statistics.MonthlyExpenseComparisonDTO;
+import com.oopsw.clario.dto.statistics.TopCategoryByAmountDTO;
 import com.oopsw.clario.service.card.CardService;
 import com.oopsw.clario.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/card")
@@ -40,12 +42,38 @@ public class CardRestController {
     return ResponseEntity.ok(cards);
     }
 
+    @PostMapping("/recommend")
+    public ResponseEntity<List<AllCardsDTO>> getRecommendedCards(@RequestBody CardFilterRequestDTO filter) {
+        List<AllCardsDTO> cards = cardService.getCardsByParentCategoriesAndType(
+                filter.getParentCategories(),
+                filter.getCardType()
+        );
+        return ResponseEntity.ok(cards);
+    }
+
+//    @GetMapping("/top-category-stats")
+//    public ResponseEntity<CategoryStatisticsDTO> getCategoryStatistics(@AuthenticationPrincipal CustomOAuth2User user,
+//                                                                       @RequestParam Long year,
+//                                                                       @RequestParam Long month) {
+//        Integer memberId = authUtil.extractMemberId(user);
+//        return ResponseEntity.ok(cardService.getCategoryStatistics(memberId, year, month));
+//    }
+
     @GetMapping("/top-category-stats")
     public ResponseEntity<CategoryStatisticsDTO> getCategoryStatistics(@AuthenticationPrincipal CustomOAuth2User user,
                                                                        @RequestParam Long year,
                                                                        @RequestParam Long month) {
         Integer memberId = authUtil.extractMemberId(user);
         return ResponseEntity.ok(cardService.getCategoryStatistics(memberId, year, month));
+    }
+
+
+    @GetMapping("/top-category-stats-amount")
+    public ResponseEntity<List<TopCategoryByAmountDTO>> getCategoryStatistics2(@AuthenticationPrincipal CustomOAuth2User user,
+                                                                              @RequestParam Long year,
+                                                                              @RequestParam Long month) {
+        Integer memberId = authUtil.extractMemberId(user);
+        return ResponseEntity.ok(cardService.getTopCategoriesByAmount(memberId, year, month));
     }
 
     @GetMapping("/monthly-expense")
@@ -65,5 +93,17 @@ public class CardRestController {
         Integer memberId = authUtil.extractMemberId(user);
         return ResponseEntity.ok(cardService.getMonthlyExpenseComparison(memberId, year, month));
     }
+
+    @PostMapping("/recommend/grouped")
+    public ResponseEntity<Map<String, List<AllCardsDTO>>> getGroupedCardRecommendations(@RequestBody CardFilterRequestDTO filter) {
+        Map<String, List<AllCardsDTO>> groupedCards = cardService.getGroupedRecommendedCards(
+                filter.getParentCategories(),
+                filter.getCardType()
+        );
+        return ResponseEntity.ok(groupedCards);
+    }
+
+
+
 
 }

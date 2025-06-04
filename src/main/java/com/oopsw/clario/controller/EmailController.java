@@ -1,15 +1,15 @@
 package com.oopsw.clario.controller;
 
 
+import com.oopsw.clario.config.auth.CustomOAuth2User;
 import com.oopsw.clario.service.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -22,6 +22,7 @@ public class EmailController {
         this.emailService = emailService;
     }
 
+    // 메일 전송
     @PostMapping("send-code")
     public ResponseEntity<?> sendCode(@RequestBody Map<String, String> request) {
         String email = request.get("email");
@@ -29,6 +30,7 @@ public class EmailController {
         return ResponseEntity.ok().body("인증 코드가 전송되었습니다.");
     }
 
+    // 메일 인증
     @PostMapping("verify-code")
     public ResponseEntity<?> verifyCode(@RequestBody Map<String, String> request) {
         String email = request.get("email");
@@ -39,5 +41,14 @@ public class EmailController {
                 ? ResponseEntity.ok(Collections.singletonMap("verified", true))
                 : ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                                     .body(Collections.singletonMap("verified", false));
+    }
+
+    // 현재 로그인한 사용자 이메일 반환
+    @GetMapping("user/email")
+    public ResponseEntity<Map<String, String>> getUserEmail(@AuthenticationPrincipal CustomOAuth2User user) {
+        String email = user.getEmail();
+        Map<String, String> result = new HashMap<>();
+        result.put("email", email);
+        return ResponseEntity.ok(result);
     }
 }

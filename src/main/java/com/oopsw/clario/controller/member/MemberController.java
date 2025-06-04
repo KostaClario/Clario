@@ -4,22 +4,17 @@ import com.oopsw.clario.config.auth.CustomOAuth2User;
 import com.oopsw.clario.config.auth.authdto.OAuthAttributes;
 import com.oopsw.clario.domain.member.Member;
 import com.oopsw.clario.dto.UpdateMemberDTO;
-import com.oopsw.clario.exception.EmailAlreadyExistsException;
 import com.oopsw.clario.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -35,24 +30,6 @@ public class MemberController {
     public String index() {
         return "redirect:/loginView";
     }
-
-    // 모달 테스트용(추후 메인페이지)
-    @GetMapping("/modal")
-    public String modal() {
-        return "account/modal";
-    }
-
-    @GetMapping("/api/user/email")
-    public ResponseEntity<Map<String, String>> getUserEmail(@AuthenticationPrincipal CustomOAuth2User user) {
-        String email = user.getEmail();
-        Map<String, String> result = new HashMap<>();
-        result.put("email", email);
-        return ResponseEntity.ok(result);
-    }
-
-
-
-
 
     @GetMapping("/account/remove")
     public String remove() {
@@ -74,7 +51,7 @@ public class MemberController {
             return "account/user-remove";
         }
 
-        memberService.removeMember(email);
+        memberService.deactivateMember(email);
 
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
@@ -169,20 +146,13 @@ public class MemberController {
             model.addAttribute("email", email);
             return "account/join";
         }
-        try{
             if(!memberService.existsByEmail(email)){
                 memberService.saveMember(email,name,phonenum,password);
             }
 
             session.removeAttribute("oauthAttributes");
-            session.setAttribute("redirectAfterLogin", "/modal");
+            session.setAttribute("redirectAfterLogin", "mydata/mybankandcardlist");
 
-            return "redirect:/modal";
-
-        }catch (EmailAlreadyExistsException e){
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("email", email);
-            return "account/join";
+            return "redirect:/mydata/mybankandcardlist";
         }
     }
-}

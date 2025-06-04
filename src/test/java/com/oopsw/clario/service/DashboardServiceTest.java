@@ -63,7 +63,7 @@ public class DashboardServiceTest {
     @Test
     public void addTargetAssets_True(){
         HashMap<String, Object> map = new HashMap<>();
-        map.put("memberId",-1);
+        map.put("memberId",1);
         map.put("targetAssets",95000000);
         boolean result = dashboardService.addTargetAssets(map);
         assertNotEquals(true, result);

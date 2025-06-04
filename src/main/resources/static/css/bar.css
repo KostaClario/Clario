@@ -36,15 +36,15 @@ html, body, .wrapper {
     left: 0;
     width: 100px;
     height: 100%;
-    background-color: #fff;
+    background: white;
     border-right: 1px solid var(--grey2);
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 100px;
+    padding: 90px 0 0 0;
+    gap: 24px;
 }
-
 .sidebar .logo {
     position: absolute;
     top: 0;
@@ -53,16 +53,15 @@ html, body, .wrapper {
     height: 70px;
     background-color: #fff;
     border-bottom: 1px solid var(--grey2);
-
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 .sidebar .logo img {
-    height: 100%;        /* 로고 박스(70px)보다 작게 */
-    width: auto;          /* 좌우 여백 남기고 */
-    object-fit: cover;       /* contain → cover */
+    height: 100%;
+    width: auto;
+    object-fit: cover;
     object-position: center; /* 중앙 크롭 */
     transform: scale(1.5);
 }
@@ -80,17 +79,26 @@ html, body, .wrapper {
     cursor: pointer;
 }
 
-.menu-btn {
-    background: none;
-    border: none;
+.nav-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    /*padding: 0 10px;*/
-    font-size: 1.4rem;
-    color: #333;
+    transition: background-color 0.2s;
+    font-size: 20px;
+    text-decoration: none;
 }
 
-.menu-btn:hover {
-    color: var(--purple3);
+.nav-icon:hover {
+    background: var(--grey2);
+}
+
+.nav-icon.active {
+    background: var(--purple3);
+    color: white;
 }
 
 .profile-btn {
@@ -137,12 +145,23 @@ html, body, .wrapper {
 
 .topbar-center {
     position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     font-size: 1.1rem;
     font-weight: bold;
 }
-
+.topbar-center.currentDate {
+    position: absolute;         /* 절대위치로 명시 */
+    top: 50%;                   /* 수직 중앙 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
 .topbar-right {
     position: absolute;
     top: 50%;
@@ -206,51 +225,11 @@ html, body, .wrapper {
 .profile-menu-item:hover {
     background-color: var(--grey2);
 }
-.topbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: white;
-    border-bottom: 1px solid #e9ecef;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    z-index: 100;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #6366f1;
-}
-
-.topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
 
 .user-name {
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: bold;
     color: #333;
-}
-
-.logout-btn {
-    background: #6366f1;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.logout-btn:hover {
-    background: #5856eb;
 }
 
 .user-avatar {
@@ -265,36 +244,4 @@ html, body, .wrapper {
     font-size: 18px;
 }
 
-.sidebar {
-    width: 80px;
-    background: white;
-    border-right: 1px solid #e9ecef;
-    padding: 90px 0 20px 0;
-    position: fixed;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-}
 
-.nav-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-size: 20px;
-}
-
-.nav-icon:hover {
-    background: #f1f5f9;
-}
-
-.nav-icon.active {
-    background: #6366f1;
-    color: white;
-}

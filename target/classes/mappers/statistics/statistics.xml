@@ -254,4 +254,75 @@
           AND MONTH(at.account_trade_day) = #{month}
     </select>
 
+    <!-- Util 위한 쿼리문, 선형 추정-->
+    <select id="getMonthlyTotalExpenses"
+            parameterType="int"
+            resultType="long">
+        SELECT
+            SUM(ct.card_trade_money) AS total
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+        WHERE mc.member_id = #{memberId}
+        GROUP BY YEAR(ct.card_trade_day), MONTH(ct.card_trade_day)
+        ORDER BY YEAR(ct.card_trade_day), MONTH(ct.card_trade_day)
+            AND ct.card_trade_type = '결제'
+    </select>
+
+    <select id="getMonthlyExpense"
+            parameterType="map"
+            resultType="long">
+        SELECT SUM(ct.card_trade_money)
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+        WHERE mc.member_id = #{memberId}
+            AND YEAR(ct.card_trade_day) = #{year}
+          AND MONTH(ct.card_trade_day) = #{month}
+          AND ct.card_trade_type = '결제'
+    </select>
+
+    <select id="getTotalSpendCount" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+        WHERE mc.member_id = #{memberId}
+            AND ct.card_trade_type = '결제'
+            AND YEAR(ct.card_trade_day) = #{year}
+          AND MONTH(ct.card_trade_day) = #{month}
+    </select>
+
+
+    <select id="getTotalIncome" parameterType="map" resultType="long">
+        SELECT COALESCE(SUM(total_income), 0)
+        FROM (
+                 SELECT account_trade_money AS total_income, account_trade_day AS trade_day
+                 FROM AccountTrade at
+        JOIN MyBank b ON at.bank_account_num = b.bank_account_num
+                 WHERE b.member_id = #{memberId}
+                   AND at.account_trade_type = '입금'
+
+                 UNION ALL
+
+                 SELECT card_trade_money AS total_income, card_trade_day AS trade_day
+                 FROM CardTrade ct
+                     JOIN MyCard mc ON ct.card_num = mc.card_num
+                 WHERE mc.member_id = #{memberId}
+                   AND ct.card_trade_type = '입금'
+             ) AS combined
+        WHERE YEAR(trade_day) = #{year}
+          AND MONTH(trade_day) = #{month}
+    </select>
+
+    <select id="getTotalSpendAmount" parameterType="map" resultType="long">
+        SELECT COALESCE(SUM(ct.card_trade_money), 0)
+        FROM CardTrade ct
+                 JOIN MyCard mc ON ct.card_num = mc.card_num
+        WHERE mc.member_id = #{memberId}
+            AND ct.card_trade_type = '결제'
+            AND YEAR(ct.card_trade_day) = #{year}
+          AND MONTH(ct.card_trade_day) = #{month}
+    </select>
+
+
+
+
 </mapper>

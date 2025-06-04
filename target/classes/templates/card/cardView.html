@@ -15,7 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: #333;
         }
 
@@ -30,26 +30,30 @@
             left: 0;
             right: 0;
             height: 70px;
-            background: white;
-            border-bottom: 1px solid #e9ecef;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
             z-index: 100;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #6366f1;
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .date {
             font-size: 16px;
-            color: #666;
+            color: #64748b;
+            font-weight: 500;
         }
 
         .header-right {
@@ -60,31 +64,31 @@
 
         .user-name {
             font-size: 14px;
-            color: #333;
-            font-weight: 500;
+            color: #334155;
+            font-weight: 600;
         }
 
         .logout-btn {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 30px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
 
         .logout-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
             display: flex;
@@ -92,13 +96,14 @@
             justify-content: center;
             color: #6366f1;
             font-size: 18px;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.8);
         }
 
         .sidebar {
             width: 80px;
-            background: white;
-            border-right: 1px solid #e9ecef;
+            background: rgba(255, 255, 255, 0.95);
+            border-right: 1px solid rgba(226, 232, 240, 0.8);
             padding: 90px 0 20px 0;
             position: fixed;
             height: 100vh;
@@ -106,31 +111,33 @@
             flex-direction: column;
             align-items: center;
             gap: 24px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
         }
 
         .nav-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 20px;
+            font-size: 22px;
+            position: relative;
         }
 
         .nav-icon:hover {
-            background: #f1f5f9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
         }
 
         .nav-icon.active {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
 
         .main-content {
@@ -144,190 +151,242 @@
 
         .top-section {
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: 1fr 400px;
             gap: 24px;
         }
 
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
         .chart-section {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .growth-section {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .growth-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .growth-content {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .expense-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-        }
-
-        .expense-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .expense-value {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .growth-rate-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 8px;
-        }
-
-        .growth-rate {
-            font-size: 18px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .growth-rate.positive {
-            color: #dc3545;
-        }
-
-        .growth-rate.negative {
-            color: #0d6efd;
-        }
-
-        .growth-rate.neutral {
-            color: #6c757d;
-        }
-
-        .growth-rate-container.positive {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-        }
-
-        .growth-rate-container.negative {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-        }
-
-        .growth-rate-container.neutral {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
         }
 
         .notification-section {
             background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 24px;
+            padding: 28px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .bottom-section {
-            background: white;
+        .notification-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4338ca;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .notification-content {
+            font-size: 14px;
+            color: #4338ca;
+            line-height: 1.6;
+        }
+
+        .consumption-analysis {
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .analysis-header {
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            color: #4338ca;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(67, 56, 202, 0.3);
+        }
+
+        .analysis-date {
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #4338ca;
+            margin-bottom: 16px;
+        }
+
+        .category-list {
+            margin-bottom: 16px;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #4338ca;
+        }
+
+        .category-name {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(67, 56, 202, 0.3);
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #4338ca;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-label {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .tip-box {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #4338ca;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tip-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .tip-text {
+            line-height: 1.5;
+        }
+
+        .recommendation-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .recommendation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        .bottom-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #1e293b;
             text-align: center;
         }
 
-        /* 차트 컨테이너 스타일 */
         .chart-container {
             position: relative;
             width: 100%;
-            height: 350px;
+            height: 400px;
             margin: 0 auto;
         }
 
-        /* 도넛 차트 레이아웃 */
         .chart-layout {
             display: flex;
-            align-items: center;
-            gap: 30px;
-            height: 300px;
+            align-items: flex-start;
+            gap: 32px;
+            height: 350px;
         }
 
         .chart-canvas-container {
-            flex: 0 0 280px;
-            height: 280px;
+            flex: 0 0 320px;
+            height: 320px;
             position: relative;
         }
 
         .chart-tabs {
             display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 24px;
             justify-content: center;
         }
 
         .chart-tab {
-            padding: 8px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 20px;
-            background: white;
-            font-size: 12px;
-            font-weight: 500;
+            padding: 12px 20px;
+            border: 2px solid rgba(226, 232, 240, 0.8);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .chart-tab.active {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border-color: #6366f1;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
         .chart-tab:hover:not(.active) {
             border-color: #6366f1;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
         }
 
         .legend {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             flex: 1;
-            max-height: 280px;
-            overflow-y: auto;
-            padding-right: 10px;
+            height: 320px;
+            overflow: visible;
+            padding-right: 0;
         }
 
         .legend-item {
@@ -335,128 +394,102 @@
             align-items: center;
             justify-content: space-between;
             font-size: 14px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background-color 0.2s ease;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(248, 250, 252, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .legend-item:hover {
-            background-color: #f8f9fa;
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateX(4px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
         }
 
         .legend-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .legend-color {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .legend-percentage {
-            font-weight: 600;
-            color: #333;
+            font-weight: 700;
+            color: #1e293b;
         }
 
         .legend-value {
-            font-size: 11px;
-            color: #666;
+            font-size: 12px;
+            color: #64748b;
             margin-top: 2px;
         }
 
         .chart-legend {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            gap: 24px;
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(248, 250, 252, 0.8);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
         }
 
         .legend-dual {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 500;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .legend-dual-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-        }
-
-        .notification-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #4338ca;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .notification-content {
-            font-size: 13px;
-            color: #4338ca;
-            line-height: 1.5;
-            margin-bottom: 14px;
-        }
-
-        .recommendation-btn {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
-            width: 100%;
-        }
-
-        .recommendation-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            width: 18px;
+            height: 18px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .card-view-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #1e293b;
         }
 
         .filters {
             display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 16px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
             align-items: center;
         }
 
         .select {
-            padding: 10px 14px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            background: white;
+            padding: 12px 16px;
+            border: 2px solid rgba(226, 232, 240, 0.8);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.8);
             font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            backdrop-filter: blur(10px);
         }
 
         .select:hover {
             border-color: #6366f1;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+            background: rgba(99, 102, 241, 0.05);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
         }
 
         .select:focus {
@@ -468,26 +501,26 @@
         .filter-tag {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
             transition: all 0.3s ease;
         }
 
         .filter-tag:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
 
         .filter-tag .close {
             cursor: pointer;
             font-weight: bold;
-            padding: 2px 4px;
+            padding: 4px 6px;
             border-radius: 50%;
             transition: background-color 0.2s ease;
         }
@@ -499,41 +532,44 @@
         .card-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .card-item {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 20px;
-            border: 2px solid #f1f5f9;
-            border-radius: 16px;
-            background: white;
+            gap: 24px;
+            padding: 24px;
+            border: 2px solid rgba(226, 232, 240, 0.5);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .card-item:hover {
             border-color: #6366f1;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+            transform: translateY(-4px);
         }
 
         .card-logo {
-            width: 80px;
-            height: 50px;
-            border: 2px solid #f1f5f9;
-            border-radius: 12px;
+            width: 84px;
+            height: 54px;
+            border: 2px solid rgba(226, 232, 240, 0.5);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
             flex-shrink: 0;
+            backdrop-filter: blur(10px);
         }
 
         .card-logo img {
-            max-width: 60px;
-            max-height: 30px;
+            max-width: 64px;
+            max-height: 34px;
         }
 
         .card-info {
@@ -541,41 +577,42 @@
         }
 
         .card-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e293b;
             margin-bottom: 6px;
         }
 
         .card-bank {
             font-size: 13px;
             color: #6366f1;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
         .card-description {
             font-size: 14px;
-            color: #666;
+            color: #64748b;
             margin-bottom: 8px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .card-benefit {
             font-size: 14px;
-            color: #666;
-            line-height: 1.4;
+            color: #64748b;
+            line-height: 1.5;
         }
 
         .card-type-badge {
             display: inline-block;
             background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 16px;
             font-size: 11px;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
         }
 
         .card-actions {
@@ -588,30 +625,151 @@
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 30px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
         .details-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
 
         .loading {
             text-align: center;
-            color: #666;
-            padding: 20px;
+            color: #64748b;
+            padding: 24px;
+            font-weight: 500;
         }
 
         .error-message {
             text-align: center;
-            color: #dc3545;
+            color: #dc2626;
+            padding: 24px;
+            font-weight: 500;
+        }
+
+        .recommended-cards-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card-box {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(226, 232, 240, 0.5);
+            border-radius: 16px;
             padding: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-box:hover {
+            border-color: #6366f1;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .card-box img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            background: rgba(248, 250, 252, 0.8);
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .card-company {
+            font-size: 13px;
+            color: #6366f1;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-benefit {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .card-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
         }
 
         @media (max-width: 1200px) {
@@ -619,17 +777,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .right-panel {
-                flex-direction: row;
-                gap: 24px;
-            }
-
-            .growth-section {
-                flex: 1;
-            }
-
-            .notification-section {
-                flex: 1;
+            .card-row {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
         }
 
@@ -648,9 +797,9 @@
             }
 
             .nav-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
             }
 
             .card-item {
@@ -670,13 +819,12 @@
 
             .legend {
                 width: 100%;
-                max-height: none;
+                height: auto;
                 padding-right: 0;
             }
 
-            .right-panel {
-                flex-direction: column;
-                gap: 16px;
+            .card-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -692,30 +840,6 @@
             .filters {
                 flex-direction: column;
             }
-        }
-
-        .filter-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .reset-btn {
-            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-        }
-
-        .reset-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
         }
     </style>
 </head>
@@ -739,24 +863,18 @@
     </nav>
 
     <main class="main-content">
-        <!-- 상단 섹션: 차트와 우측 패널 -->
         <div class="top-section">
             <section class="chart-section">
                 <h2 class="section-title">소비 카테고리 분석</h2>
 
-                <!-- 차트 탭 -->
                 <div class="chart-tabs">
                     <div class="chart-tab active" id="dualTab" onclick="switchChart('dual')">📊 통합 분석</div>
                     <div class="chart-tab" id="amountTab" onclick="switchChart('amount')">💰 금액별</div>
                     <div class="chart-tab" id="countTab" onclick="switchChart('count')">🔢 횟수별</div>
                 </div>
 
-                <!-- 차트 컨테이너 -->
                 <div id="chartContainer" class="chart-container">
-                    <!-- 통합 분석 차트 -->
                     <canvas id="dualChart"></canvas>
-
-                    <!-- 도넛 차트 레이아웃 (처음에는 숨김) -->
                     <div id="doughnutLayout" class="chart-layout" style="display: none;">
                         <div class="chart-canvas-container">
                             <canvas id="doughnutChart"></canvas>
@@ -767,57 +885,72 @@
                     </div>
                 </div>
 
-                <!-- 통합 차트 범례 -->
                 <div class="chart-legend" id="chartLegend" style="display: none;">
                     <div class="legend-dual">
-                        <div class="legend-dual-color" style="background: #3b82f6;"></div>
+                        <div class="legend-dual-color" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);"></div>
                         <span>💰 금액 (원)</span>
                     </div>
                     <div class="legend-dual">
-                        <div class="legend-dual-color" style="background: #f472b6;"></div>
+                        <div class="legend-dual-color" style="background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);"></div>
                         <span>🔢 횟수 (회)</span>
                     </div>
                 </div>
             </section>
 
-            <!-- 우측 패널 -->
-            <div class="right-panel">
-                <!-- 전월대비 증감률 섹션 -->
-                <section class="growth-section">
-                    <div class="growth-title">
-                        📊 전월대비 지출 분석
-                    </div>
-                    <div class="growth-content">
-                        <div class="expense-row">
-                            <span class="expense-label">이번 달</span>
-                            <span class="expense-value" id="currentExpense">로딩중...</span>
-                        </div>
-                        <div class="expense-row">
-                            <span class="expense-label">지난 달</span>
-                            <span class="expense-value" id="previousExpense">로딩중...</span>
-                        </div>
-                        <div class="growth-rate-container" id="growthRateContainer">
-                            <div class="growth-rate" id="growthRate">
-                                <span>계산중...</span>
+            <section class="notification-section">
+                <div id="notificationContent">
+                    <div class="consumption-analysis">
+                        <div class="analysis-header"> 소비 패턴 분석 </div>
+                        <div class="analysis-date">🗓️ 2025년 6월 소비 패턴 분석</div>
+                        <div style="font-size: 13px; margin-bottom: 12px;">상위 카테고리:</div>
+                        <div class="category-list">
+                            <div class="category-item">
+                                <div class="category-name">🎮 여가비</div>
+                                <div>327,000원 (4회)</div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-name">💡 고정비</div>
+                                <div>298,000원 (3회)</div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-name">🍷 유흥비</div>
+                                <div>267,049원 (5회)</div>
                             </div>
                         </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-label">💵 총 지출</div>
+                                <div class="stat-value">892,049원 / 12회</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">📉 전월 대비</div>
+                                <div class="stat-value">▲15.2% 증가</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">📊 소비 비중</div>
+                                <div class="stat-value">78% (총 수입 대비)</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">📆 평균 결제 간격</div>
+                                <div class="stat-value">2.6일</div>
+                            </div>
+                            <div class="tip-box">
+                                <div class="tip-icon">💡</div>
+                                <div class="tip-text">Tip: 고정비가 높습니다. 통신비 비교를 고려해보세요.</div>
+                            </div>
+                            <div class="analysis-header" style="margin-top: 16px;">───────────────────────────────────────</div>
+                        </div>
                     </div>
-                </section>
-
-                <!-- 알림 섹션 -->
-                <section class="notification-section">
-                    <div class="notification-title">
-                        📋 알림
-                    </div>
-                    <div class="notification-content" id="notificationContent">
-                        카드 추천 시스템이 준비되었습니다.
-                    </div>
-                    <button class="recommendation-btn" onclick="getRecommendation()">맞춤 카드 추천받기</button>
-                </section>
-            </div>
+                </div>
+                <button class="recommendation-btn" id="recommendCardBtn">맞춤 카드 추천받기</button>
+            </section>
         </div>
 
-        <!-- 하단 섹션: 카드 리스트 -->
+        <section class="recommended-cards-section" id="recommendedCardsSection">
+            <h2 class="card-view-title">🎯 맞춤 추천 카드</h2>
+            <div id="recommendedCardList"></div>
+        </section>
+
         <section class="bottom-section">
             <h2 class="card-view-title">카드 보기</h2>
 
@@ -851,25 +984,46 @@
 
 <script>
     const config = {
-        memberId: 21,
         timeout: 5000,
-        colors: ['#3b82f6', '#f472b6', '#f59e0b', '#10b981', '#8b5cf6', '#f97316']
+        colors: [
+            'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+            'linear-gradient(135deg, #f472b6 0%, #ec4899 100%)',
+            'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+            'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+            'linear-gradient(135deg, #f97316 0%, #ea580c 100%)'
+        ],
+        solidColors: ['#3b82f6', '#f472b6', '#f59e0b', '#10b981', '#8b5cf6', '#f97316']
     };
 
     let dualChart = null;
     let doughnutChart = null;
     let currentFilters = {
         cardType: '',
-        benefit: '',
         categories: []
     };
 
-    // 차트 데이터 저장
     let chartData = {
         amountBased: [],
         countBased: []
     };
-    let currentChartType = 'dual'; // 'dual', 'amount', 'count'
+    let currentChartType = 'dual';
+
+    // 로딩 상태 관리
+    let isLoadingChart = false;
+    let isLoadingCards = false;
+
+    // 카테고리별 이모지 매핑
+    const emojiMap = {
+        '식비': '🍽',
+        '교통비': '🚗',
+        '고정비': '💡',
+        '유흥비': '🍷',
+        '여가비': '🎮',
+        '건강비': '🏥',
+        '기타': '📦',
+        '생활비': '📱'
+    };
 
     // 유틸리티 함수
     const utils = {
@@ -881,186 +1035,233 @@
                 weekday: 'short'
             });
             document.getElementById('currentDate').textContent = dateString;
-        },
-
-        showError: (elementId, message = '데이터 조회 실패') => {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.innerHTML = `<div class="error-message">${message}</div>`;
-            }
         }
     };
 
-    // 전월대비 증감률 로드
-    const loadExpenseGrowthRate = async () => {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth() + 1;
+    // 카드 렌더링 함수 (백엔드에서 그룹화된 데이터 받음)
+    function renderGroupedCards(groupedCards) {
+        console.log('🎨 카드 렌더링:', groupedCards);
+
+        const container = document.getElementById('recommendedCardList');
+        container.innerHTML = '';
+
+        let hasCards = false;
+
+        for (const [category, cards] of Object.entries(groupedCards)) {
+            if (cards && cards.length > 0) {
+                hasCards = true;
+                const emoji = emojiMap[category] || '📊';
+                const groupHTML = `
+                        <div class="category-section">
+                            <h3 class="category-title">${emoji} ${category} 관련 추천카드</h3>
+                            <div class="card-row">
+                                ${cards.map(card => `
+                                    <div class="card-box">
+                                        <img src="${card.cardImage || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNBUkQ8L3RleHQ+PC9zdmc+'}"
+                                             alt="${card.cardName || '카드'}" />
+                                        <div class="card-title">${card.cardName || '카드명 없음'}</div>
+                                        <div class="card-company">${card.cardCompany || card.bankName || '발급사 정보 없음'}</div>
+                                        <div class="card-benefit">${card.benefitSummary || card.benefit || '혜택 정보 없음'}</div>
+                                        <a href="${card.cardUrl || '#'}" target="_blank" class="card-link">자세히 보기</a>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                container.insertAdjacentHTML('beforeend', groupHTML);
+            }
+        }
+
+        if (!hasCards) {
+            container.innerHTML = '<div class="error-message">추천할 수 있는 카드가 없습니다.</div>';
+        }
+
+        document.getElementById('recommendedCardsSection').style.display = 'block';
+    }
+
+    // 소비 카테고리 차트 생성
+    const createCategoryChart = async () => {
+        if (isLoadingChart) return;
+        isLoadingChart = true;
 
         try {
-            const response = await axios.get('/api/statistics/expense/growth', {
+            const legendContainer = document.getElementById('categoryLegend');
+            legendContainer.innerHTML = '<div class="loading">데이터 로딩중...</div>';
+
+            const now = new Date();
+            const response = await axios.get('/api/statistics/top-category-stats', {
                 params: {
                     memberId: config.memberId,
-                    year: year,
-                    month: month
+                    year: now.getFullYear(),
+                    month: now.getMonth() + 1
                 },
                 timeout: config.timeout
             });
 
             const data = response.data;
+            chartData.amountBased = data.amountBased || [];
+            chartData.countBased = data.countBased || [];
 
-            // DOM에 출력
-            document.getElementById('currentExpense').innerText = data.currentExpense.toLocaleString() + "원";
-            document.getElementById('previousExpense').innerText = data.previousExpense.toLocaleString() + "원";
-
-            // 증감률 표시 및 스타일 적용
-            const growthRate = data.growthRate;
-            const growthRateElement = document.getElementById('growthRate');
-            const growthRateContainer = document.getElementById('growthRateContainer');
-
-            // 증감률 텍스트 설정
-            const growthText = (growthRate > 0 ? '+' : '') + growthRate + '%';
-            const icon = growthRate > 0 ? '📈' : growthRate < 0 ? '📉' : '➖';
-            growthRateElement.innerHTML = `<span>${icon}</span><span>${growthText}</span>`;
-
-            // 스타일 클래스 적용
-            growthRateElement.className = 'growth-rate';
-            growthRateContainer.className = 'growth-rate-container';
-
-            if (growthRate > 0) {
-                growthRateElement.classList.add('positive');
-                growthRateContainer.classList.add('positive');
-            } else if (growthRate < 0) {
-                growthRateElement.classList.add('negative');
-                growthRateContainer.classList.add('negative');
-            } else {
-                growthRateElement.classList.add('neutral');
-                growthRateContainer.classList.add('neutral');
+            if (chartData.amountBased.length === 0 && chartData.countBased.length === 0) {
+                legendContainer.innerHTML = '<div class="error-message">소비 데이터가 없습니다</div>';
+                updateNotificationContent(null);
+                return;
             }
 
+            renderChart(currentChartType);
+            updateNotificationContent(data);
+
         } catch (error) {
-            console.error('증감률 정보 불러오기 실패:', error.message);
-
-            // 더미 데이터로 대체
-            document.getElementById('currentExpense').innerText = '1,250,000원';
-            document.getElementById('previousExpense').innerText = '1,180,000원';
-
-            const growthRateElement = document.getElementById('growthRate');
-            const growthRateContainer = document.getElementById('growthRateContainer');
-
-            growthRateElement.innerHTML = '<span>📈</span><span>+5.9%</span>';
-            growthRateElement.className = 'growth-rate positive';
-            growthRateContainer.className = 'growth-rate-container positive';
+            console.error('차트 생성 실패:', error.message);
+            document.getElementById('categoryLegend').innerHTML = '<div class="error-message">차트 데이터를 불러올 수 없습니다</div>';
+            updateNotificationContent(null);
+        } finally {
+            isLoadingChart = false;
         }
     };
 
-    // 소비 카테고리 차트 생성 (API 데이터 사용)
-    const createCategoryChart = async () => {
-        try {
-            // 로딩 상태 표시
-            const legendContainer = document.getElementById('categoryLegend');
-            legendContainer.innerHTML = '<div class="loading">데이터 로딩중...</div>';
+    // 알림 내용 업데이트 함수
+    const updateNotificationContent = (data) => {
+        const notificationContainer = document.getElementById('notificationContent');
 
-            // 현재 날짜 기준으로 year, month 설정
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1;
-
-            try {
-                // 👉 통합 API 호출
-                const response = await axios.get('/api/statistics/top-category-stats', {
-                    params: {
-                        memberId: config.memberId,
-                        year,
-                        month
-                    },
-                    timeout: config.timeout
-                });
-
-                const { amountBased, countBased } = response.data;
-
-                // 차트 데이터 저장
-                chartData.amountBased = amountBased || [];
-                chartData.countBased = countBased || [];
-
-            } catch (apiError) {
-                console.log('API 호출 실패, 더미 데이터 사용:', apiError.message);
-
-                // 더미 데이터로 대체 (개발/테스트용)
-                chartData.amountBased = [
-                    { categoryId: 1, categoryName: '식비', amount: 450000, totalAmount: 450000 },
-                    { categoryId: 2, categoryName: '교통비', amount: 120000, totalAmount: 120000 },
-                    { categoryId: 3, categoryName: '여가비', amount: 200000, totalAmount: 200000 },
-                    { categoryId: 4, categoryName: '생활비', amount: 180000, totalAmount: 180000 },
-                    { categoryId: 5, categoryName: '고정비', amount: 300000, totalAmount: 300000 }
-                ];
-                chartData.countBased = [
-                    { categoryId: 1, categoryName: '식비', usageCount: 25, totalCount: 25 },
-                    { categoryId: 2, categoryName: '교통비', usageCount: 15, totalCount: 15 },
-                    { categoryId: 3, categoryName: '여가비', usageCount: 8, totalCount: 8 },
-                    { categoryId: 4, categoryName: '생활비', usageCount: 12, totalCount: 12 },
-                    { categoryId: 5, categoryName: '고정비', usageCount: 6, totalCount: 6 }
-                ];
-            }
-
-            // 기본으로 통합 차트 표시
-            renderChart(currentChartType);
-
-            // 알림 내용 업데이트
-            const totalAmount = chartData.amountBased?.reduce((sum, item) => {
-                const amount = item.amount || item.totalAmount || item.value || 0;
-                return sum + amount;
-            }, 0) || 0;
-
-            const totalCount = chartData.countBased?.reduce((sum, item) => {
-                const count = item.usageCount || item.totalCount || item.count || item.value || 0;
-                return sum + count;
-            }, 0) || 0;
-
-            let top3Categories = '';
-            if (chartData.amountBased && chartData.amountBased.length > 0) {
-                top3Categories = chartData.amountBased.slice(0, 3).map(item => `"${item.categoryName}"`).join(', ');
-            }
-
-            document.getElementById('notificationContent').innerHTML =
-                `${year}년 ${month}월 소비 패턴 분석<br>상위 카테고리: ${top3Categories}<br>총 ${totalAmount.toLocaleString()}원 / ${totalCount}회 사용`;
-
-        } catch (error) {
-            console.error('❌ 카테고리 차트 생성 실패:', error.message);
-
-            // 최종 fallback
-            chartData.amountBased = [
-                { categoryId: 1, categoryName: '식비', amount: 450000 },
-                { categoryId: 2, categoryName: '교통비', amount: 120000 },
-                { categoryId: 3, categoryName: '여가비', amount: 200000 }
-            ];
-            chartData.countBased = [
-                { categoryId: 1, categoryName: '식비', usageCount: 25 },
-                { categoryId: 2, categoryName: '교통비', usageCount: 15 },
-                { categoryId: 3, categoryName: '여가비', usageCount: 8 }
-            ];
-
-            renderChart(currentChartType);
+        if (!data || !data.totalAmount) {
+            notificationContainer.innerHTML = `
+                    <div class="consumption-analysis">
+                        <div class="analysis-header">─────────────── 소비 패턴 분석 ───────────────</div>
+                        <div style="text-align: center; color: #4338ca; padding: 20px;">
+                            소비 데이터가 부족합니다.
+                        </div>
+                        <div class="analysis-header">───────────────────────────────────────</div>
+                    </div>
+                `;
+            return;
         }
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+
+        // 전월 대비 증감률 계산
+        let growthRate = 0;
+        let growthText = '0%';
+        let growthIcon = '➖';
+
+        if (data.previousMonthAmount && data.previousMonthAmount > 0) {
+            growthRate = ((data.totalAmount - data.previousMonthAmount) / data.previousMonthAmount * 100);
+            growthText = (growthRate > 0 ? '▲' : '▼') + Math.abs(growthRate).toFixed(1) + '%';
+            growthIcon = growthRate > 0 ? '▲' : '▼';
+            growthText += growthRate > 0 ? ' 증가' : ' 감소';
+        }
+
+        // 소비 비중 계산
+        let spendingRatio = 0;
+        let spendingRatioText = '계산 불가';
+
+        if (data.userIncome && data.userIncome > 0) {
+            spendingRatio = (data.totalAmount / data.userIncome * 100);
+            spendingRatioText = spendingRatio.toFixed(0) + '% (총 수입 대비)';
+        }
+
+        // 평균 결제 간격 계산
+        let avgInterval = '계산 불가';
+        if (data.totalCount && data.totalCount > 0) {
+            const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+            const interval = (daysInMonth / data.totalCount).toFixed(1);
+            avgInterval = interval + '일';
+        }
+
+        // 상위 카테고리 3개 추출
+        const top3Categories = data.amountBased ? data.amountBased.slice(0, 3) : [];
+
+        let categoryBreakdown = '';
+        if (top3Categories.length > 0) {
+            categoryBreakdown = top3Categories.map(item => {
+                const emoji = emojiMap[item.categoryName] || '📊';
+                const countItem = data.countBased ? data.countBased.find(count => count.categoryName === item.categoryName) : null;
+                const usageCount = countItem ? countItem.usageCount : 0;
+                return `
+                        <div class="category-item">
+                            <div class="category-name">${emoji} ${item.categoryName}</div>
+                            <div>${(item.totalAmount || 0).toLocaleString()}원 (${usageCount}회)</div>
+                        </div>
+                    `;
+            }).join('');
+        }
+
+        // 팁 생성
+        let tipText = '소비 패턴을 분석하여 맞춤형 카드를 추천해드립니다.';
+        if (top3Categories.length > 0) {
+            const topCategory = top3Categories[0].categoryName;
+            switch(topCategory) {
+                case '고정비':
+                    tipText = 'Tip: 고정비가 높습니다. 통신비나 공과금 할인 혜택을 고려해보세요.';
+                    break;
+                case '식비':
+                    tipText = 'Tip: 식비 지출이 많습니다. 음식점이나 배달 할인 혜택 카드를 추천합니다.';
+                    break;
+                case '교통비':
+                    tipText = 'Tip: 교통비 지출이 많습니다. 대중교통이나 주유 할인 카드를 고려해보세요.';
+                    break;
+                case '여가비':
+                    tipText = 'Tip: 여가 활동이 활발하시네요. 문화생활이나 쇼핑 할인 혜택을 확인해보세요.';
+                    break;
+                case '유흥비':
+                    tipText = 'Tip: 유흥비 지출이 많습니다. 카페나 술집 할인 혜택 카드를 추천합니다.';
+                    break;
+                default:
+                    tipText = `Tip: ${topCategory} 지출이 많습니다. 관련 할인 혜택을 확인해보세요.`;
+            }
+        }
+
+        notificationContainer.innerHTML = `
+                <div class="consumption-analysis">
+                    <div class="analysis-header">소비 패턴 분석</div>
+                    <div class="analysis-date">🗓️ ${currentYear}년 ${currentMonth}월 소비 패턴 분석</div>
+                    ${top3Categories.length > 0 ? `
+                        <div style="font-size: 13px; margin-bottom: 12px;">상위 카테고리:</div>
+                        <div class="category-list">
+                            ${categoryBreakdown}
+                        </div>
+                    ` : ''}
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">💵 총 지출</div>
+                            <div class="stat-value">${data.totalAmount.toLocaleString()}원 / ${data.totalCount}회</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">📉 전월 대비</div>
+                            <div class="stat-value">${growthText}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">📊 소비 비중</div>
+                            <div class="stat-value">${spendingRatioText}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">📆 평균 결제 간격</div>
+                            <div class="stat-value">${avgInterval}</div>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <div class="tip-icon">💡</div>
+                        <div class="tip-text">${tipText}</div>
+                    </div>
+                    <div class="analysis-header" style="margin-top: 16px;"></div>
+                </div>
+            `;
     };
 
-    // 차트 렌더링 함수
+    // 차트 렌더링
     const renderChart = (type) => {
-        console.log(`🎨 차트 렌더링 시작 - 타입: ${type}`);
-
-        // 차트 레이아웃 설정
         const dualChartElement = document.getElementById('dualChart');
         const doughnutLayoutElement = document.getElementById('doughnutLayout');
         const chartLegendElement = document.getElementById('chartLegend');
 
         if (type === 'dual') {
-            // 통합 차트 표시
             dualChartElement.style.display = 'block';
             doughnutLayoutElement.style.display = 'none';
             chartLegendElement.style.display = 'flex';
             renderDualChart();
         } else {
-            // 도넛 차트 표시
             dualChartElement.style.display = 'none';
             doughnutLayoutElement.style.display = 'flex';
             chartLegendElement.style.display = 'none';
@@ -1068,7 +1269,7 @@
         }
     };
 
-    // 이중 축 차트 렌더링
+    // 이중 축 차트 렌더링 (더 세련되게)
     const renderDualChart = () => {
         const amountData = chartData.amountBased;
         const countData = chartData.countBased;
@@ -1076,26 +1277,31 @@
         if (!amountData || !countData || amountData.length === 0 || countData.length === 0) {
             document.getElementById('dualChart').style.display = 'none';
             document.getElementById('chartLegend').style.display = 'none';
-            document.getElementById('doughnutLayout').innerHTML =
-                '<div class="error-message">통합 차트 데이터가 없습니다</div>';
+            document.getElementById('doughnutLayout').innerHTML = '<div class="error-message">통합 차트 데이터가 없습니다</div>';
             document.getElementById('doughnutLayout').style.display = 'block';
             return;
         }
 
-        // 카테고리명 매칭
         const categories = amountData.map(item => item.categoryName);
-        const amounts = amountData.map(item => item.amount || item.totalAmount || item.value || 0);
+        const amounts = amountData.map(item => item.totalAmount || 0);
         const counts = categories.map(category => {
             const countItem = countData.find(item => item.categoryName === category);
-            return countItem ? (countItem.usageCount || countItem.totalCount || countItem.count || countItem.value || 0) : 0;
+            return countItem ? (countItem.usageCount || 0) : 0;
         });
 
-        // 차트 생성
-        if (dualChart) {
-            dualChart.destroy();
-        }
+        if (dualChart) dualChart.destroy();
 
         const ctx = document.getElementById('dualChart').getContext('2d');
+
+        // 그라데이션 생성
+        const amountGradient = ctx.createLinearGradient(0, 0, 0, 400);
+        amountGradient.addColorStop(0, 'rgba(59, 130, 246, 0.9)');
+        amountGradient.addColorStop(1, 'rgba(29, 78, 216, 0.7)');
+
+        const countGradient = ctx.createLinearGradient(0, 0, 0, 400);
+        countGradient.addColorStop(0, 'rgba(244, 114, 182, 0.9)');
+        countGradient.addColorStop(1, 'rgba(236, 72, 153, 0.7)');
+
         dualChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -1104,60 +1310,60 @@
                     {
                         label: '금액 (원)',
                         data: amounts,
-                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        borderWidth: 2,
+                        backgroundColor: amountGradient,
+                        borderColor: '#3b82f6',
+                        borderWidth: 0,
                         yAxisID: 'y',
-                        borderRadius: 6,
+                        borderRadius: 8,
                         borderSkipped: false,
+                        barThickness: 'flex',
+                        maxBarThickness: 60,
                     },
                     {
                         label: '횟수 (회)',
                         data: counts,
-                        backgroundColor: 'rgba(244, 114, 182, 0.8)',
-                        borderColor: 'rgba(244, 114, 182, 1)',
-                        borderWidth: 2,
+                        backgroundColor: countGradient,
+                        borderColor: '#f472b6',
+                        borderWidth: 0,
                         yAxisID: 'y1',
-                        borderRadius: 6,
+                        borderRadius: 8,
                         borderSkipped: false,
+                        barThickness: 'flex',
+                        maxBarThickness: 60,
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
+                interaction: { mode: 'index', intersect: false },
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        cornerRadius: 12,
+                        displayColors: true,
                         callbacks: {
                             label: function(context) {
                                 const label = context.dataset.label;
                                 const value = context.parsed.y;
-                                if (label.includes('금액')) {
-                                    return `${label}: ${value.toLocaleString()}원`;
-                                } else {
-                                    return `${label}: ${value}회`;
-                                }
+                                return label.includes('금액') ?
+                                    `${label}: ${value.toLocaleString()}원` :
+                                    `${label}: ${value}회`;
                             }
                         }
                     }
                 },
                 scales: {
                     x: {
-                        grid: {
-                            display: false
-                        },
+                        grid: { display: false },
                         ticks: {
-                            font: {
-                                size: 12,
-                                weight: 500
-                            }
+                            font: { size: 13, weight: 600 },
+                            color: '#64748b'
                         }
                     },
                     y: {
@@ -1167,20 +1373,17 @@
                         title: {
                             display: true,
                             text: '금액 (원)',
-                            font: {
-                                size: 12,
-                                weight: 600
-                            },
+                            font: { size: 13, weight: 700 },
                             color: '#3b82f6'
                         },
                         ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString() + '원';
-                            },
-                            color: '#3b82f6'
+                            callback: value => value.toLocaleString() + '원',
+                            color: '#3b82f6',
+                            font: { weight: 600 }
                         },
                         grid: {
-                            color: 'rgba(59, 130, 246, 0.1)'
+                            color: 'rgba(59, 130, 246, 0.1)',
+                            drawBorder: false
                         }
                     },
                     y1: {
@@ -1190,32 +1393,26 @@
                         title: {
                             display: true,
                             text: '횟수 (회)',
-                            font: {
-                                size: 12,
-                                weight: 600
-                            },
+                            font: { size: 13, weight: 700 },
                             color: '#f472b6'
                         },
                         ticks: {
-                            callback: function(value) {
-                                return value + '회';
-                            },
-                            color: '#f472b6'
+                            callback: value => value + '회',
+                            color: '#f472b6',
+                            font: { weight: 600 }
                         },
-                        grid: {
-                            drawOnChartArea: false,
-                        },
+                        grid: { drawOnChartArea: false }
                     }
                 },
                 animation: {
-                    duration: 1000,
-                    easing: 'easeInOutQuart'
+                    duration: 1500,
+                    easing: 'easeInOutCubic'
                 }
             }
         });
     };
 
-    // 도넛 차트 렌더링
+    // 도넛 차트 렌더링 (더 세련되게)
     const renderDoughnutChart = (type) => {
         const data = type === 'amount' ? chartData.amountBased : chartData.countBased;
 
@@ -1226,28 +1423,18 @@
         }
 
         const labels = data.map(item => item.categoryName);
-        const values = data.map(item => {
-            if (type === 'amount') {
-                return item.amount || item.totalAmount || item.value || 0;
-            } else {
-                return item.usageCount || item.totalCount || item.count || item.value || 0;
-            }
-        });
-
+        const values = data.map(item => type === 'amount' ? (item.totalAmount || 0) : (item.usageCount || 0));
         const total = values.reduce((sum, val) => sum + val, 0);
+
         if (total === 0) {
-            document.getElementById('categoryLegend').innerHTML =
-                `<div class="error-message">데이터 값이 모두 0입니다</div>`;
+            document.getElementById('categoryLegend').innerHTML = '<div class="error-message">데이터 값이 모두 0입니다</div>';
             return;
         }
 
         const percentages = values.map(val => Math.round((val / total) * 100));
-        const colors = config.colors.slice(0, labels.length);
+        const colors = config.solidColors.slice(0, labels.length);
 
-        // 차트 생성
-        if (doughnutChart) {
-            doughnutChart.destroy();
-        }
+        if (doughnutChart) doughnutChart.destroy();
 
         const ctx = document.getElementById('doughnutChart').getContext('2d');
         doughnutChart = new Chart(ctx, {
@@ -1257,8 +1444,11 @@
                 datasets: [{
                     data: values,
                     backgroundColor: colors,
-                    borderWidth: 0,
-                    cutout: '70%'
+                    borderWidth: 4,
+                    borderColor: '#ffffff',
+                    cutout: '65%',
+                    hoverBorderWidth: 6,
+                    hoverOffset: 8
                 }]
             },
             options: {
@@ -1267,6 +1457,12 @@
                 plugins: {
                     legend: { display: false },
                     tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        cornerRadius: 12,
                         callbacks: {
                             label: (context) => {
                                 const percentage = percentages[context.dataIndex];
@@ -1278,13 +1474,12 @@
                     }
                 },
                 animation: {
-                    duration: 1000,
-                    easing: 'easeInOutQuart'
+                    duration: 1500,
+                    easing: 'easeInOutCubic'
                 }
             }
         });
 
-        // 범례 업데이트
         const legendContainer = document.getElementById('categoryLegend');
         legendContainer.innerHTML = '';
 
@@ -1293,188 +1488,118 @@
             legendItem.className = 'legend-item';
             const unit = type === 'amount' ? '원' : '회';
             legendItem.innerHTML = `
-                <div class="legend-left">
-                    <div class="legend-color" style="background: ${colors[index]};"></div>
-                    <div>
-                        <div>${label}</div>
-                        <div class="legend-value">${values[index].toLocaleString()}${unit}</div>
+                    <div class="legend-left">
+                        <div class="legend-color" style="background: ${colors[index]};"></div>
+                        <div>
+                            <div>${label}</div>
+                            <div class="legend-value">${values[index].toLocaleString()}${unit}</div>
+                        </div>
                     </div>
-                </div>
-                <span class="legend-percentage">${percentages[index]}%</span>
-            `;
+                    <span class="legend-percentage">${percentages[index]}%</span>
+                `;
             legendContainer.appendChild(legendItem);
         });
     };
 
-    // 차트 타입 전환 함수
+    // 차트 타입 전환
     const switchChart = (type) => {
         currentChartType = type;
-
-        // 탭 활성화 상태 변경
         document.getElementById('dualTab').classList.toggle('active', type === 'dual');
         document.getElementById('amountTab').classList.toggle('active', type === 'amount');
         document.getElementById('countTab').classList.toggle('active', type === 'count');
-
-        // 차트 다시 렌더링
         renderChart(type);
     };
 
-    // 카드 목록 가져오기
+    // 카드 목록 로드
     const loadCards = async () => {
+        if (isLoadingCards) return;
+        isLoadingCards = true;
+
         try {
-            let cards;
+            let response;
 
-            // 필터가 적용된 경우 (카드 타입 또는 카테고리가 선택된 경우)
-            if (currentFilters.categories.length > 0 || (currentFilters.cardType && currentFilters.cardType !== '')) {
-                // 필터 데이터 객체 생성
-                const requestData = {
-                    cardType: currentFilters.cardType || null
-                };
-
-                // 카테고리가 있는 경우에만 parentCategories 추가
+            if (currentFilters.categories.length > 0 || currentFilters.cardType) {
+                const requestData = { cardType: currentFilters.cardType || null };
                 if (currentFilters.categories.length > 0) {
                     requestData.parentCategories = currentFilters.categories;
                 }
-
-                const response = await axios.post('/api/card/filter', requestData, {
+                response = await axios.post('/api/card/filter', requestData, {
                     timeout: config.timeout,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: { 'Content-Type': 'application/json' }
                 });
-                cards = response.data;
             } else {
-                // 필터가 없는 경우 전체 카드 조회
-                const response = await axios.get('/api/card/all', {
-                    timeout: config.timeout
-                });
-                cards = response.data;
+                response = await axios.get('/api/card/all', { timeout: config.timeout });
             }
 
-            if (!cards || cards.length === 0) {
-                // 더미 카드 데이터 (개발/테스트용)
-                cards = [
-                    {
-                        cardName: '삼성카드 taptap O',
-                        bankName: '삼성카드',
-                        cardType: '신용',
-                        description: '온라인 쇼핑 최대 2% 적립',
-                        benefitSummary: '온라인 쇼핑, 배달앱 할인',
-                        cardUrl: 'https://www.samsungcard.co.kr'
-                    },
-                    {
-                        cardName: '현대카드 M',
-                        bankName: '현대카드',
-                        cardType: '신용',
-                        description: '모든 가맹점 1% 적립',
-                        benefitSummary: '무제한 1% 적립, 연회비 무료',
-                        cardUrl: 'https://www.hyundaicard.com'
-                    }
-                ];
-            }
-
+            const cards = response.data;
             const cardListContainer = document.getElementById('cardList');
             cardListContainer.innerHTML = '';
+
+            if (!cards || cards.length === 0) {
+                cardListContainer.innerHTML = '<div class="error-message">카드 정보가 없습니다</div>';
+                return;
+            }
 
             cards.forEach(card => {
                 const cardItem = document.createElement('div');
                 cardItem.className = 'card-item';
-
-                // 카드 정보 안전하게 추출
-                const cardName = card.cardName || card.name || '카드명 정보 없음';
-                const bankName = card.bankName || card.bank || '';
-                const cardType = card.cardType || card.type || '';
-                const description = card.description || card.summary || '';
-                const benefit = card.benefitSummary || card.benefit || card.benefits || card.description || '';
-                const cardUrl = card.cardUrl || card.url || card.link || card.detailUrl || '';
-
                 cardItem.innerHTML = `
-                    <div class="card-logo">
-                        ${card.logoUrl ?
-                    `<img src="${card.logoUrl}" alt="${cardName}">` :
-                    `<span>${bankName || 'CARD'}</span>`
+                        <div class="card-logo">
+                            ${card.logoUrl ?
+                    `<img src="${card.logoUrl}" alt="${card.cardName || '카드'}">` :
+                    `<span>${card.bankName || 'CARD'}</span>`
                 }
-                    </div>
-                    <div class="card-info">
-                        <div class="card-name">${cardName}</div>
-                        ${bankName ? `<div class="card-bank">${bankName}</div>` : ''}
-                        ${cardType ? `<div class="card-type-badge">${cardType}</div>` : ''}
-                        ${description ? `<div class="card-description">${description}</div>` : ''}
-                        ${benefit ? `<div class="card-benefit">💳 ${benefit}</div>` : ''}
-                    </div>
-                    <div class="card-actions">
-                        ${cardUrl ?
-                    `<button class="details-btn" onclick="window.open('${cardUrl}', '_blank')">자세히 보기</button>` :
+                        </div>
+                        <div class="card-info">
+                            <div class="card-name">${card.cardName || '카드명 정보 없음'}</div>
+                            ${card.bankName ? `<div class="card-bank">${card.bankName}</div>` : ''}
+                            ${card.cardType ? `<div class="card-type-badge">${card.cardType}</div>` : ''}
+                            ${card.description ? `<div class="card-description">${card.description}</div>` : ''}
+                            ${card.benefitSummary ? `<div class="card-benefit">💳 ${card.benefitSummary}</div>` : ''}
+                        </div>
+                        <div class="card-actions">
+                            ${card.cardUrl ?
+                    `<button class="details-btn" onclick="window.open('${card.cardUrl}', '_blank')">자세히 보기</button>` :
                     `<button class="details-btn" disabled style="opacity: 0.5; cursor: not-allowed;">정보 없음</button>`
                 }
-                    </div>
-                `;
+                        </div>
+                    `;
                 cardListContainer.appendChild(cardItem);
             });
 
         } catch (error) {
-            console.error('카드 필터 조회 실패:', error);
-            document.getElementById('cardList').innerHTML =
-                '<div class="error-message">카드 정보를 불러올 수 없습니다</div>';
+            console.error('카드 조회 실패:', error);
+            document.getElementById('cardList').innerHTML = '<div class="error-message">카드 정보를 불러올 수 없습니다</div>';
+        } finally {
+            isLoadingCards = false;
         }
     };
 
-    // 필터 초기화 함수
+    // 필터 관련 함수들
     const resetFilters = () => {
-        // 필터 상태 초기화
         currentFilters.cardType = '';
-        currentFilters.benefit = '';
         currentFilters.categories = [];
-
-        // UI 초기화
         document.getElementById('cardTypeFilter').value = '';
         document.getElementById('benefitFilter').value = '';
         updateFilterTags();
-
-        // 카드 목록 다시 로드
         loadCards();
     };
 
-    // 필터 태그 업데이트
     const updateFilterTags = () => {
         const filterTagsContainer = document.getElementById('filterTags');
         filterTagsContainer.innerHTML = '';
-
         currentFilters.categories.forEach(category => {
             const tag = document.createElement('div');
             tag.className = 'filter-tag';
-            tag.style.display = 'inline-flex';
             tag.innerHTML = `${category} <span class="close" onclick="removeFilter('${category}')">×</span>`;
             filterTagsContainer.appendChild(tag);
         });
     };
 
-    // 필터 제거
     const removeFilter = (category) => {
         currentFilters.categories = currentFilters.categories.filter(cat => cat !== category);
         updateFilterTags();
         loadCards();
-    };
-
-    // 맞춤 카드 추천
-    const getRecommendation = async () => {
-        try {
-            const response = await axios.get('/api/card/recommendations', {
-                params: { memberId: config.memberId },
-                timeout: config.timeout
-            });
-
-            if (response.data && response.data.length > 0) {
-                console.log('추천 카드:', response.data);
-                alert('추천 카드를 찾았습니다! 콘솔을 확인해주세요.');
-            } else {
-                console.log('추천할 카드가 없습니다.');
-                alert('현재 추천할 수 있는 카드가 없습니다.');
-            }
-        } catch (error) {
-            console.error('카드 추천 조회 실패:', error.message);
-            alert('카드 추천 서비스에 일시적인 문제가 발생했습니다.');
-        }
     };
 
     // 이벤트 리스너 설정
@@ -1482,13 +1607,57 @@
         utils.updateCurrentDate();
 
         // 초기 데이터 로드
-        await Promise.all([
-            createCategoryChart(),
-            loadExpenseGrowthRate(),
-            loadCards()
-        ]);
+        try {
+            await Promise.all([
+                createCategoryChart(),
+                loadCards()
+            ]);
+        } catch (error) {
+            console.error('초기 데이터 로드 실패:', error);
+        }
 
-        // 네비게이션 핸들러
+        // 카드 추천 버튼
+        document.getElementById('recommendCardBtn').addEventListener('click', async () => {
+            try {
+                console.log('🎯 카드 추천 시작');
+
+                let topCategories = [];
+                if (chartData.amountBased && chartData.amountBased.length > 0) {
+                    topCategories = chartData.amountBased.slice(0, 3).map(item => item.categoryName);
+                }
+
+                if (topCategories.length === 0) {
+                    alert('추천을 위한 소비 데이터가 부족합니다.');
+                    return;
+                }
+
+                console.log('📊 상위 카테고리:', topCategories);
+
+                const response = await axios.post('/api/card/recommend/grouped', {
+                    parentCategories: topCategories,
+                    cardType: null
+                }, {
+                    headers: { 'Content-Type': 'application/json' },
+                    timeout: config.timeout
+                });
+
+                const groupedCards = response.data || {};
+                console.log('💳 그룹화된 카드 응답:', groupedCards);
+
+                if (Object.keys(groupedCards).length === 0) {
+                    alert('추천 가능한 카드가 없습니다.');
+                    return;
+                }
+
+                renderGroupedCards(groupedCards);
+
+            } catch (error) {
+                console.error('❌ 카드 추천 실패:', error);
+                alert('카드 추천에 실패했습니다.');
+            }
+        });
+
+        // 기타 이벤트 리스너들
         document.querySelectorAll('.nav-icon').forEach(icon => {
             icon.addEventListener('click', function() {
                 document.querySelectorAll('.nav-icon').forEach(i => i.classList.remove('active'));
@@ -1496,15 +1665,12 @@
             });
         });
 
-        // 로그아웃 핸들러
         document.querySelector('.logout-btn').addEventListener('click', () => {
             if (confirm('로그아웃 하시겠습니까?')) {
                 alert('로그아웃 되었습니다.');
-                // 실제 로그아웃 로직 구현
             }
         });
 
-        // 필터 변경 핸들러
         document.getElementById('cardTypeFilter').addEventListener('change', function() {
             currentFilters.cardType = this.value;
             loadCards();
@@ -1517,11 +1683,9 @@
                 updateFilterTags();
                 loadCards();
             }
-            // 선택 후 초기화
             this.value = '';
         });
 
-        // 필터 초기화 버튼 핸들러
         document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
     });
 </script>

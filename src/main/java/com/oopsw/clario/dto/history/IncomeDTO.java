@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class IncomeDTO {
+    private Integer memberId;
     private String accountDay;
     private String accountName;
     private String source;

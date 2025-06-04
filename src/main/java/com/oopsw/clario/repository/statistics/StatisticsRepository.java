@@ -56,6 +56,25 @@ public interface StatisticsRepository {
                              @Param("year") Long year,
                              @Param("month") Long month);
 
+    List<Long> getMonthlyTotalExpenses(@Param("memberId") Integer memberId);
+
+    Long getMonthlyExpense(@Param("memberId") Integer memberId,
+                              @Param("year") Long year,
+                              @Param("month") Long month);
+    Long getTotalSpendAmount(@Param("memberId") Integer memberId,
+                             @Param("year") Long year,
+                             @Param("month") Long month);
+
+    Integer getTotalSpendCount(@Param("memberId") Integer memberId,
+                               @Param("year") Long year,
+                               @Param("month") Long month);
+
+    Long getTotalIncome(@Param("memberId") Integer memberId,
+                        @Param("year") Long year,
+                        @Param("month") Long month);
+
+
+
 }
 
 

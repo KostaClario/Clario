@@ -36,24 +36,6 @@ public class MemberController {
         return "redirect:/loginView";
     }
 
-    // 모달 테스트용(추후 메인페이지)
-    @GetMapping("/modal")
-    public String modal() {
-        return "account/modal";
-    }
-
-    @GetMapping("/api/user/email")
-    public ResponseEntity<Map<String, String>> getUserEmail(@AuthenticationPrincipal CustomOAuth2User user) {
-        String email = user.getEmail();
-        Map<String, String> result = new HashMap<>();
-        result.put("email", email);
-        return ResponseEntity.ok(result);
-    }
-
-
-
-
-
     @GetMapping("/account/remove")
     public String remove() {
         return "account/user-remove";
@@ -169,20 +151,13 @@ public class MemberController {
             model.addAttribute("email", email);
             return "account/join";
         }
-        try{
             if(!memberService.existsByEmail(email)){
                 memberService.saveMember(email,name,phonenum,password);
             }
 
             session.removeAttribute("oauthAttributes");
-            session.setAttribute("redirectAfterLogin", "/modal");
+            session.setAttribute("redirectAfterLogin", "mydata/mybankandcardlist");
 
-            return "redirect:/modal";
-
-        }catch (EmailAlreadyExistsException e){
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("email", email);
-            return "account/join";
+            return "redirect:/mydata/mybankandcardlist";
         }
     }
-}

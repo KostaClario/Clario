@@ -1,9 +1,13 @@
 HELP.md
+<<<<<<< HEAD
+target/
+=======
+>>>>>>> dev
 !.mvn/wrapper/maven-wrapper.jar
 /target/
 
 #yml
-*/src/main/resources/application.yml
+/src/main/resources/application.yml
 
 ### STS ###
 .apt_generated
@@ -32,4 +36,3 @@ build/
 
 ### VS Code ###
 .vscode/
-src/main/resources/application.yml

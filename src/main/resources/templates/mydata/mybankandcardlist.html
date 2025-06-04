@@ -8,9 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/myBankAndCardList.css}"/>
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
+    <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
+    <div th:replace="~{headerside :: allModals}"></div>
     <div th:replace="~{headerside :: sidebar}"></div>
     <div class="main">
         <div th:replace="~{headerside :: header}"></div>
@@ -86,9 +89,9 @@
     const today = new Date();
     const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const year    = today.getFullYear();
-    const month   = String(today.getMonth() + 1).padStart(2, '0');
-    const date    = String(today.getDate()).padStart(2, '0');
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const date = String(today.getDate()).padStart(2, '0');
     const weekday = days[today.getDay()];
 
     const formatted = `${year}. ${month}. ${date}. (${weekday})`;
@@ -98,5 +101,8 @@
         el.textContent = formatted;
     }
 </script>
+
+<script th:src="@{/js/modal.js}"></script>
+
 </body>
 </html>

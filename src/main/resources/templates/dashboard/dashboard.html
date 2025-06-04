@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
     <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
-    <link rel="stylesheet" th:href="@{/account-css/style.css}" />
+    <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
 <!--    <link rel="stylesheet" href="/css/dashboard.css" />-->
 <!--    <link rel="stylesheet" th:href="@{/css/style.css}" />-->
     <script th:src="@{/js/dashboard.js}" defer></script>
@@ -17,11 +17,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-
 <div th:replace="~{headerside :: sidebar}"></div>
 <div th:replace="~{headerside :: allModals}"></div>
 <div th:replace="~{headerside :: header}"></div>
-
 <main class="main">
     <div class="content">
         <div class="dashboard">
@@ -120,7 +118,7 @@
 
             <!-- 자산 목표 설정 모달-->
             <div class="modal-overlay" id="goal-modal">
-                <div class="modal-content">
+                <div class="modal-contents">
                     <h3>자산 목표 설정</h3>
                     <div class="row">
                         <label for="goalInput">총자산</label>
@@ -134,7 +132,7 @@
                         </div>
                     </div>
 
-                    <div class="button-group">
+                    <div class="buttons-group">
                         <button class="modal-button" id="close-modal">닫기</button>
                         <button class="modal-button" id="save-goal-btn">확인</button>
                     </div>
@@ -173,5 +171,20 @@
     </div>
 </main>
 <script th:src="@{/js/modal.js}"></script>
+<script th:inline="javascript">
+    // 현재 날짜를 화면에 찍어주는 로직
+    const today = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const year    = today.getFullYear();
+    const month   = String(today.getMonth() + 1).padStart(2, '0');
+    const date    = String(today.getDate()).padStart(2, '0');
+    const weekday = days[today.getDay()];
+    const formatted = `${year}/${month}/${date} ${weekday}`;
+
+    const el = document.getElementById('currentDate');
+    if (el) {
+        el.textContent = formatted;
+    }
+</script>
 </body>
 </html>

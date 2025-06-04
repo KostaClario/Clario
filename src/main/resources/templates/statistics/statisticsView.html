@@ -8,6 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
+    <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
+
     <style>
         * {
             margin: 0;
@@ -693,6 +695,8 @@
         }
     </style>
 </head>
+<div th:replace="~{headerside :: allModals}"></div>
+<div th:replace="~{headerside :: header}"></div>
 <body>
 <div class="container">
     <aside th:fragment="sidebar" class="sidebar">
@@ -706,7 +710,6 @@
             <li><a class="nav-icon" href="/card">💳</a></li>
         </ul>
     </aside>
-    <div th:replace="~{headerside :: header}"></div>
 
     <main class="main-content">
         <div class="dashboard-grid">
@@ -1718,5 +1721,6 @@
         document.getElementById('monthlyYearSelect').addEventListener('change', chartCreators.monthly);
     });
 </script>
+<script th:src="@{/js/modal.js}"></script>
 </body>
 </html>

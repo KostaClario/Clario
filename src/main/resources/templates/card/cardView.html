@@ -8,6 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
+    <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
+
     <style>
         * {
             margin: 0;
@@ -747,22 +749,21 @@
         }
     </style>
 </head>
+<aside th:fragment="sidebar" class="sidebar">
+    <div class="logo">
+        <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
+    </div>
+    <ul class="menu">
+        <li><a class="nav-icon" href="/dashboard">🏠</a></li>
+        <li><a class="nav-icon" href="/statistics">📈</a></li>
+        <li><a class="nav-icon" href="/history">☰</a></li>
+        <li><a class="nav-icon active" href="/card">💳</a></li>
+    </ul>
+</aside>
+<div th:replace="~{headerside :: allModals}"></div>
+<div th:replace="~{headerside :: header}"></div>
 <body>
 <div class="container">
-    <aside th:fragment="sidebar" class="sidebar">
-        <div class="logo">
-            <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
-        </div>
-        <ul class="menu">
-            <li><a class="nav-icon" href="/dashboard">🏠</a></li>
-            <li><a class="nav-icon" href="/statistics">📈</a></li>
-            <li><a class="nav-icon" href="/history">☰</a></li>
-            <li><a class="nav-icon active" href="/card">💳</a></li>
-        </ul>
-    </aside>
-    
-    <div th:replace="~{headerside :: header}"></div>
-
     <main class="main-content">
         <div class="top-section">
             <section class="chart-section">
@@ -1608,5 +1609,6 @@
         document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
     });
 </script>
+<script th:src="@{/js/modal.js}"></script>
 </body>
 </html>

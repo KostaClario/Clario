@@ -179,7 +179,7 @@
     const month   = String(today.getMonth() + 1).padStart(2, '0');
     const date    = String(today.getDate()).padStart(2, '0');
     const weekday = days[today.getDay()];
-    const formatted = `${year}/${month}/${date} ${weekday}`;
+    const formatted = `${year}. ${month}. ${date}. (${weekday})`;
 
     const el = document.getElementById('currentDate');
     if (el) {

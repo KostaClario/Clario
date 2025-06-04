@@ -1,33 +1,45 @@
 // const memberId = document.getElementById("memberId").value;
-const today2 = new Date()
-const yyyy = today2.getFullYear()
-const mm = String(today2.getMonth() + 1).padStart(2, "0")
-const dd = String(today2.getDate()).padStart(2, "0")
-
-// 브라우저 시간 기준으로 할당
-const userData = {
-    // memberId: parseInt(memberId),
-    memberId: 21,
-    yearDate: yyyy.toString(),
-    monthDate: mm,
-    todayDate: `${yyyy}-${mm}-${dd}`, // "YYYY-MM-DD" 형태의 문자열
+// memberId: parseInt(memberId),
+function getFormattedDate(date = new Date()) {
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const dayName = days[date.getDay()];
+    return {
+        date,
+        yyyy,
+        mm,
+        dd,
+        fullText: `${yyyy}/${mm}/${dd} ${dayName}`,
+        isoDate: `${yyyy}-${mm}-${dd}` // YYYY-MM-DD
+    };
 }
 
+// 초기 사용자 날짜 데이터 설정
+const dateInfo = getFormattedDate();
+const userData = {
+    memberId: 21,
+    yearDate: dateInfo.yyyy.toString(),
+    monthDate: dateInfo.mm,
+    todayDate: dateInfo.isoDate
+};
+
+// 화면에 날짜 업데이트
 function updateDate() {
-    const days = ["일", "월", "화", "수", "목", "금", "토"]
-    const dateObj = new Date(userData.todayDate)
-    const dayName = days[dateObj.getDay()]
-    const formatted = `${userData.yearDate}/${userData.monthDate}/${dd} ${dayName}`
-    document.getElementById("today-date").textContent = formatted
+    const el = document.getElementById("today-date");
+    if (el) el.textContent = dateInfo.fullText;
 }
 
 function updateTopCategoryMonth() {
-    const month = today2.getMonth() + 1
-    document.getElementById("topCategoryMonth").textContent = `${month}월`
+    const month = dateInfo.date.getMonth() + 1;
+    const el = document.getElementById("topCategoryMonth");
+    if (el) el.textContent = `${month}월`;
 }
 
 function updateYearTitle() {
-    document.getElementById("currentYear").textContent = yyyy
+    const el = document.getElementById("currentYear");
+    if (el) el.textContent = dateInfo.yyyy;
 }
 
 function formatCurrency(num) {

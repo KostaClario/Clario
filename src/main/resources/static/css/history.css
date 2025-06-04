@@ -735,3 +735,37 @@ body {
         background-color: white;
     }
 }
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 32px 0 0 0;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pagination-container button {
+    background: linear-gradient(135deg, var(--purple3) 0%, #574099 100%);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(103, 80, 164, 0.2);
+}
+
+.pagination-container button:hover {
+    background: linear-gradient(135deg, #4a3587 0%, var(--purple3) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(103, 80, 164, 0.3);
+}
+
+.pagination-container button.active {
+    background: linear-gradient(135deg, #4a3587 0%, var(--purple2) 100%);
+    color: #fff;
+    font-weight: 700;
+    transform: translateY(-1px);
+}

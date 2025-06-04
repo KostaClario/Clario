@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,28 +45,32 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         // 구글 응답을 추출 name email
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        // 회원가입된 사용자인 경우만 업데이트
-        Member member = memberRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getEmail()))
-                .orElse(null);
+        Optional<Member> optionalMember = memberRepository.findByEmail(attributes.getEmail());
+        Member member = null;
 
-        // 회원이면 메인으로 아니면 privacy로
-        String redirectUrl;
-        if (member == null) {
-            log.info("세션 ID (OAuth2UserService): " + httpSession.getId());
-            httpSession.setAttribute("oauthAttributes", attributes);
-            redirectUrl = "/privacy";
+        if(optionalMember.isPresent()) {
+            Member existing = optionalMember.get();
+
+            if(!existing.getActivation()){
+                // 비활성된 회원 재가입
+                httpSession.setAttribute("oauthAttributes", attributes);
+                httpSession.setAttribute("reactivate", true);
+                httpSession.setAttribute("redirectUrl", "/privacy");
+            }else{
+                // 기존 활성 회원 정보 업데이트 후 로그인
+                member = existing;
+                httpSession.setAttribute("redirectUrl", "/dashboard");
+            }
         }else{
-            log.info("회원이므로 dashabord MainPage로 리디렉트");
-            redirectUrl = "/dashboard";
+            // 신규 사용자
+            httpSession.setAttribute("oauthAttributes", attributes);
+            httpSession.setAttribute("redirectUrl", "/privacy");
         }
 
         log.info("CustomOAuth2UserService 실행됨");
         log.info("이메일: " + attributes.getEmail());
         log.info("멤버 여부: " + (member != null));
         log.info("세션 ID: " + httpSession.getId());
-
-        httpSession.setAttribute("redirectUrl", redirectUrl);
 
         // 사용자 권한
         String role = (member != null) ? member.getRoleKey() : Role.USER.getKey();

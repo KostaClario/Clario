@@ -22,6 +22,7 @@ public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2FailureHandler customOAuth2FailureHandler;
+    private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,17 +30,12 @@ public class SecurityConfig {
                 .csrf(
                         (csrfConfig) -> csrfConfig.disable()
                 )
-                .headers(
-                        (headerConfig) ->headerConfig.frameOptions(
-                                frameOptionsConfig -> frameOptionsConfig.disable()
-                        )
-                )
                 .authorizeHttpRequests(
                         (auth) -> auth
                                 .requestMatchers("/", "/css/**", "/js/**", "/img/**", "/account-css/**").permitAll()
 
                                 // 로그인 및 회원가입 관련
-                                .requestMatchers("/loginView", "/loginSuccess").permitAll()
+                                .requestMatchers("/loginView").permitAll()
                                 .requestMatchers("/privacy", "/agree", "/join").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/join").permitAll()
 
@@ -53,7 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/**", "/statistics", "/card", "/dashboard").authenticated()
 
                                 // 인증 필요한 기능
-                                .requestMatchers("/modal", "/account/edit", "/account/remove",
+                                .requestMatchers("/account/edit", "/account/remove",
                                         "/account/reset-password", "/account/verify-password").authenticated()
 
                                 .anyRequest().authenticated()
@@ -81,7 +77,8 @@ public class SecurityConfig {
                                         (userInfo) -> userInfo
                                                 .userService(customOAuth2UserService)
                                 )
-                                .defaultSuccessUrl("/loginSuccess", true) // "/"에서 리다이렉트 처리
+                                // redirectUrl 세션 기반 분기 처리
+                                .successHandler(customOAuth2SuccessHandler)
                 )
         ;
         return http.build();

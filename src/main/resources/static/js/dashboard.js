@@ -1,8 +1,8 @@
-const memberId = document.getElementById("memberId").value;
-const today = new Date();
-const yyyy = today.getFullYear();
-const mm = String(today.getMonth() + 1).padStart(2, '0');
-const dd = String(today.getDate()).padStart(2, '0');
+// const memberId = document.getElementById("memberId").value;
+const today2 = new Date();
+const yyyy = today2.getFullYear();
+const mm = String(today2.getMonth() + 1).padStart(2, '0');
+const dd = String(today2.getDate()).padStart(2, '0');
 
 // 브라우저 시간 기준으로 할당
 const userData = {
@@ -21,7 +21,7 @@ function updateDate() {
     document.getElementById("today-date").textContent = formatted;
 }
 function updateTopCategoryMonth() {
-    const month = today.getMonth() + 1;
+    const month = today2.getMonth() + 1;
     document.getElementById("topCategoryMonth").textContent = `${month}월`;
 }
 function updateYearTitle() {

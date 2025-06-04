@@ -16,13 +16,8 @@
         }
 
         body {
-
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;*/
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-
-            /*!*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;*!*/
-            /*background-color: #f8f9fa;*/
-
             color: #333;
         }
 
@@ -30,229 +25,6 @@
             display: flex;
             min-height: 100vh;
         }
-
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .date {
-            font-size: 16px;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        /*.header {*/
-        /*    position: fixed;*/
-        /*    top: 0;*/
-        /*    left: 0;*/
-        /*    right: 0;*/
-        /*    height: 70px;*/
-        /*    background: white;*/
-        /*    border-bottom: 1px solid #e9ecef;*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    justify-content: space-between;*/
-        /*    padding: 0 24px;*/
-        /*    z-index: 100;*/
-        /*    backdrop-filter: blur(10px);*/
-        /*    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);*/
-        /*}*/
-
-        /*.logo {*/
-        /*    font-size: 24px;*/
-        /*    font-weight: bold;*/
-        /*    color: #6366f1;*/
-        /*}*/
-
-        /*.date {*/
-        /*    font-size: 16px;*/
-        /*    color: #666;*/
-        /*}*/
-
-
-        /*.header-right {*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    gap: 16px;*/
-        /*}*/
-
-
-        .user-name {
-            font-size: 14px;
-            color: #334155;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
-        }
-
-        .user-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6366f1;
-            font-size: 18px;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .sidebar {
-            width: 80px;
-            background: rgba(255, 255, 255, 0.95);
-            border-right: 1px solid rgba(226, 232, 240, 0.8);
-            padding: 90px 0 20px 0;
-            position: fixed;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            backdrop-filter: blur(20px);
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .nav-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 22px;
-            position: relative;
-        }
-
-        .nav-icon:hover {
-            background: rgba(99, 102, 241, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
-        }
-
-        .nav-icon.active {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        /*.user-name {*/
-        /*    font-size: 14px;*/
-        /*    color: #333;*/
-        /*    font-weight: 500;*/
-        /*}*/
-
-        /*.logout-btn {*/
-        /*    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);*/
-        /*    color: white;*/
-        /*    border: none;*/
-        /*    padding: 10px 20px;*/
-        /*    border-radius: 25px;*/
-        /*    font-size: 14px;*/
-        /*    font-weight: 500;*/
-        /*    cursor: pointer;*/
-        /*    transition: all 0.3s ease;*/
-        /*    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);*/
-        /*}*/
-
-        /*.logout-btn:hover {*/
-        /*    transform: translateY(-1px);*/
-        /*    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);*/
-        /*}*/
-
-        /*.user-avatar {*/
-        /*    width: 40px;*/
-        /*    height: 40px;*/
-        /*    border-radius: 50%;*/
-        /*    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    justify-content: center;*/
-        /*    color: #6366f1;*/
-        /*    font-size: 18px;*/
-        /*    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);*/
-        /*}*/
-
-        /*.sidebar {*/
-        /*    width: 80px;*/
-        /*    background: white;*/
-        /*    border-right: 1px solid #e9ecef;*/
-        /*    padding: 90px 0 20px 0;*/
-        /*    position: fixed;*/
-        /*    height: 100vh;*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*    align-items: center;*/
-        /*    gap: 24px;*/
-        /*    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);*/
-        /*}*/
-
-        /*.nav-icon {*/
-        /*    width: 48px;*/
-        /*    height: 48px;*/
-        /*    border-radius: 12px;*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    justify-content: center;*/
-        /*    cursor: pointer;*/
-        /*    transition: all 0.3s ease;*/
-        /*    font-size: 20px;*/
-        /*}*/
-
-        /*.nav-icon:hover {*/
-        /*    background: #f1f5f9;*/
-        /*    transform: translateY(-2px);*/
-        /*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
-        /*}*/
-
-        /*.nav-icon.active {*/
-        /*    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);*/
-        /*    color: white;*/
-        /*    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);*/
-        /*}*/
-
 
         .main-content {
             margin-left: 100px;
@@ -265,14 +37,14 @@
 
         .top-section {
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: 1fr 480px; /* 차트 영역 줄이고 소비패턴 영역 확대 */
             gap: 24px;
         }
 
         .chart-section {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 24px;
-            padding: 32px;
+            padding: 28px; /* 패딩 약간 줄임 */
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -281,18 +53,19 @@
         .notification-section {
             background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
             border-radius: 24px;
-            padding: 28px;
+            padding: 32px; /* 패딩 증가 */
             position: relative;
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(99, 102, 241, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            min-height: 500px; /* 최소 높이 설정 */
         }
 
         .notification-title {
-            font-size: 16px;
+            font-size: 18px; /* 폰트 크기 증가 */
             font-weight: 700;
             color: #4338ca;
-            margin-bottom: 16px;
+            margin-bottom: 20px; /* 마진 증가 */
             display: flex;
             align-items: center;
             gap: 8px;
@@ -300,16 +73,16 @@
         }
 
         .notification-content {
-            font-size: 14px;
+            font-size: 15px; /* 폰트 크기 증가 */
             color: #4338ca;
             line-height: 1.6;
         }
 
         .consumption-analysis {
             background: rgba(255, 255, 255, 0.4);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 18px; /* 둥근 모서리 증가 */
+            padding: 24px; /* 패딩 증가 */
+            margin-bottom: 24px; /* 마진 증가 */
             border: 1px solid rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
         }
@@ -317,53 +90,54 @@
         .analysis-header {
             text-align: center;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 16px; /* 폰트 크기 증가 */
             color: #4338ca;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 16px; /* 마진 증가 */
+            padding-bottom: 12px; /* 패딩 증가 */
             border-bottom: 1px dashed rgba(67, 56, 202, 0.3);
         }
 
         .analysis-date {
             text-align: center;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px; /* 폰트 크기 증가 */
             color: #4338ca;
-            margin-bottom: 16px;
+            margin-bottom: 20px; /* 마진 증가 */
         }
 
         .category-list {
-            margin-bottom: 16px;
+            margin-bottom: 20px; /* 마진 증가 */
         }
 
         .category-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 10px; /* 마진 증가 */
+            font-size: 14px; /* 폰트 크기 증가 */
             color: #4338ca;
+            padding: 8px 0; /* 패딩 추가 */
         }
 
         .category-name {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px; /* 간격 증가 */
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 16px;
-            padding-top: 12px;
+            gap: 12px; /* 간격 증가 */
+            margin-top: 20px; /* 마진 증가 */
+            padding-top: 16px; /* 패딩 증가 */
             border-top: 1px dashed rgba(67, 56, 202, 0.3);
         }
 
         .stat-item {
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 12px;
+            border-radius: 14px; /* 둥근 모서리 증가 */
+            padding: 14px 16px; /* 패딩 증가 */
+            font-size: 13px; /* 폰트 크기 증가 */
             color: #4338ca;
             backdrop-filter: blur(10px);
         }
@@ -372,50 +146,50 @@
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 4px;
-            margin-bottom: 4px;
+            gap: 6px; /* 간격 증가 */
+            margin-bottom: 6px; /* 마진 증가 */
         }
 
         .stat-value {
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px; /* 폰트 크기 증가 */
         }
 
         .tip-box {
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 12px;
+            border-radius: 14px; /* 둥근 모서리 증가 */
+            padding: 16px; /* 패딩 증가 */
+            margin-top: 16px; /* 마진 증가 */
+            font-size: 13px; /* 폰트 크기 증가 */
             color: #4338ca;
             display: flex;
             align-items: flex-start;
-            gap: 8px;
+            gap: 10px; /* 간격 증가 */
             backdrop-filter: blur(10px);
         }
 
         .tip-icon {
-            font-size: 16px;
+            font-size: 18px; /* 아이콘 크기 증가 */
             flex-shrink: 0;
         }
 
         .tip-text {
-            line-height: 1.5;
+            line-height: 1.6; /* 줄 간격 증가 */
         }
 
         .recommendation-btn {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            padding: 14px 20px;
-            border-radius: 25px;
-            font-size: 14px;
+            padding: 16px 24px; /* 패딩 증가 */
+            border-radius: 28px; /* 둥근 모서리 증가 */
+            font-size: 15px; /* 폰트 크기 증가 */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
             width: 100%;
-            margin-top: 20px;
+            margin-top: 24px; /* 마진 증가 */
         }
 
         .recommendation-btn:hover {
@@ -443,36 +217,36 @@
         .chart-container {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 350px; /* 차트 높이 줄임 */
             margin: 0 auto;
         }
 
         .chart-layout {
             display: flex;
             align-items: flex-start;
-            gap: 32px;
-            height: 350px;
+            gap: 24px; /* 간격 줄임 */
+            height: 300px; /* 높이 줄임 */
         }
 
         .chart-canvas-container {
-            flex: 0 0 320px;
-            height: 320px;
+            flex: 0 0 280px; /* 크기 줄임 */
+            height: 280px; /* 높이 줄임 */
             position: relative;
         }
 
         .chart-tabs {
             display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 10px; /* 간격 줄임 */
+            margin-bottom: 20px; /* 마진 줄임 */
             justify-content: center;
         }
 
         .chart-tab {
-            padding: 12px 20px;
+            padding: 10px 16px; /* 패딩 줄임 */
             border: 2px solid rgba(226, 232, 240, 0.8);
-            border-radius: 25px;
+            border-radius: 20px; /* 둥근 모서리 줄임 */
             background: rgba(255, 255, 255, 0.8);
-            font-size: 13px;
+            font-size: 12px; /* 폰트 크기 줄임 */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -496,9 +270,9 @@
         .legend {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px; /* 간격 줄임 */
             flex: 1;
-            height: 320px;
+            height: 280px; /* 높이 줄임 */
             overflow: visible;
             padding-right: 0;
         }
@@ -507,9 +281,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 14px;
-            padding: 12px 16px;
-            border-radius: 12px;
+            font-size: 13px; /* 폰트 크기 줄임 */
+            padding: 10px 14px; /* 패딩 줄임 */
+            border-radius: 10px; /* 둥근 모서리 줄임 */
             transition: all 0.3s ease;
             background: rgba(248, 250, 252, 0.8);
             border: 1px solid rgba(226, 232, 240, 0.5);
@@ -525,12 +299,12 @@
         .legend-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px; /* 간격 줄임 */
         }
 
         .legend-color {
-            width: 14px;
-            height: 14px;
+            width: 12px; /* 크기 줄임 */
+            height: 12px; /* 크기 줄임 */
             border-radius: 50%;
             flex-shrink: 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -542,7 +316,7 @@
         }
 
         .legend-value {
-            font-size: 12px;
+            font-size: 11px; /* 폰트 크기 줄임 */
             color: #64748b;
             margin-top: 2px;
         }
@@ -550,26 +324,26 @@
         .chart-legend {
             display: flex;
             justify-content: center;
-            gap: 24px;
-            margin-top: 20px;
-            padding: 16px;
+            gap: 20px; /* 간격 줄임 */
+            margin-top: 16px; /* 마진 줄임 */
+            padding: 12px; /* 패딩 줄임 */
             background: rgba(248, 250, 252, 0.8);
-            border-radius: 16px;
+            border-radius: 14px; /* 둥근 모서리 줄임 */
             backdrop-filter: blur(10px);
         }
 
         .legend-dual {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 14px;
+            gap: 8px; /* 간격 줄임 */
+            font-size: 13px; /* 폰트 크기 줄임 */
             font-weight: 600;
         }
 
         .legend-dual-color {
-            width: 18px;
-            height: 18px;
-            border-radius: 6px;
+            width: 16px; /* 크기 줄임 */
+            height: 16px; /* 크기 줄임 */
+            border-radius: 4px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
@@ -659,7 +433,11 @@
             background: rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+
+            /* 높이 확장 */
+            min-height: 150px; /* 필요에 따라 160~180px까지 조정 가능 */
         }
+
 
         .card-item:hover {
             border-color: #6366f1;
@@ -669,10 +447,10 @@
         }
 
         .card-logo {
-            width: 84px;
-            height: 54px;
-            border: 2px solid rgba(226, 232, 240, 0.5);
-            border-radius: 16px;
+            width: 189px;  /* 84 → 126 → 189 */
+            height: 122px; /* 54 → 81 → 122 */
+            /*border: 2px solid rgba(226, 232, 240, 0.5);*/
+            /*border-radius: 24px;*/ /* 필요 시 적용 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -681,10 +459,13 @@
             backdrop-filter: blur(10px);
         }
 
+
         .card-logo img {
-            max-width: 64px;
-            max-height: 34px;
+            max-width: 120px;   /* 기존 96px → 더 크게 */
+            max-height: 64px;   /* 기존 51px → 더 크게 */
+            object-fit: contain;
         }
+
 
         .card-info {
             flex: 1;
@@ -719,14 +500,23 @@
 
         .card-type-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            padding: 5px 13px;           /* 기존 4px 10px → 약 1.3배 */
+            border-radius: 16px;         /* 기존 12px → 16px */
+            font-size: 15.6px;           /* 기존 12px → 15.6px (소수점 반올림 가능) */
+            font-weight: 500;
             color: white;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+
+
+        .card-type-badge.credit {
+            background-color: #2563eb; /* 파란색 */
+        }
+
+        .card-type-badge.check {
+            background-color: #10b981; /* 초록색 */
         }
 
         .card-actions {
@@ -1010,9 +800,9 @@
             <section class="notification-section">
                 <div id="notificationContent">
                     <div class="consumption-analysis">
-                        <div class="analysis-header"> 소비 패턴 분석 </div>
+                        <div class="analysis-header">소비 패턴 분석</div>
                         <div class="analysis-date">🗓️ 2025년 6월 소비 패턴 분석</div>
-                        <div style="font-size: 13px; margin-bottom: 12px;">상위 카테고리:</div>
+                        <div style="font-size: 14px; margin-bottom: 16px; font-weight: 600;">상위 카테고리:</div>
                         <div class="category-list">
                             <div class="category-item">
                                 <div class="category-name">🎮 여가비</div>
@@ -1044,11 +834,10 @@
                                 <div class="stat-label">📆 평균 결제 간격</div>
                                 <div class="stat-value">2.6일</div>
                             </div>
-                            <div class="tip-box">
-                                <div class="tip-icon">💡</div>
-                                <div class="tip-text">Tip: 고정비가 높습니다. 통신비 비교를 고려해보세요.</div>
-                            </div>
-                            <div class="analysis-header" style="margin-top: 16px;">───────────────────────────────────────</div>
+                        </div>
+                        <div class="tip-box">
+                            <div class="tip-icon">💡</div>
+                            <div class="tip-text">Tip: 고정비가 높습니다. 통신비 비교를 고려해보세요.</div>
                         </div>
                     </div>
                 </div>
@@ -1165,16 +954,25 @@
                         <div class="category-section">
                             <h3 class="category-title">${emoji} ${category} 관련 추천카드</h3>
                             <div class="card-row">
-                                ${cards.map(card => `
-                                    <div class="card-box">
-                                        <img src="${card.cardImage || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNBUkQ8L3RleHQ+PC9zdmc+'}"
-                                             alt="${card.cardName || '카드'}" />
-                                        <div class="card-title">${card.cardName || '카드명 없음'}</div>
-                                        <div class="card-company">${card.cardCompany || card.bankName || '발급사 정보 없음'}</div>
-                                        <div class="card-benefit">${card.benefitSummary || card.benefit || '혜택 정보 없음'}</div>
-                                        <a href="${card.cardUrl || '#'}" target="_blank" class="card-link">자세히 보기</a>
-                                    </div>
-                                `).join('')}
+                                ${cards.map(card => {
+                    const cardTypeClass = {
+                        '신용': 'credit',
+                        '체크': 'check'
+                    }[card.cardType] || 'default';
+                    return `
+        <div class="card-box">
+            <img src="/img/card/${card.cardRecommendationId}.png"
+                alt="${card.cardName || '카드'}"
+                onerror="this.onerror=null; this.src='data:image/svg+xml;base64,...'" />
+            <div class="card-type-badge ${cardTypeClass}">${card.cardType}</div>
+            <div class="card-title">${card.cardName || '카드명 없음'}</div>
+            <div class="card-company">${card.cardCompany || card.bankName || '발급사 정보 없음'}</div>
+            <div class="card-benefit">${card.benefitSummary || card.benefit || '혜택 정보 없음'}</div>
+            <a href="${card.cardUrl || '#'}" target="_blank" class="card-link">자세히 보기</a>
+        </div>
+    `;
+                }).join('')}
+
                             </div>
                         </div>
                     `;
@@ -1201,7 +999,6 @@
             const now = new Date();
             const response = await axios.get('/api/statistics/top-category-stats', {
                 params: {
-                    memberId: config.memberId,
                     year: now.getFullYear(),
                     month: now.getMonth() + 1
                 },
@@ -1237,11 +1034,10 @@
         if (!data || !data.totalAmount) {
             notificationContainer.innerHTML = `
                     <div class="consumption-analysis">
-                        <div class="analysis-header">─────────────── 소비 패턴 분석 ───────────────</div>
+                        <div class="analysis-header">소비 패턴 분석</div>
                         <div style="text-align: center; color: #4338ca; padding: 20px;">
                             소비 데이터가 부족합니다.
                         </div>
-                        <div class="analysis-header">───────────────────────────────────────</div>
                     </div>
                 `;
             return;
@@ -1318,6 +1114,12 @@
                 case '유흥비':
                     tipText = 'Tip: 유흥비 지출이 많습니다. 카페나 술집 할인 혜택 카드를 추천합니다.';
                     break;
+                case '생활비':
+                    tipText = 'Tip: 생활비 지출이 많습니다. 마트나 생필품 할인 혜택 카드를 활용해보세요.';
+                    break;
+                case '건강비':
+                    tipText = 'Tip: 건강 관련 지출이 많습니다. 병원비, 약국 또는 헬스장 할인 혜택 카드를 확인해보세요.';
+                    break;
                 default:
                     tipText = `Tip: ${topCategory} 지출이 많습니다. 관련 할인 혜택을 확인해보세요.`;
             }
@@ -1328,7 +1130,7 @@
                     <div class="analysis-header">소비 패턴 분석</div>
                     <div class="analysis-date">🗓️ ${currentYear}년 ${currentMonth}월 소비 패턴 분석</div>
                     ${top3Categories.length > 0 ? `
-                        <div style="font-size: 13px; margin-bottom: 12px;">상위 카테고리:</div>
+                        <div style="font-size: 14px; margin-bottom: 16px; font-weight: 600;">상위 카테고리:</div>
                         <div class="category-list">
                             ${categoryBreakdown}
                         </div>
@@ -1355,7 +1157,6 @@
                         <div class="tip-icon">💡</div>
                         <div class="tip-text">${tipText}</div>
                     </div>
-                    <div class="analysis-header" style="margin-top: 16px;"></div>
                 </div>
             `;
     };
@@ -1427,7 +1228,7 @@
                         borderRadius: 8,
                         borderSkipped: false,
                         barThickness: 'flex',
-                        maxBarThickness: 60,
+                        maxBarThickness: 50, // 막대 두께 줄임
                     },
                     {
                         label: '횟수 (회)',
@@ -1439,7 +1240,7 @@
                         borderRadius: 8,
                         borderSkipped: false,
                         barThickness: 'flex',
-                        maxBarThickness: 60,
+                        maxBarThickness: 50, // 막대 두께 줄임
                     }
                 ]
             },
@@ -1472,7 +1273,7 @@
                     x: {
                         grid: { display: false },
                         ticks: {
-                            font: { size: 13, weight: 600 },
+                            font: { size: 12, weight: 600 }, // 폰트 크기 줄임
                             color: '#64748b'
                         }
                     },
@@ -1483,13 +1284,13 @@
                         title: {
                             display: true,
                             text: '금액 (원)',
-                            font: { size: 13, weight: 700 },
+                            font: { size: 12, weight: 700 }, // 폰트 크기 줄임
                             color: '#3b82f6'
                         },
                         ticks: {
                             callback: value => value.toLocaleString() + '원',
                             color: '#3b82f6',
-                            font: { weight: 600 }
+                            font: { weight: 600, size: 11 } // 폰트 크기 줄임
                         },
                         grid: {
                             color: 'rgba(59, 130, 246, 0.1)',
@@ -1503,13 +1304,13 @@
                         title: {
                             display: true,
                             text: '횟수 (회)',
-                            font: { size: 13, weight: 700 },
+                            font: { size: 12, weight: 700 }, // 폰트 크기 줄임
                             color: '#f472b6'
                         },
                         ticks: {
                             callback: value => value + '회',
                             color: '#f472b6',
-                            font: { weight: 600 }
+                            font: { weight: 600, size: 11 } // 폰트 크기 줄임
                         },
                         grid: { drawOnChartArea: false }
                     }
@@ -1620,7 +1421,7 @@
         renderChart(type);
     };
 
-    // 카드 목록 로드
+    //카드 목록 로드
     const loadCards = async () => {
         if (isLoadingCards) return;
         isLoadingCards = true;
@@ -1645,35 +1446,41 @@
             const cardListContainer = document.getElementById('cardList');
             cardListContainer.innerHTML = '';
 
+            const typeClassMap = {
+                '신용': 'credit',
+                '체크': 'check'
+            };
+
             if (!cards || cards.length === 0) {
                 cardListContainer.innerHTML = '<div class="error-message">카드 정보가 없습니다</div>';
                 return;
             }
 
             cards.forEach(card => {
+                const cardTypeClass = typeClassMap[card.cardType] || 'default';
+
                 const cardItem = document.createElement('div');
                 cardItem.className = 'card-item';
                 cardItem.innerHTML = `
-                        <div class="card-logo">
-                            ${card.logoUrl ?
-                    `<img src="${card.logoUrl}" alt="${card.cardName || '카드'}">` :
-                    `<span>${card.bankName || 'CARD'}</span>`
-                }
-                        </div>
-                        <div class="card-info">
-                            <div class="card-name">${card.cardName || '카드명 정보 없음'}</div>
-                            ${card.bankName ? `<div class="card-bank">${card.bankName}</div>` : ''}
-                            ${card.cardType ? `<div class="card-type-badge">${card.cardType}</div>` : ''}
-                            ${card.description ? `<div class="card-description">${card.description}</div>` : ''}
-                            ${card.benefitSummary ? `<div class="card-benefit">💳 ${card.benefitSummary}</div>` : ''}
-                        </div>
-                        <div class="card-actions">
-                            ${card.cardUrl ?
-                    `<button class="details-btn" onclick="window.open('${card.cardUrl}', '_blank')">자세히 보기</button>` :
+                <div class="card-logo">
+                    <img src="/img/card/${card.cardRecommendationId}.png"
+                         alt="${card.cardName || '카드'}"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNBUkQ8L3RleHQ+PC9zdmc='">
+                </div>
+                <div class="card-info">
+                    <div class="card-name">${card.cardName || '카드명 정보 없음'}</div>
+                    ${card.bankName ? `<div class="card-bank">${card.bankName}</div>` : ''}
+                    ${card.cardType ? `<div class="card-type-badge ${cardTypeClass}">${card.cardType}</div>` : ''}
+                    ${card.description ? `<div class="card-description">${card.description}</div>` : ''}
+                    ${card.benefitSummary ? `<div class="card-benefit">💳 ${card.benefitSummary}</div>` : ''}
+                </div>
+                <div class="card-actions">
+                    ${card.cardUrl ?
+                    `<button class="details-btn" onclick="window.open('${card.cardUrl}', '_blank')">카드 신청하기</button>` :
                     `<button class="details-btn" disabled style="opacity: 0.5; cursor: not-allowed;">정보 없음</button>`
                 }
-                        </div>
-                    `;
+                </div>
+            `;
                 cardListContainer.appendChild(cardItem);
             });
 
@@ -1684,6 +1491,7 @@
             isLoadingCards = false;
         }
     };
+
 
     // 필터 관련 함수들
     const resetFilters = () => {

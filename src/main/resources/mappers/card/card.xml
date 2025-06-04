@@ -5,7 +5,7 @@
             parameterType="Long"
             resultType="com.oopsw.clario.dto.card.AllCardsDTO">
         SELECT card_recommendation_id AS cardRecommendationId, card_company AS cardCompany,
-               card_name AS cardName, benefit_summary AS benefitSummary,
+               card_name AS cardName, card_type AS cardType, benefit_summary AS benefitSummary,
                card_url AS cardUrl, card_image AS cardImage, benefit_category AS benefitCategory
         FROM CardRecommendation
     </select>
@@ -15,6 +15,7 @@
         card_recommendation_id AS cardRecommendationId,
         card_company AS cardCompany,
         card_name AS cardName,
+        card_type AS cardType,
         benefit_summary AS benefitSummary,
         card_url AS cardUrl,
         card_image AS cardImage,
@@ -35,6 +36,7 @@
         card_recommendation_id AS cardRecommendationId,
         card_company AS cardCompany,
         card_name AS cardName,
+        card_type AS cardType,
         benefit_summary AS benefitSummary,
         card_url AS cardUrl,
         card_image AS cardImage,

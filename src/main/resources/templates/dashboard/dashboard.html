@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bar.css}"/>
     <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+    <link rel="stylesheet" th:href="@{/account-css/style.css}" />
 <!--    <link rel="stylesheet" href="/css/dashboard.css" />-->
 <!--    <link rel="stylesheet" th:href="@{/css/style.css}" />-->
     <script th:src="@{/js/dashboard.js}" defer></script>
@@ -30,7 +31,7 @@
         <li><a class="nav-icon" href="/card">💳</a></li>
     </ul>
 </aside>
-
+<div th:insert="headerside :: allModals"></div>
 <!-- 상단바-->
 <header th:fragment="header" class="topbar">
     <div class="topbar-center" id="currentDate">날짜 로딩 중…</div>
@@ -54,13 +55,8 @@
             </button>
             <div class="profile-menu">
                 <button type="button" class="profile-menu-item"
-                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
-                    자산 조회
-                </button>
-                <button type="button" class="profile-menu-item"
-                        th:onclick="|window.location.href='@{/account/edit}'|">
-                    정보 수정
-                </button>
+                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">자산 조회</button>
+                <button type="button" class="profile-menu-item" onclick="openPwInputModal()">정보 수정</button>
             </div>
         </div>
     </div>
@@ -164,5 +160,6 @@
         }
     });
 </script>
+<script th:src="@{/js/modal.js}"></script>
 </body>
 </html>

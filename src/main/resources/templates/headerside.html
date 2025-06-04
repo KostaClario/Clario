@@ -51,8 +51,8 @@
                 <i th:if="${profile == null}" class="bi bi-person"></i>
             </button>
             <div class="profile-menu">
-                <button type="button" class="profile-menu-item" onclick="openPwInputModal()">
-<!--                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">-->
+                <button type="button" class="profile-menu-item"
+                        th:onclick="|window.location.href='@{/mydata/mybankandcardlist}'|">
                     자산 조회
                 </button>
                 <button type="button" class="profile-menu-item" onclick="openPwInputModal()">정보 수정</button>

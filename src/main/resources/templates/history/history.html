@@ -11,8 +11,8 @@
   <link rel="stylesheet" th:href="@{/css/bar.css}"/>
   <link rel="stylesheet" href="/css/history.css">
   <script src="/js/history.js"></script>
+  <link rel="stylesheet" th:href="@{/account-css/modal.css}" />
 </head>
-<body>
 <!-- 사이드바 -->
 <aside th:fragment="sidebar" class="sidebar">
   <div class="logo">
@@ -25,18 +25,21 @@
     <li><a class="nav-icon" href="/card">💳</a></li>
   </ul>
 </aside>
-<header class="topbar">
-  <div class="topbar-center" id="today-date">날짜 로딩 중...</div>
-  <div class="topbar-right">
-    <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
-    <input type="hidden" id="memberId" th:value="${memberId}" />
-    <button class="logout-btn" onclick="logout()">로그아웃</button>
-    <button class="profile-btn" onclick="openProfile()">
-      <img th:src="${profile}" alt="프로필 이미지" class="profile-img" />
-    </button>
-  </div>
-</header>
+<div th:replace="~{headerside :: allModals}"></div>
 <div th:replace="~{headerside :: header}"></div>
+<body>
+<!--<header class="topbar">-->
+<!--  <div class="topbar-center" id="today-date">날짜 로딩 중...</div>-->
+<!--  <div class="topbar-right">-->
+<!--    <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>-->
+<!--    <input type="hidden" id="memberId" th:value="${memberId}" />-->
+<!--    <button class="logout-btn" onclick="logout()">로그아웃</button>-->
+<!--    <button class="profile-btn" onclick="openProfile()">-->
+<!--      <img th:src="${profile}" alt="프로필 이미지" class="profile-img" />-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</header>-->
+
 <!-- 메인 콘텐츠 -->
 <main class="main">
   <div class="content">
@@ -211,5 +214,6 @@
   });
 
 </script>
+<script th:src="@{/js/modal.js}"></script>
 </body>
 </html>

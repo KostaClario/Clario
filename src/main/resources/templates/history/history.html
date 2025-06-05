@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CLARIO 대시보드</title>
+  <title>CLARIO 세부내역</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" th:href="@{/css/bar.css}"/>
   <link rel="stylesheet" href="/css/history.css">
   <script src="/js/history.js"></script>
 </head>
 <body>
 <!-- 사이드바 -->
-<aside class="sidebar">
-  <div class="logo">CLARIO</div>
-  <div class="menu-wrapper">
-    <ul class="menu">
-      <li><button class="menu-btn" onclick="location.href='/dashboard'"><i class="bi bi-house-door"></i></button></li>
-      <li><button class="menu-btn" onclick="location.href='/statistics'"><i class="bi bi-graph-up"></i></button></li>
-      <li><button class="menu-btn" onclick="location.href='/history'"><i class="bi bi-list-task"></i></button></li>
-      <li><button class="menu-btn" onclick="location.href='/card'"><i class="bi bi-credit-card"></i></button></li>
-    </ul>
+<aside th:fragment="sidebar" class="sidebar">
+  <div class="logo">
+    <img src="/img/ClarioLogoTextOnly.png" alt="CLARIO Logo">
   </div>
+  <ul class="menu">
+    <li><a class="nav-icon" href="/dashboard">🏠</a></li>
+    <li><a class="nav-icon" href="/statistics">📈</a></li>
+    <li><a class="nav-icon active" href="/history">☰</a></li>
+    <li><a class="nav-icon" href="/card">💳</a></li>
+  </ul>
 </aside>
 
 <!-- 상단바 -->
@@ -31,13 +32,13 @@
   <div class="topbar-right">
     <span class="user-name" th:if="${name != null}" th:text="${name} + '님'">사용자님</span>
     <input type="hidden" id="memberId" th:value="${memberId}" />
-    <button class="logout-btn" onclick="location.href='/login'">로그아웃</button>
-    <button class="profile-btn" onclick="location.href='/user-info-edit'">
+    <button class="logout-btn" onclick="logout()">로그아웃</button>
+    <button class="profile-btn" onclick="openProfile()">
       <img th:src="${profile}" alt="프로필 이미지" class="profile-img" />
     </button>
   </div>
 </header>
-
+<div th:replace="~{headerside :: header}"></div>
 <!-- 메인 콘텐츠 -->
 <main class="main">
   <div class="content">
@@ -97,6 +98,7 @@
 
       </tbody>
     </table>
+    <div id="pagination" class="pagination-container"></div>
     <!-- 입금 모달 박스-->
     <div id = "incomeModal" class ="modal">
       <div class = "modal-content">
@@ -105,15 +107,15 @@
           <label>거래 일자</label>
           <input type = "date" id = "incomeDate" value =  >
         </div>
-        <div class="modal-row">
-          <label>계좌 이름 선택</label>
-          <select id="bankAccountSelect">
-            <option value="">계좌 선택</option>
+        <div class = "modal-row">
+          <label>계좌이름 선택</label>
+          <select id = "bankAccountSelect">
+            <option></option>
           </select>
-        </div>
+          </div>
         <div class = "modal-row">
           <label>계좌번호 선택</label>
-            <select id="bankAccountNumSelect">
+          <select id = "bankAccountNumSelect">
             <option></option>
           </select>
         </div>
@@ -129,7 +131,7 @@
           <button id="saveIncomeBtn">저장</button>
           <button onclick = "closeModal('incomeModal')">닫기</button>
         </div>
-      </div>
+
     </div>
   </div>
   <!-- 결제 모달 -->
@@ -185,7 +187,23 @@
       </div>
     </div>
   </div>
+  </div>
 </main>
+<script th:inline="javascript">
+  const today = new Date();
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
 
+  const year    = today.getFullYear();
+  const month   = String(today.getMonth() + 1).padStart(2, '0');
+  const date    = String(today.getDate()).padStart(2, '0');
+  const weekday = days[today.getDay()];
+
+  const formatted = `${year}. ${month}. ${date}. (${weekday})`;
+
+  const el = document.getElementById('currentDate');
+  if (el) {
+    el.textContent = formatted;
+  }
+</script>
 </body>
 </html>

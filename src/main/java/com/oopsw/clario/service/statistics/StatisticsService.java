@@ -2,8 +2,8 @@ package com.oopsw.clario.service.statistics;
 
 import com.oopsw.clario.dto.statistics.*;
 import com.oopsw.clario.repository.statistics.StatisticsRepository;
+import com.oopsw.clario.util.ExpensePredictor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -98,11 +98,42 @@ public class StatisticsService {
         List<TopCategoryByCountDTO> countBased = statisticsRepository.getTopCategoriesByCount(memberId, year, month);
         List<TopCategoryByAmountDTO> amountBased = statisticsRepository.getTopCategoriesByAmount(memberId, year, month);
 
-        CategoryStatisticsDTO dto = new CategoryStatisticsDTO();
-        dto.setCountBased(countBased);
-        dto.setAmountBased(amountBased);
+        Long totalAmount = statisticsRepository.getTotalSpendAmount(memberId, year, month);
+        Integer totalCount = statisticsRepository.getTotalSpendCount(memberId, year, month);
+        Long previousMonthAmount = statisticsRepository.getTotalSpendAmount(
+                memberId,
+                month == 1 ? year - 1 : year,
+                month == 1 ? 12 : month - 1
+
+        );
+        Long userIncome = statisticsRepository.getTotalIncome(memberId, year, month);
+
+        CategoryStatisticsDTO dto = new CategoryStatisticsDTO(amountBased, totalAmount, totalCount, userIncome, previousMonthAmount);
+        dto.setCountBased(countBased); // count 기반 추가
+
         return dto;
     }
+
+
+    public CategoryStatisticsDTO getTopCategoriesByAmount(Integer memberId, Long year, Long month) {
+        List<TopCategoryByAmountDTO> topCategories = statisticsRepository.getTopCategoriesByAmount(memberId, year, month);
+
+        Long totalAmount = statisticsRepository.getTotalSpendAmount(memberId, year, month);
+        Integer totalCount = statisticsRepository.getTotalSpendCount(memberId, year, month);
+
+        Long previousMonthAmount = statisticsRepository.getTotalSpendAmount(memberId,
+                month == 1 ? year - 1 : year,
+                month == 1 ? 12 : month - 1);
+
+        Long userIncome = statisticsRepository.getTotalIncome(memberId, year, month); // 없으면 null 반환
+
+        return new CategoryStatisticsDTO(topCategories, totalAmount, totalCount, userIncome, previousMonthAmount);
+    }
+
+    public List<TopCategoryByAmountDTO> getTopCategoriesByAmount1(Integer memberId, Long year, Long month) {
+        return statisticsRepository.getTopCategoriesByAmount(memberId, year, month);
+    }
+
 
     public Long getMonthlyExpenseSum(Integer memberId, Long year, Long month) {
         return statisticsRepository.getMonthlyExpenseSum(memberId, year, month);
@@ -134,7 +165,7 @@ public class StatisticsService {
     }
 
     public MonthlyExpenseComparisonDTO getMonthlyExpenseComparison(Integer memberId, Long year, Long month) {
-        Long current = statisticsRepository.getMonthlyExpenseSum(memberId, year, month);
+        Long current = statisticsRepository.getMonthlyExpense(memberId, year, month);
         if (current == null) current = 0L;
 
         Long previousMonth = month - 1;
@@ -144,7 +175,7 @@ public class StatisticsService {
             previousYear -= 1;
         }
 
-        Long previous = statisticsRepository.getMonthlyExpenseSum(memberId, previousYear, previousMonth);
+        Long previous = statisticsRepository.getMonthlyExpense(memberId, previousYear, previousMonth);
         if (previous == null) previous = 0L;
 
         double rate;
@@ -162,7 +193,7 @@ public class StatisticsService {
 
     public IncomeVsExpenseDTO getIncomeVsExpense(Integer memberId, Long year, Long month) {
         Long income = statisticsRepository.getMonthlyIncomeSum(memberId, year, month);
-        Long expense = statisticsRepository.getMonthlyExpenseSum(memberId, year, month);
+        Long expense = statisticsRepository.getMonthlyExpense(memberId, year, month);
 
         double rate = (income == 0) ? 0.0 : (double) expense / income * 100.0;
         rate = Math.round(rate * 100.0) / 100.0;
@@ -172,6 +203,51 @@ public class StatisticsService {
         dto.setExpense(expense);
         dto.setRate(rate);
         return dto;
+    }
+
+    public long predictNextMonthExpense(Integer memberId) {
+        List<Long> expenses = statisticsRepository.getMonthlyTotalExpenses(memberId);
+        if (expenses == null || expenses.size() < 2) {
+            throw new IllegalStateException("소비 예측을 위한 월별 데이터가 부족합니다.");
+        }
+
+        return ExpensePredictor.predictNextMonth(expenses);
+    }
+
+    public SpendingTrendDTO analyzeSpendingTrend(Integer memberId, Long year, Long month) {
+        Long prevYear = month == 1 ? year - 1 : year;
+        Long prevMonth = month == 1 ? 12 : month - 1;
+
+        long current = statisticsRepository.getMonthlyExpenseSum(memberId, year, month);
+        long previous = statisticsRepository.getMonthlyExpenseSum(memberId, prevYear, prevMonth);
+
+        if (previous == 0) {
+            return new SpendingTrendDTO(0, "➖", "비교할 데이터가 없어 소비 추세를 분석할 수 없습니다.");
+        }
+
+        int rate = (int) Math.round((double)(current - previous) / previous * 100);
+
+        String icon;
+        String summary;
+
+        if (rate <= -50) {
+            icon = "🔻";
+            summary = "전월 대비 소비가 크게 감소했습니다. 효과적인 절약 패턴이 나타나고 있으며, 특히 변동비 항목에서 뚜렷한 감소세를 보이고 있습니다. 우수한 가계 관리 상태입니다.";
+        } else if (rate < 0) {
+            icon = "🔻";
+            summary = "전월 대비 소비가 소폭 감소했습니다. 절약 의지가 반영된 안정적인 소비가 유지되고 있습니다.";
+        } else if (rate == 0) {
+            icon = "➖";
+            summary = "전월과 동일한 수준의 지출을 유지하고 있습니다. 소비 패턴이 매우 일정합니다.";
+        } else if (rate <= 30) {
+            icon = "🔺";
+            summary = "전월 대비 소비가 소폭 증가했습니다. 고정비 비율이 소폭 증가했을 수 있습니다.";
+        } else {
+            icon = "🔺";
+            summary = "전월 대비 소비가 크게 증가했습니다. 변동비 사용이 급격히 늘어난 것으로 보입니다. 소비 관리가 필요합니다.";
+        }
+
+        return new SpendingTrendDTO(rate, icon, summary);
     }
 
 }

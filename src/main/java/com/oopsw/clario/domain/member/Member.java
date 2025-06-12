@@ -50,7 +50,7 @@ public class Member {
     private Long targetAssets;
 
     @Column(name = "activation", nullable = false)
-    private Boolean activation;
+    private Boolean activation = true;
 
     @Column(name = "last_synced_at", nullable = true)
     private LocalDateTime lastSyncedAt;

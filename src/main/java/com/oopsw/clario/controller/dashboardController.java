@@ -25,10 +25,6 @@ public class dashboardController {
         return "card/cardView";
     }
 
-    @GetMapping("/history")
-    public String history() {
-        return "history/history";
-    }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, @AuthenticationPrincipal CustomOAuth2User user) {

@@ -5,14 +5,12 @@ import com.oopsw.clario.config.auth.CustomOAuth2User;
 
 import com.oopsw.clario.domain.member.Member;
 import com.oopsw.clario.dto.history.*;
-import com.oopsw.clario.exception.SaveFailedException;
 import com.oopsw.clario.service.MemberService;
 import com.oopsw.clario.service.history.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.HashMap;
 import java.util.List;

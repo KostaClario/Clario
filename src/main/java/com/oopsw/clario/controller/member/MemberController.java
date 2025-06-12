@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @Slf4j
 public class MemberController {
@@ -116,8 +118,8 @@ public class MemberController {
     @GetMapping("/privacy")
     public String privacy(HttpSession session) {
         OAuthAttributes attributes = (OAuthAttributes) session.getAttribute("oauthAttributes");
-        if (attributes == null || memberService.existsByEmail(attributes.getEmail())) {
-            return "redirect:/modal";
+        if (attributes == null) {
+            return "redirect:/loginView";
         }
         return "account/privacy";
     }
@@ -146,9 +148,22 @@ public class MemberController {
             model.addAttribute("email", email);
             return "account/join";
         }
-            if(!memberService.existsByEmail(email)){
-                memberService.saveMember(email,name,phonenum,password);
+        Optional<Member> optional = memberService.findByEmail(email);
+
+        if (optional.isEmpty()) {
+            // 신규 가입
+            memberService.saveMember(email, name, phonenum, password);
+        } else {
+            Member member = optional.get();
+            if (!member.getActivation()) {
+                // ✅ 재가입 처리
+                memberService.reactivateMember(email, name, phonenum, password);
+            } else {
+                // 이미 가입된 사용자
+                model.addAttribute("error", "이미 활성화된 계정입니다.");
+                return "account/join";
             }
+        }
 
             session.removeAttribute("oauthAttributes");
             session.setAttribute("redirectAfterLogin", "mydata/mybankandcardlist");

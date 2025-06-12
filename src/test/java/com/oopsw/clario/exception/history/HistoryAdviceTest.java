@@ -1,6 +1,5 @@
 package com.oopsw.clario.exception.history;
 
-import com.oopsw.clario.service.history.HistoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

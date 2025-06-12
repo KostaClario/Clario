@@ -1,7 +1,6 @@
 package com.oopsw.clario.controller.history;
 
 import com.oopsw.clario.exception.SaveFailedException;
-import com.oopsw.clario.service.history.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

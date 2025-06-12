@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -25,6 +26,10 @@ public class MemberService {
 
     public boolean existsByEmail(String email) {
         return memberRepository.existsByEmail(email);
+    }
+
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 
 
@@ -47,6 +52,18 @@ public class MemberService {
                 .lastSyncedAt(LocalDateTime.now())
                 .role(Role.USER)
                 .build();
+        memberRepository.save(member);
+    }
+
+    public void reactivateMember(String email, String name, String phonenum, String password){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+
+        member.setName(name);
+        member.setPhonenum(phonenum);
+        member.setPassword(passwordEncoder.encode(password));
+        member.setActivation(true);
+
         memberRepository.save(member);
     }
 

@@ -1,15 +1,12 @@
 package com.oopsw.clario.service;
 
 import com.oopsw.clario.dto.history.*;
-import com.oopsw.clario.service.history.HistoryService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

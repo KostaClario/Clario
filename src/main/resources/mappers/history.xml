@@ -71,7 +71,7 @@
 		JOIN MyCard mc ON ct.card_num = mc.card_num
 		LEFT JOIN Category cg ON ct.category_id = cg.category_id
 		WHERE mc.member_id = #{memberId}
-		AND ct.card_trade_type = '승인'
+		AND ct.card_trade_type = '결제'
 
 		<if test="date != null and date != ''">
 			AND ct.card_trade_day LIKE CONCAT(#{date}, '%')

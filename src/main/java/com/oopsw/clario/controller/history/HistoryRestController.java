@@ -104,5 +104,9 @@ public class HistoryRestController {
 
         return historyService.categoryList();
     }
+    @GetMapping("/history")
+    public Map<String, String> getHistory() {
+        return Map.of("category", "주거", "status", "완료");
+    }
 
 }

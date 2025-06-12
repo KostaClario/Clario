@@ -1,12 +1,19 @@
 HELP.md
+
 target/
+<<<<<<< HEAD
+
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+target/
+=======
+!.mvn/wrapper/maven-wrapper.jar
+>>>>>>> dev
 
 #yml
-#!**/src/main/resources/application.yml
-### STS ###
+src/main/resources/application.yml
+
+
+### STS ##
 .apt_generated
 .classpath
 .factorypath

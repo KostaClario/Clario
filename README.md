@@ -70,7 +70,8 @@
 ## :file_folder: 문서함
 
 - [업무상세설계서](https://docs.google.com/spreadsheets/d/17gZ64lGOqL4XaqJ-yeL1EgTkT2BUdxxt01MNotKwS2M/edit?gid=499495365#gid=499495365)
-- [Figma Wireframe](https://www.figma.com/design/vQpJjWYKoeO809NS9Vd84t/%ED%81%B4%EB%9D%BC%EB%A6%AC%EC%98%A4?t=q8b5MBWd13QPdvgN-0)
+- [Figma Wireframe](https://www.figma.com/design/vQpJjWYKoeO809NS9Vd84t/%ED%81%B4%EB%9D%BC%EB%A6%AC%EC%98%A4?node-id=0-1&t=Pbrp5nICJ9MQUM5m-1)
+- [PPT](https://docs.google.com/presentation/d/1Kak15zcqtS81PAdydUmiDwWU9bThPU2CbOUn_sCx5hE/edit?usp=sharing)
 
 <br>
 

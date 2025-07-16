@@ -23,6 +23,13 @@
 
 <br>
 
+## 🛠️ 소프트웨어 아키텍처
+<img width="1424" height="740" alt="Image" src="https://github.com/user-attachments/assets/5ac8dd45-de41-4c32-bafe-75b303c69bf7" />
+<br>
+
+## 🛠️ ERD
+<img width="1424" height="740" alt="Image" src="https://github.com/user-attachments/assets/0360b398-5056-47cb-b8af-19362119cdcb" />
+
 ## 🛠️ 개발 환경
 
 ### Frontend
@@ -42,6 +49,11 @@
 
 <br>
 
+## 🛠️ 유즈케이스 다이어그램
+<img width="1538" height="876" alt="Image" src="https://github.com/user-attachments/assets/141ba533-3fec-4b00-88c9-549642cfbe4d" />
+
+## 🛠️ 액티비티 다이어그램
+<img width="1057" height="741" alt="Image" src="https://github.com/user-attachments/assets/84d15f64-d5da-4873-8f33-63c755b227a0" />
 
 ## 🖥️ 시연 영상
 

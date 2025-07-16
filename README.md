@@ -56,6 +56,14 @@
 <img width="1057" height="741" alt="Image" src="https://github.com/user-attachments/assets/84d15f64-d5da-4873-8f33-63c755b227a0" />
 
 ## 🖥️ 시연 영상
+|                                                           **회원가입 및 마이데이터 확인**                                                           |                                                            **대시보드(자산 요약)**                                                            |
+| :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: |
+| ![Image](https://github.com/user-attachments/assets/d86e1f5c-9817-4f00-ad0f-d6479bff8e2e) |   ![Image](https://github.com/user-attachments/assets/31e4f509-6c2a-43af-80ee-ba9e38847706)    |
+|                                                        **자산 통계 디테일**                                                         |                                                    **소비패턴 기반 카드 추천**                                                     |
+| ![Image](https://github.com/user-attachments/assets/9c8e61f9-c227-4243-aff9-71b00cf23330) | ![Image](https://github.com/user-attachments/assets/f847386c-b50f-4bed-a649-825f4da54377) |
+|                                                         **소비 거래 내역**                                                         |                                                        **수입 거래 내역**                                                         |
+|    ![Image](https://github.com/user-attachments/assets/ac368a1a-8dcc-4066-a811-5cf61579ff05)     |   ![Image](https://github.com/user-attachments/assets/4ac81b32-0bdc-4558-9119-e241a8d8e36a)     |
+
 
 <br>
 

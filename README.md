@@ -19,12 +19,15 @@
 
 - **`프로젝트 기간` :** 2025.05.19 ~ 2025.06.04
 
-- **`링크` :** [Clario 홈페이지](https://clario.kro.kr/) (2025.7월 현재 서버 내려진 상태입니다.)
-
 
 <br>
 
 ## :family: 팀원 소개
+
+|                                             [정현아<br>(BE&FE, 팀장)](https://github.com/hyeonaa02)                                             |                                                 [임태빈<br>(BE&FE)](https://github.com/taebin5824)                                                 |                                                   [정능혁<br>(BE&FE)](https://github.com/dehetnim)                                                    |                                             [유우진<br>(BE&FE)](https://github.com/artwoojin)                                             |                                             [박종석<br>(BE&FE)](https://github.com/park-jong-sek)                                             |
+| :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img alt="정현아" src="https://github.com/hyeonaa02.png" height="150"> | <img alt="임태빈" src="https://github.com/taebin5824.png" height="150"> | <img alt="정능혁" src="https://github.com/dehetnim.png" height="150" style=""> | <img alt="유우진" src="https://github.com/artwoojin.png" height="150" style=""> | <img alt="박종석" src="https://github.com/park-jong-sek.png" height="150" style=""> |
+|        <p align="left">- Dashboard(Main Page) BE,FE  <br/>- GCP MariaDB 구축 <br/> - Jira 스프린트 및 타임라인 관리 <br/>- SW아키텍처 및 데이터 모델링 <br/>- 페르소나, UML2.5 Diagram, Figma <br/></p>         | <p align="left">- 회원가입 및 로그인 BE,FE <br/>- Spring Security 설정 <br/>- SW아키텍처 및 데이터 모델링 <br/>- 페르소나, UML2.5 Diagram, Figma  | <p align="left">- 통계 디테일 페이지 BE,FE <br/>- 카드추천 페이지 BE,FE<br/>- SW아키텍처 및 데이터 모델링<br/>- 페르소나, UML2.5 Diagram, Figma  |        <p align="left">- 마이데이터 페이지 BE,FE <br/>- SW아키텍처 및 데이터 모델링 <br/> - 페르소나, UML2.5 Diagram, Figma        |         <p align="left">- 수입 및 소비 내역 페이지 BE,FE <br/>- SW아키텍처 및 데이터 모델링 <br/>- 페르소나, UML2.5 Diagram, Figma          |
 
 <br>
 
@@ -79,5 +82,18 @@
 - [PPT](https://docs.google.com/presentation/d/1Kak15zcqtS81PAdydUmiDwWU9bThPU2CbOUn_sCx5hE/edit?usp=sharing)
 
 <br>
+
+## :pencil2: 커밋 & 코드 컨벤션
+
+| 태그 이름 | 설명                                                             |
+| --------- | ---------------------------------------------------------------- |
+| [feat]    | 새로운 기능 추가                                                 |
+| [fix]     | 버그 수정                                                        |
+| [design] or [style]  | CSS 등 사용자 UI 디자인 변경                                     |
+| [refact]  | 코드 리팩토링                                                    |
+| [test]    | 단위 테스트                                                       |
+| [chore]   | 빌드 업무 수정, 패키지 매니저 설정 및 수정 |
+| [init]    | 브랜치 초기화 및 초기셋팅 관련된 설정일 경우                     |
+
 
 

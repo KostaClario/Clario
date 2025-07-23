@@ -1,21 +1,26 @@
 <h1>
-  <span>Clario</span>
+  <span>Clario (자산관리 웹 서비스)</span>
 </h1>
 
 <br/>
 <div  align="center">
-
+  <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/ee1d9e39-bea1-41af-880e-86c5e82f75d4" />
 </div>
 <h3 align="center"></h3>
 </br>
 
 ## 🎤 프로젝트 소개
 
-- ** **
+- **Clario는 사용자 개인의 금융 데이터를 기반으로 수입/지출을 시각화하고 소비 패턴을 분석하여 카드 추천 및 예산 관리를 지원하는 웹 서비스입니다.**
 
-- **`프로젝트 명` :** Clario
+- **`팀 이름` :** **3조**
 
-- **`프로젝트 기간` :** 2025.05.19 - 06.02(2주)
+- **`프로젝트 명` :** Clario (자산관리 웹 서비스)
+
+- **`프로젝트 기간` :** 2025.05.19 ~ 2025.06.04
+
+- **`링크` :** [Clario 홈페이지](https://clario.kro.kr/) (2025.7월 현재 서버 내려진 상태입니다.)
+
 
 <br>
 
